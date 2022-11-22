@@ -9,6 +9,8 @@ import '@ui5/webcomponents-fiori/dist/Assets';
 
 // Style
 import '../scss/app.scss';
+import 'fundamental-styles/dist/helpers.css';
+import 'fundamental-styles/dist/margins.css';
 
 // Icons
 import '@ui5/webcomponents-icons/dist/AllIcons';

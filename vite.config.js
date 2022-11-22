@@ -7,7 +7,7 @@ export default defineConfig({
         hmr: {
             host: 'madakto-alternative.local',
         },
-        port: 8080
+        port: 8080,
     },
     plugins: [
         laravel({
