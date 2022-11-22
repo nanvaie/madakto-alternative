@@ -10,6 +10,7 @@
         "@ui5/webcomponents-fiori": "^1.9.1",
         "@ui5/webcomponents-icons": "^1.9.1",
         "@ui5/webcomponents-localization": "^1.9.1",
+        "fundamental-styles": "^0.24.4",
         "pasoonate": "^1.2.1",
         "vue": "^3.2.45",
         "vue-router": "^4.1.6"
