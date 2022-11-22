@@ -1,0 +1,19 @@
+:root {
+  --sapFontFamily: IRANSans, Arial, Helvetica, sans-serif !important;
+  --sapFontLightFamily: var(--sapFontFamily) !important;
+  --sapFontBoldFamily: var(--sapFontFamily) !important;
+  --sapFontSemiboldFamily: var(--sapFontFamily) !important;
+  --sapFontSemiboldDuplexFamily: var(--sapFontFamily) !important;
+  --sapFontBlackFamily: var(--sapFontFamily) !important;
+  --sapFontHeaderFamily: var(--sapFontFamily) !important;
+
+  --sapFontSize: calc(.875rem - .075rem) !important;
+  --sapFontSmallSize: calc(.75rem - .075rem) !important;
+  --sapFontLargeSize: calc(1rem - .075rem) !important;
+  --sapFontHeader1Size: calc(2.25rem - .075rem) !important;
+  --sapFontHeader2Size: calc(1.5rem - .075rem) !important;
+  --sapFontHeader3Size: calc(1.25rem - .075rem) !important;
+  --sapFontHeader4Size: calc(1.125rem - .075rem) !important;
+  --sapFontHeader5Size: calc(1rem - .075rem) !important;
+  --sapFontHeader6Size: calc(.875rem - .075rem) !important;
+}
