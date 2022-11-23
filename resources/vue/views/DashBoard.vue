@@ -1,35 +1,39 @@
 <template>
-    <div class="fd-margin-top-bottom--tiny fd-has-display-flex fd-has-align-items-center">
-        <VSButton
-            class="fd-margin-end--tiny"
-            :disabled="!preventEnteringCheckOut"
-            design="Positive"
-            @click="enterNewCheckIn"
-        >
-            ثبت ورود
-        </VSButton>
-        <VSButton
-            class="fd-margin-end--tiny"
-            :disabled="preventEnteringCheckOut"
-            design="Negative"
-            @click="enterNewCheckOut"
-        >
-            ثبت خروج
-        </VSButton>
-        <VSButton
-            class="fd-margin-end--tiny"
-            @click="handleAddNewRecord"
-        >
-            ثبت تردد...
-        </VSButton>
+    <div class="fd-margin-top-bottom--tiny fd-has-display-flex fd-has-align-items-center" style="justify-content: space-between">
+        <div class="fd-has-display-flex">
+            <VSLabel
+                class="fd-margin-end--tiny"
+                show-colon=""
+            >
+                جمع ساعت کاری
+            </VSLabel>
+            {{ myTotalFormatted() }}
+        </div>
 
-        <VSLabel
-            class="fd-margin-end--tiny"
-            show-colon=""
-        >
-            جمع ساعت کاری
-        </VSLabel>
-        {{ myTotalFormatted() }}
+        <div class="fd-has-display-flex">
+            <VSButton
+                class="fd-margin-end--tiny"
+                :disabled="!preventEnteringCheckOut"
+                design="Positive"
+                @click="enterNewCheckIn"
+            >
+                ثبت ورود
+            </VSButton>
+            <VSButton
+                class="fd-margin-end--tiny"
+                :disabled="preventEnteringCheckOut"
+                design="Negative"
+                @click="enterNewCheckOut"
+            >
+                ثبت خروج
+            </VSButton>
+            <VSButton
+                class="fd-margin-end--tiny"
+                @click="handleAddNewRecord"
+            >
+                ثبت تردد...
+            </VSButton>
+        </div>
     </div>
 
     <ui5-dialog
