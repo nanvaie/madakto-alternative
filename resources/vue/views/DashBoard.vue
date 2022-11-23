@@ -1,5 +1,8 @@
 <template>
-    <div class="fd-margin-top-bottom--tiny fd-has-display-flex fd-has-align-items-center" style="justify-content: space-between">
+    <div
+        class="fd-margin-top-bottom--tiny fd-has-display-flex fd-has-align-items-center"
+        style="justify-content: space-between"
+    >
         <div class="fd-has-display-flex">
             <VSLabel
                 class="fd-margin-end--tiny"
@@ -93,11 +96,14 @@
             </div>
         </div>
 
-        <div slot="footer">
+        <div
+            class="fd-has-display-flex fd-has-align-items-center"
+            slot="footer"
+            style="justify-content: end; width: 100%;"
+        >
             <ui5-button
                 id="save-record-button"
                 design="Emphasized"
-                style="margin-top: 5px;"
                 @click="saveRecord"
             >
                 ذخیره
@@ -162,11 +168,14 @@
             </div>
         </div>
 
-        <div slot="footer">
+        <div
+            class="fd-has-display-flex fd-has-align-items-center"
+            slot="footer"
+            style="justify-content: end; width: 100%;"
+        >
             <ui5-button
                 id="edit-record-button"
                 design="Emphasized"
-                style="margin-top: 5px;"
                 @click="editRecord"
             >
                 ویرایش
