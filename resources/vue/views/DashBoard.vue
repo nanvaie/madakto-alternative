@@ -18,6 +18,7 @@
                 class="fd-margin-end--tiny"
                 :disabled="!preventEnteringCheckOut"
                 design="Positive"
+                icon="media-play"
                 @click="enterNewCheckIn"
             >
                 ثبت ورود
@@ -26,12 +27,14 @@
                 class="fd-margin-end--tiny"
                 :disabled="preventEnteringCheckOut"
                 design="Negative"
+                icon="media-pause"
                 @click="enterNewCheckOut"
             >
                 ثبت خروج
             </VSButton>
             <VSButton
                 class="fd-margin-end--tiny"
+                icon="add-document"
                 @click="showDialogById('add-new-record-dialog')"
             >
                 ثبت تردد...
@@ -96,13 +99,14 @@
         </div>
 
         <div
-            class="fd-has-display-flex fd-has-align-items-center"
             slot="footer"
+            class="fd-has-display-flex fd-has-align-items-center"
             style="justify-content: end; width: 100%;"
         >
             <ui5-button
                 id="save-record-button"
                 design="Emphasized"
+                icon="save"
                 @click="saveRecord"
             >
                 ذخیره
@@ -167,13 +171,14 @@
         </div>
 
         <div
-            class="fd-has-display-flex fd-has-align-items-center"
             slot="footer"
+            class="fd-has-display-flex fd-has-align-items-center"
             style="justify-content: end; width: 100%;"
         >
             <ui5-button
                 id="edit-record-button"
                 design="Emphasized"
+                icon="edit"
                 @click="editRecord"
             >
                 ویرایش
@@ -220,7 +225,9 @@
             <ui5-table-cell>{{ record.checkOut !== undefined ? calculateTimeDifference(record.checkIn, record.checkOut) : '---' }}</ui5-table-cell>
             <ui5-table-cell class="fd-has-display-flex">
                 <VSButton
+                    class="fd-margin-end--tiny"
                     :data-record-id="record.id"
+                    icon="request"
                     @click="handleEditRecord"
                 >
                     ویرایش...
@@ -245,7 +252,8 @@
         <p>زمان خروج نباید کمتر از زمان ورود باشد!</p>
         <div
             slot="footer"
-            style="display: flex; justify-content: flex-end; width: 100%; padding: .25rem 1rem;"
+            class="fd-has-display-flex fd-has-align-items-center"
+            style="justify-content: end; width: 100%;"
         >
             <ui5-button
                 id="error-close"
