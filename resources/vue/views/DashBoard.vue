@@ -223,7 +223,15 @@
                     :data-record-id="record.id"
                     @click="handleEditRecord"
                 >
-                    ویرایش
+                    ویرایش...
+                </VSButton>
+                <VSButton
+                    :data-record-id="record.id"
+                    design="Negative"
+                    icon="delete"
+                    @click="handleRemoveRecord"
+                >
+                    حذف...
                 </VSButton>
             </ui5-table-cell>
         </ui5-table-row>
@@ -244,6 +252,40 @@
                 @click="closeDialogById('error-state-dialog')"
             >
                 بستن
+            </ui5-button>
+        </div>
+    </ui5-dialog>
+
+    <ui5-dialog
+        id="ask-to-remove-record-dialog"
+        header-text="حذف رکورد"
+        state="Warning"
+    >
+        <p>
+            آیا از حذف رکورد روز <span
+                id="to-be-deleted-record"
+                dir="ltr"
+            /> مطمئن هستید؟
+        </p>
+        <div
+            slot="footer"
+            class="fd-has-display-flex fd-has-align-items-center"
+            style="justify-content: end; width: 100%;"
+        >
+            <ui5-button
+                class="fd-margin-end--tiny"
+                icon="decline"
+                @click="closeDialogById('ask-to-remove-record-dialog')"
+            >
+                بستن
+            </ui5-button>
+            <ui5-button
+                id="remove-record-button"
+                design="Negative"
+                icon="delete"
+                @click="removeRecord"
+            >
+                حذف
             </ui5-button>
         </div>
     </ui5-dialog>
@@ -390,6 +432,22 @@ function handleEditRecord(event) {
     document.getElementById('edit-record-button').dataset.recordIndex = foundRecord.index;
 
     showDialogById('edit-record-dialog');
+}
+
+function handleRemoveRecord(event) {
+    const foundRecord = findRecordById(+event.target.dataset.recordId);
+
+    document.getElementById('to-be-deleted-record').textContent = Pasoonate.make(foundRecord.record.checkIn).jalali().format('yyyy-MM-dd HH:mm:ss');
+
+    document.getElementById('remove-record-button').dataset.recordIndex = foundRecord.index;
+
+    showDialogById('ask-to-remove-record-dialog');
+}
+
+function removeRecord(event) {
+    records.value.slice(+event.target.dataset.recordIndex, 1);
+
+    localStorage.setItem('my_records', JSON.stringify(records.value));
 }
 
 function editRecord(event) {
