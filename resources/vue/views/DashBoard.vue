@@ -65,7 +65,7 @@
             />
         </div>
 
-        <div>
+        <div class="fd-margin-begin-end--sm">
             <ui5-label
                 id="check-in-datetime-label"
                 for="check-in-datetime"
@@ -76,13 +76,14 @@
             <div>
                 <ui5-datetime-picker
                     id="check-in-datetime"
+                    class="fd-margin-top-bottom--tiny"
                     dir="ltr"
                     format-pattern="yyyy-MM-dd HH:mm:ss"
                 />
             </div>
         </div>
 
-        <div>
+        <div class="fd-margin-begin-end--sm">
             <ui5-label
                 id="check-out-datetime-label"
                 for="check-out-datetime"
@@ -93,6 +94,7 @@
             <div>
                 <ui5-datetime-picker
                     id="check-out-datetime"
+                    class="fd-margin-top-bottom--tiny"
                     dir="ltr"
                     format-pattern="yyyy-MM-dd HH:mm:ss"
                 />
@@ -138,7 +140,7 @@
             />
         </div>
 
-        <div>
+        <div class="fd-margin-begin-end--sm">
             <ui5-label
                 id="edit-check-in-datetime-label"
                 for="edit-check-in-datetime"
@@ -149,13 +151,14 @@
             <div>
                 <ui5-datetime-picker
                     id="edit-check-in-datetime"
+                    class="fd-margin-top-bottom--tiny"
                     dir="ltr"
                     format-pattern="yyyy-MM-dd HH:mm:ss"
                 />
             </div>
         </div>
 
-        <div>
+        <div class="fd-margin-begin-end--sm">
             <ui5-label
                 id="edit-check-out-datetime-label"
                 for="edit-check-out-datetime"
@@ -166,6 +169,7 @@
             <div>
                 <ui5-datetime-picker
                     id="edit-check-out-datetime"
+                    class="fd-margin-top-bottom--tiny"
                     dir="ltr"
                     format-pattern="yyyy-MM-dd HH:mm:ss"
                 />
