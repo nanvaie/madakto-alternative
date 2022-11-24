@@ -32,7 +32,7 @@
             </VSButton>
             <VSButton
                 class="fd-margin-end--tiny"
-                @click="handleAddNewRecord"
+                @click="showDialogById('add-new-record-dialog')"
             >
                 ثبت تردد...
             </VSButton>
@@ -56,9 +56,8 @@
             <ui5-button
                 icon="decline"
                 tooltip="بستن پنجره"
-                data-target-id="add-new-record-dialog"
                 design="Transparent"
-                @click="closeDialog"
+                @click="closeDialogById('add-new-record-dialog')"
             />
         </div>
 
@@ -128,9 +127,8 @@
             <ui5-button
                 icon="decline"
                 tooltip="بستن پنجره"
-                data-target-id="edit-record-dialog"
                 design="Transparent"
-                @click="closeDialog"
+                @click="closeDialogById('edit-record-dialog')"
             />
         </div>
 
@@ -246,7 +244,7 @@
         >
             <ui5-button
                 id="error-close"
-                @click="closeErrorDialog"
+                @click="closeDialogById('error-state-dialog')"
             >
                 بستن
             </ui5-button>
@@ -281,6 +279,14 @@ if (lastRecord !== undefined && lastRecord.checkOut === undefined) {
     preventEnteringCheckOut = ref(false);
 } else {
     preventEnteringCheckOut = ref(true);
+}
+
+function showDialogById(dialogId, targetRef) {
+    document.getElementById(dialogId).show(targetRef);
+}
+
+function closeDialogById(dialogId) {
+    document.getElementById(dialogId).close();
 }
 
 function getDate(timestamp) {
@@ -336,13 +342,13 @@ function sortRecords(unsortedRecords) {
     return unsortedRecords.sort((firstRecord, secondRecord) => firstRecord.checkIn > secondRecord.checkIn);
 }
 
-function saveRecord(event) {
+function saveRecord() {
     const checkInTimestamp = Pasoonate.make().jalali(document.getElementById('check-in-datetime').value).getTimestamp();
     const checkOutTimestamp = Pasoonate.make().jalali(document.getElementById('check-out-datetime').value).getTimestamp();
 
     if (checkOutTimestamp < checkInTimestamp) {
-        document.getElementById('add-new-record-dialog').close();
-        document.getElementById('error-state-dialog').show(event.detail.targetRef);
+        closeDialogById('add-new-record-dialog');
+        showDialogById('error-state-dialog');
 
         return;
     }
@@ -357,19 +363,7 @@ function saveRecord(event) {
 
     localStorage.setItem('my_records', JSON.stringify(records.value));
 
-    document.getElementById('add-new-record-dialog').close();
-}
-
-function handleAddNewRecord(event) {
-    document.getElementById('add-new-record-dialog').show(event.detail.targetRef);
-}
-
-function closeDialog(event) {
-    document.getElementById(event.target.dataset.targetId).close();
-}
-
-function closeErrorDialog() {
-    document.getElementById('error-state-dialog').close();
+    closeDialogById('add-new-record-dialog');
 }
 
 function findRecordById(recordId) {
@@ -398,7 +392,7 @@ function handleEditRecord(event) {
     document.getElementById('edit-check-out-datetime').value = Pasoonate.make(foundRecord.record.checkOut).jalali().format('yyyy-MM-dd HH:mm:ss');
     document.getElementById('edit-record-button').dataset.recordIndex = foundRecord.index;
 
-    document.getElementById('edit-record-dialog').show(event.detail.targetRef);
+    showDialogById('edit-record-dialog');
 }
 
 function editRecord(event) {
@@ -406,8 +400,8 @@ function editRecord(event) {
     const editedCheckOutTimestamp = Pasoonate.make().jalali(document.getElementById('edit-check-out-datetime').value).getTimestamp();
 
     if (editedCheckOutTimestamp < editedCheckInTimestamp) {
-        document.getElementById('edit-record-dialog').close();
-        document.getElementById('error-state-dialog').show(event.detail.targetRef);
+        closeDialogById('edit-record-dialog');
+        showDialogById('error-state-dialog');
 
         return;
     }
@@ -419,7 +413,7 @@ function editRecord(event) {
 
     localStorage.setItem('my_records', JSON.stringify(records.value));
 
-    document.getElementById('edit-record-dialog').close();
+    closeDialogById('edit-record-dialog');
 }
 
 const myTotal = computed(() => records.value.reduce((sumOfDifference, currentRecord) => {
