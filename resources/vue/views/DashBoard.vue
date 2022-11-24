@@ -206,9 +206,6 @@
         <ui5-table-column slot="columns">
             نتیجه
         </ui5-table-column>
-        <ui5-table-column slot="columns">
-            عملیات
-        </ui5-table-column>
 
         <ui5-table-row
             v-for="record of records"
