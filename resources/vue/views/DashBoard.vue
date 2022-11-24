@@ -54,7 +54,8 @@
         </div>
         <div
             slot="header"
-            class="dialog-header"
+            class="fd-has-display-flex fd-margin-top-bottom--tiny"
+            style="justify-content: end; width: 100%"
         >
             <ui5-button
                 icon="decline"
@@ -100,7 +101,7 @@
 
         <div
             slot="footer"
-            class="fd-has-display-flex fd-has-align-items-center"
+            class="fd-has-display-flex fd-has-align-items-center fd-margin-top-bottom--tiny"
             style="justify-content: end; width: 100%;"
         >
             <ui5-button
@@ -126,7 +127,8 @@
         </div>
         <div
             slot="header"
-            class="dialog-header"
+            class="fd-has-display-flex fd-margin-top-bottom--tiny"
+            style="justify-content: end; width: 100%"
         >
             <ui5-button
                 icon="decline"
@@ -172,7 +174,7 @@
 
         <div
             slot="footer"
-            class="fd-has-display-flex fd-has-align-items-center"
+            class="fd-has-display-flex fd-has-align-items-center fd-margin-top-bottom--tiny"
             style="justify-content: end; width: 100%;"
         >
             <ui5-button
