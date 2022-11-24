@@ -65,7 +65,7 @@
             />
         </div>
 
-        <div class="fd-margin-begin-end--sm">
+        <div class="fd-margin-begin-end--md">
             <ui5-label
                 id="check-in-datetime-label"
                 for="check-in-datetime"
@@ -83,7 +83,7 @@
             </div>
         </div>
 
-        <div class="fd-margin-begin-end--sm">
+        <div class="fd-margin-begin-end--md">
             <ui5-label
                 id="check-out-datetime-label"
                 for="check-out-datetime"
@@ -140,7 +140,7 @@
             />
         </div>
 
-        <div class="fd-margin-begin-end--sm">
+        <div class="fd-margin-begin-end--md">
             <ui5-label
                 id="edit-check-in-datetime-label"
                 for="edit-check-in-datetime"
@@ -158,7 +158,7 @@
             </div>
         </div>
 
-        <div class="fd-margin-begin-end--sm">
+        <div class="fd-margin-begin-end--md">
             <ui5-label
                 id="edit-check-out-datetime-label"
                 for="edit-check-out-datetime"
