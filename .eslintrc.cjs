@@ -22,6 +22,7 @@ module.exports = {
         'indent': ['error', 4],
         'vue/html-indent': ['warn', 4],
         'max-len': ['off'],
-        'no-underscore-dangle': ['off']
+        'no-underscore-dangle': ['off'],
+        'vue/no-deprecated-slot-attribute': ['off'],
     },
 };

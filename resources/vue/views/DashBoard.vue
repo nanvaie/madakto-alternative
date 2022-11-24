@@ -375,15 +375,14 @@ function closeErrorDialog() {
 function findRecordById(recordId) {
     let result;
 
-    for (const [index, record] of records.value.entries()) {
+    records.value.forEach((record, index) => {
         if (record.id === recordId) {
             result = {
                 record,
                 index,
             };
-            break;
         }
-    }
+    });
 
     if (result === undefined) {
         return 'not found';
