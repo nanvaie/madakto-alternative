@@ -502,16 +502,3 @@ const myTotalFormatted = () => {
 };
 
 </script>
-
-<style scoped>
-
-.dialog-header {
-    display: flex;
-    align-items: center;
-    justify-content: end;
-    width: 100%;
-    padding-top: 0.25rem;
-    padding-bottom: 0.25rem;
-}
-
-</style>
