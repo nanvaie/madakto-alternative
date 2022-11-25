@@ -276,10 +276,13 @@
         state="Warning"
     >
         <p>
-            آیا از حذف رکورد روز <span
+            آیا از حذف رکورد روز
+            <span
                 id="to-be-deleted-record"
+                class="fd-margin-begin-end--tiny"
                 dir="ltr"
-            /> مطمئن هستید؟
+            />
+            مطمئن هستید؟
         </p>
         <div
             slot="footer"
