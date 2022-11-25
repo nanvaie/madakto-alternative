@@ -403,7 +403,6 @@ function saveRecord() {
     const checkOutTimestamp = Pasoonate.make().jalali(document.getElementById('check-out-datetime').value).getTimestamp();
 
     if (checkOutTimestamp < checkInTimestamp) {
-        closeDialogById('add-new-record-dialog');
         showDialogById('error-state-dialog');
 
         return;
@@ -472,7 +471,6 @@ function editRecord(event) {
     const editedCheckOutTimestamp = Pasoonate.make().jalali(document.getElementById('edit-check-out-datetime').value).getTimestamp();
 
     if (editedCheckOutTimestamp < editedCheckInTimestamp) {
-        closeDialogById('edit-record-dialog');
         showDialogById('error-state-dialog');
 
         return;
