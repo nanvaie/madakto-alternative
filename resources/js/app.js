@@ -1,5 +1,6 @@
 import { createApp } from 'vue';
 import { setLanguage } from '@ui5/webcomponents-base/dist/config/Language';
+import { setTheme } from '@ui5/webcomponents-base/dist/config/Theme';
 import App from '../vue/App.vue';
 import router from './router/index';
 
@@ -14,6 +15,8 @@ import 'fundamental-styles/dist/margins.css';
 
 // Icons
 import '@ui5/webcomponents-icons/dist/AllIcons';
+
+setTheme('sap_fiori_3_dark');
 
 setLanguage('fa');
 
