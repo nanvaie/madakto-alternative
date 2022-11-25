@@ -1,311 +1,313 @@
 <template>
-    <div
-        class="fd-margin-top-bottom--tiny fd-has-display-flex fd-has-align-items-center"
-        style="justify-content: space-between"
-    >
-        <div class="fd-has-display-flex">
-            <VSLabel
-                class="fd-margin-end--tiny"
-                show-colon=""
-            >
-                جمع ساعت کاری
-            </VSLabel>
-            {{ myTotalFormatted() }}
-        </div>
-
-        <div class="fd-has-display-flex">
-            <VSButton
-                class="fd-margin-end--tiny"
-                :disabled="!preventEnteringCheckOut"
-                design="Positive"
-                icon="media-play"
-                @click="enterNewCheckIn"
-            >
-                ثبت ورود
-            </VSButton>
-            <VSButton
-                class="fd-margin-end--tiny"
-                :disabled="preventEnteringCheckOut"
-                design="Negative"
-                icon="media-pause"
-                @click="enterNewCheckOut"
-            >
-                ثبت خروج
-            </VSButton>
-            <VSButton
-                class="fd-margin-end--tiny"
-                icon="add-document"
-                @click="showDialogById('add-new-record-dialog')"
-            >
-                ثبت تردد...
-            </VSButton>
-        </div>
-    </div>
-
-    <ui5-dialog
-        id="add-new-record-dialog"
-        icon="decline"
-        header-text="ثبت تردد"
-    >
-        <div slot="header">
-            <ui5-title level="H4">
-                ثبت تردد
-            </ui5-title>
-        </div>
+    <ui5-page id="dashboard-page" background-design="List" style="height: 98vh;">
         <div
-            slot="header"
-            class="fd-has-display-flex fd-margin-top-bottom--tiny"
-            style="justify-content: end; width: 100%"
+            class="fd-margin-top-bottom--tiny fd-has-display-flex fd-has-align-items-center"
+            style="justify-content: space-between"
         >
-            <ui5-button
-                icon="decline"
-                tooltip="بستن پنجره"
-                design="Transparent"
-                @click="closeDialogById('add-new-record-dialog')"
-            />
-        </div>
-
-        <div class="fd-margin-begin-end--md">
-            <ui5-label
-                id="check-in-datetime-label"
-                for="check-in-datetime"
-                show-colon=""
-            >
-                زمان ورود
-            </ui5-label>
-            <div>
-                <ui5-datetime-picker
-                    id="check-in-datetime"
-                    class="fd-margin-top-bottom--tiny"
-                    dir="ltr"
-                    format-pattern="yyyy-MM-dd HH:mm:ss"
-                />
+            <div class="fd-has-display-flex">
+                <VSLabel
+                    class="fd-margin-end--tiny"
+                    show-colon=""
+                >
+                    جمع ساعت کاری
+                </VSLabel>
+                {{ myTotalFormatted() }}
             </div>
-        </div>
 
-        <div class="fd-margin-begin-end--md">
-            <ui5-label
-                id="check-out-datetime-label"
-                for="check-out-datetime"
-                show-colon=""
-            >
-                زمان خروج
-            </ui5-label>
-            <div>
-                <ui5-datetime-picker
-                    id="check-out-datetime"
-                    class="fd-margin-top-bottom--tiny"
-                    dir="ltr"
-                    format-pattern="yyyy-MM-dd HH:mm:ss"
-                />
-            </div>
-        </div>
-
-        <div
-            slot="footer"
-            class="fd-has-display-flex fd-has-align-items-center fd-margin-top-bottom--tiny"
-            style="justify-content: end; width: 100%;"
-        >
-            <ui5-button
-                id="save-record-button"
-                design="Emphasized"
-                icon="save"
-                @click="saveRecord"
-            >
-                ذخیره
-            </ui5-button>
-        </div>
-    </ui5-dialog>
-
-    <ui5-dialog
-        id="edit-record-dialog"
-        icon="decline"
-        header-text="ویرایش تردد"
-    >
-        <div slot="header">
-            <ui5-title level="H4">
-                ویرایش تردد
-            </ui5-title>
-        </div>
-        <div
-            slot="header"
-            class="fd-has-display-flex fd-margin-top-bottom--tiny"
-            style="justify-content: end; width: 100%"
-        >
-            <ui5-button
-                icon="decline"
-                tooltip="بستن پنجره"
-                design="Transparent"
-                @click="closeDialogById('edit-record-dialog')"
-            />
-        </div>
-
-        <div class="fd-margin-begin-end--md">
-            <ui5-label
-                id="edit-check-in-datetime-label"
-                for="edit-check-in-datetime"
-                show-colon=""
-            >
-                زمان ورود
-            </ui5-label>
-            <div>
-                <ui5-datetime-picker
-                    id="edit-check-in-datetime"
-                    class="fd-margin-top-bottom--tiny"
-                    dir="ltr"
-                    format-pattern="yyyy-MM-dd HH:mm:ss"
-                />
-            </div>
-        </div>
-
-        <div class="fd-margin-begin-end--md">
-            <ui5-label
-                id="edit-check-out-datetime-label"
-                for="edit-check-out-datetime"
-                show-colon=""
-            >
-                زمان خروج
-            </ui5-label>
-            <div>
-                <ui5-datetime-picker
-                    id="edit-check-out-datetime"
-                    class="fd-margin-top-bottom--tiny"
-                    dir="ltr"
-                    format-pattern="yyyy-MM-dd HH:mm:ss"
-                />
-            </div>
-        </div>
-
-        <div
-            slot="footer"
-            class="fd-has-display-flex fd-has-align-items-center fd-margin-top-bottom--tiny"
-            style="justify-content: end; width: 100%;"
-        >
-            <ui5-button
-                id="edit-record-button"
-                design="Emphasized"
-                icon="edit"
-                @click="editRecord"
-            >
-                ویرایش
-            </ui5-button>
-        </div>
-    </ui5-dialog>
-
-    <ui5-table
-        sticky-column-header
-        no-data-text="داده‌ای موجود نیست!"
-    >
-        <ui5-table-column slot="columns">
-            روز ورود
-        </ui5-table-column>
-        <ui5-table-column slot="columns">
-            تاریخ ورود
-        </ui5-table-column>
-        <ui5-table-column slot="columns">
-            ساعت ورود
-        </ui5-table-column>
-        <ui5-table-column slot="columns">
-            روز خروج
-        </ui5-table-column>
-        <ui5-table-column slot="columns">
-            تاریخ خروج
-        </ui5-table-column>
-        <ui5-table-column slot="columns">
-            ساعت خروج
-        </ui5-table-column>
-        <ui5-table-column slot="columns">
-            نتیجه
-        </ui5-table-column>
-
-        <ui5-table-row
-            v-for="record of records"
-            :key="record.id"
-        >
-            <ui5-table-cell>{{ getDayName(record.checkIn, 'fa-IR') }}</ui5-table-cell>
-            <ui5-table-cell>{{ getDate(record.checkIn) }}</ui5-table-cell>
-            <ui5-table-cell>{{ getTime(record.checkIn) }}</ui5-table-cell>
-            <ui5-table-cell>{{ record.checkOut !== undefined ? getDayName(record.checkOut, 'fa-IR') : '---' }}</ui5-table-cell>
-            <ui5-table-cell>{{ record.checkOut !== undefined ? getDate(record.checkOut) : '---' }}</ui5-table-cell>
-            <ui5-table-cell>{{ record.checkOut !== undefined ? getTime(record.checkOut) : '---' }}</ui5-table-cell>
-            <ui5-table-cell>{{ record.checkOut !== undefined ? calculateTimeDifference(record.checkIn, record.checkOut) : '---' }}</ui5-table-cell>
-            <ui5-table-cell class="fd-has-display-flex">
+            <div class="fd-has-display-flex">
                 <VSButton
                     class="fd-margin-end--tiny"
-                    :data-record-id="record.id"
-                    icon="request"
-                    @click="handleEditRecord"
+                    :disabled="!preventEnteringCheckOut"
+                    design="Positive"
+                    icon="media-play"
+                    @click="enterNewCheckIn"
                 >
-                    ویرایش...
+                    ثبت ورود
                 </VSButton>
                 <VSButton
-                    :data-record-id="record.id"
+                    class="fd-margin-end--tiny"
+                    :disabled="preventEnteringCheckOut"
+                    design="Negative"
+                    icon="media-pause"
+                    @click="enterNewCheckOut"
+                >
+                    ثبت خروج
+                </VSButton>
+                <VSButton
+                    class="fd-margin-end--tiny"
+                    icon="add-document"
+                    @click="showDialogById('add-new-record-dialog')"
+                >
+                    ثبت تردد...
+                </VSButton>
+            </div>
+    </div>
+
+        <ui5-dialog
+            id="add-new-record-dialog"
+            icon="decline"
+            header-text="ثبت تردد"
+        >
+            <div slot="header">
+                <ui5-title level="H4">
+                    ثبت تردد
+                </ui5-title>
+            </div>
+            <div
+                slot="header"
+                class="fd-has-display-flex fd-margin-top-bottom--tiny"
+                style="justify-content: end; width: 100%"
+            >
+                <ui5-button
+                    icon="decline"
+                    tooltip="بستن پنجره"
+                    design="Transparent"
+                    @click="closeDialogById('add-new-record-dialog')"
+                />
+            </div>
+
+            <div class="fd-margin-begin-end--md">
+                <ui5-label
+                    id="check-in-datetime-label"
+                    for="check-in-datetime"
+                    show-colon=""
+                >
+                    زمان ورود
+                </ui5-label>
+                <div>
+                    <ui5-datetime-picker
+                        id="check-in-datetime"
+                        class="fd-margin-top-bottom--tiny"
+                        dir="ltr"
+                        format-pattern="yyyy-MM-dd HH:mm:ss"
+                    />
+                </div>
+            </div>
+
+            <div class="fd-margin-begin-end--md">
+                <ui5-label
+                    id="check-out-datetime-label"
+                    for="check-out-datetime"
+                    show-colon=""
+                >
+                    زمان خروج
+                </ui5-label>
+                <div>
+                    <ui5-datetime-picker
+                        id="check-out-datetime"
+                        class="fd-margin-top-bottom--tiny"
+                        dir="ltr"
+                        format-pattern="yyyy-MM-dd HH:mm:ss"
+                    />
+                </div>
+            </div>
+
+            <div
+                slot="footer"
+                class="fd-has-display-flex fd-has-align-items-center fd-margin-top-bottom--tiny"
+                style="justify-content: end; width: 100%;"
+            >
+                <ui5-button
+                    id="save-record-button"
+                    design="Emphasized"
+                    icon="save"
+                    @click="saveRecord"
+                >
+                    ذخیره
+                </ui5-button>
+            </div>
+        </ui5-dialog>
+
+        <ui5-dialog
+            id="edit-record-dialog"
+            icon="decline"
+            header-text="ویرایش تردد"
+        >
+            <div slot="header">
+                <ui5-title level="H4">
+                    ویرایش تردد
+                </ui5-title>
+            </div>
+            <div
+                slot="header"
+                class="fd-has-display-flex fd-margin-top-bottom--tiny"
+                style="justify-content: end; width: 100%"
+            >
+                <ui5-button
+                    icon="decline"
+                    tooltip="بستن پنجره"
+                    design="Transparent"
+                    @click="closeDialogById('edit-record-dialog')"
+                />
+            </div>
+
+            <div class="fd-margin-begin-end--md">
+                <ui5-label
+                    id="edit-check-in-datetime-label"
+                    for="edit-check-in-datetime"
+                    show-colon=""
+                >
+                    زمان ورود
+                </ui5-label>
+                <div>
+                    <ui5-datetime-picker
+                        id="edit-check-in-datetime"
+                        class="fd-margin-top-bottom--tiny"
+                        dir="ltr"
+                        format-pattern="yyyy-MM-dd HH:mm:ss"
+                    />
+                </div>
+            </div>
+
+            <div class="fd-margin-begin-end--md">
+                <ui5-label
+                    id="edit-check-out-datetime-label"
+                    for="edit-check-out-datetime"
+                    show-colon=""
+                >
+                    زمان خروج
+                </ui5-label>
+                <div>
+                    <ui5-datetime-picker
+                        id="edit-check-out-datetime"
+                        class="fd-margin-top-bottom--tiny"
+                        dir="ltr"
+                        format-pattern="yyyy-MM-dd HH:mm:ss"
+                    />
+                </div>
+            </div>
+
+            <div
+                slot="footer"
+                class="fd-has-display-flex fd-has-align-items-center fd-margin-top-bottom--tiny"
+                style="justify-content: end; width: 100%;"
+            >
+                <ui5-button
+                    id="edit-record-button"
+                    design="Emphasized"
+                    icon="edit"
+                    @click="editRecord"
+                >
+                    ویرایش
+                </ui5-button>
+            </div>
+        </ui5-dialog>
+
+        <ui5-table
+            sticky-column-header
+            no-data-text="داده‌ای موجود نیست!"
+        >
+            <ui5-table-column slot="columns">
+                روز ورود
+            </ui5-table-column>
+            <ui5-table-column slot="columns">
+                تاریخ ورود
+            </ui5-table-column>
+            <ui5-table-column slot="columns">
+                ساعت ورود
+            </ui5-table-column>
+            <ui5-table-column slot="columns">
+                روز خروج
+            </ui5-table-column>
+            <ui5-table-column slot="columns">
+                تاریخ خروج
+            </ui5-table-column>
+            <ui5-table-column slot="columns">
+                ساعت خروج
+            </ui5-table-column>
+            <ui5-table-column slot="columns">
+                نتیجه
+            </ui5-table-column>
+
+            <ui5-table-row
+                v-for="record of records"
+                :key="record.id"
+            >
+                <ui5-table-cell>{{ getDayName(record.checkIn, 'fa-IR') }}</ui5-table-cell>
+                <ui5-table-cell>{{ getDate(record.checkIn) }}</ui5-table-cell>
+                <ui5-table-cell>{{ getTime(record.checkIn) }}</ui5-table-cell>
+                <ui5-table-cell>{{ record.checkOut !== undefined ? getDayName(record.checkOut, 'fa-IR') : '---' }}</ui5-table-cell>
+                <ui5-table-cell>{{ record.checkOut !== undefined ? getDate(record.checkOut) : '---' }}</ui5-table-cell>
+                <ui5-table-cell>{{ record.checkOut !== undefined ? getTime(record.checkOut) : '---' }}</ui5-table-cell>
+                <ui5-table-cell>{{ record.checkOut !== undefined ? calculateTimeDifference(record.checkIn, record.checkOut) : '---' }}</ui5-table-cell>
+                <ui5-table-cell class="fd-has-display-flex">
+                    <VSButton
+                        class="fd-margin-end--tiny"
+                        :data-record-id="record.id"
+                        icon="request"
+                        @click="handleEditRecord"
+                    >
+                        ویرایش...
+                    </VSButton>
+                    <VSButton
+                        :data-record-id="record.id"
+                        design="Negative"
+                        icon="delete"
+                        @click="handleRemoveRecord"
+                    >
+                        حذف...
+                    </VSButton>
+                </ui5-table-cell>
+            </ui5-table-row>
+        </ui5-table>
+
+        <ui5-dialog
+            id="error-state-dialog"
+            header-text="خطا در ثبت تردد"
+            state="Error"
+        >
+            <p>زمان خروج نباید کمتر از زمان ورود باشد!</p>
+            <div
+                slot="footer"
+                class="fd-has-display-flex fd-has-align-items-center"
+                style="justify-content: end; width: 100%;"
+            >
+                <ui5-button
+                    id="error-close"
+                    @click="closeDialogById('error-state-dialog')"
+                >
+                    بستن
+                </ui5-button>
+            </div>
+        </ui5-dialog>
+
+        <ui5-dialog
+            id="ask-to-remove-record-dialog"
+            header-text="حذف رکورد"
+            state="Warning"
+        >
+            <p>
+                آیا از حذف رکورد روز
+                <span
+                    id="to-be-deleted-record"
+                    class="fd-margin-begin-end--tiny"
+                    dir="ltr"
+                />
+                مطمئن هستید؟
+            </p>
+            <div
+                slot="footer"
+                class="fd-has-display-flex fd-has-align-items-center"
+                style="justify-content: end; width: 100%;"
+            >
+                <ui5-button
+                    class="fd-margin-end--tiny"
+                    icon="decline"
+                    @click="closeDialogById('ask-to-remove-record-dialog')"
+                >
+                    بستن
+                </ui5-button>
+                <ui5-button
+                    id="remove-record-button"
                     design="Negative"
                     icon="delete"
-                    @click="handleRemoveRecord"
+                    @click="removeRecord"
                 >
-                    حذف...
-                </VSButton>
-            </ui5-table-cell>
-        </ui5-table-row>
-    </ui5-table>
-
-    <ui5-dialog
-        id="error-state-dialog"
-        header-text="خطا در ثبت تردد"
-        state="Error"
-    >
-        <p>زمان خروج نباید کمتر از زمان ورود باشد!</p>
-        <div
-            slot="footer"
-            class="fd-has-display-flex fd-has-align-items-center"
-            style="justify-content: end; width: 100%;"
-        >
-            <ui5-button
-                id="error-close"
-                @click="closeDialogById('error-state-dialog')"
-            >
-                بستن
-            </ui5-button>
-        </div>
-    </ui5-dialog>
-
-    <ui5-dialog
-        id="ask-to-remove-record-dialog"
-        header-text="حذف رکورد"
-        state="Warning"
-    >
-        <p>
-            آیا از حذف رکورد روز
-            <span
-                id="to-be-deleted-record"
-                class="fd-margin-begin-end--tiny"
-                dir="ltr"
-            />
-            مطمئن هستید؟
-        </p>
-        <div
-            slot="footer"
-            class="fd-has-display-flex fd-has-align-items-center"
-            style="justify-content: end; width: 100%;"
-        >
-            <ui5-button
-                class="fd-margin-end--tiny"
-                icon="decline"
-                @click="closeDialogById('ask-to-remove-record-dialog')"
-            >
-                بستن
-            </ui5-button>
-            <ui5-button
-                id="remove-record-button"
-                design="Negative"
-                icon="delete"
-                @click="removeRecord"
-            >
-                حذف
-            </ui5-button>
-        </div>
-    </ui5-dialog>
+                    حذف
+                </ui5-button>
+            </div>
+        </ui5-dialog>
+    </ui5-page>
 </template>
 
 <script setup>
@@ -315,6 +317,7 @@ import '@ui5/webcomponents/dist/TableColumn';
 import '@ui5/webcomponents/dist/TableRow';
 import '@ui5/webcomponents/dist/TableCell';
 import '@ui5/webcomponents/dist/DateTimePicker';
+import '@ui5/webcomponents-fiori/dist/Page';
 import '@ui5/webcomponents-localization/dist/features/calendar/Persian';
 import { computed, ref } from 'vue';
 import Pasoonate from 'pasoonate';
