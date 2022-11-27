@@ -41,157 +41,7 @@
                     ثبت تردد...
                 </VSButton>
             </div>
-    </div>
-
-        <ui5-dialog
-            id="add-new-record-dialog"
-            icon="decline"
-            header-text="ثبت تردد"
-        >
-            <div slot="header">
-                <ui5-title level="H4">
-                    ثبت تردد
-                </ui5-title>
-            </div>
-            <div
-                slot="header"
-                class="fd-has-display-flex fd-margin-top-bottom--tiny"
-                style="justify-content: end; width: 100%"
-            >
-                <ui5-button
-                    icon="decline"
-                    tooltip="بستن پنجره"
-                    design="Transparent"
-                    @click="closeDialogById('add-new-record-dialog')"
-                />
-            </div>
-
-            <div class="fd-margin-begin-end--md">
-                <ui5-label
-                    id="check-in-datetime-label"
-                    for="check-in-datetime"
-                    show-colon=""
-                >
-                    زمان ورود
-                </ui5-label>
-                <div>
-                    <ui5-datetime-picker
-                        id="check-in-datetime"
-                        class="fd-margin-top-bottom--tiny"
-                        dir="ltr"
-                        format-pattern="yyyy-MM-dd HH:mm:ss"
-                    />
-                </div>
-            </div>
-
-            <div class="fd-margin-begin-end--md">
-                <ui5-label
-                    id="check-out-datetime-label"
-                    for="check-out-datetime"
-                    show-colon=""
-                >
-                    زمان خروج
-                </ui5-label>
-                <div>
-                    <ui5-datetime-picker
-                        id="check-out-datetime"
-                        class="fd-margin-top-bottom--tiny"
-                        dir="ltr"
-                        format-pattern="yyyy-MM-dd HH:mm:ss"
-                    />
-                </div>
-            </div>
-
-            <div
-                slot="footer"
-                class="fd-has-display-flex fd-has-align-items-center fd-margin-top-bottom--tiny"
-                style="justify-content: end; width: 100%;"
-            >
-                <ui5-button
-                    id="save-record-button"
-                    design="Emphasized"
-                    icon="save"
-                    @click="saveRecord"
-                >
-                    ذخیره
-                </ui5-button>
-            </div>
-        </ui5-dialog>
-
-        <ui5-dialog
-            id="edit-record-dialog"
-            icon="decline"
-            header-text="ویرایش تردد"
-        >
-            <div slot="header">
-                <ui5-title level="H4">
-                    ویرایش تردد
-                </ui5-title>
-            </div>
-            <div
-                slot="header"
-                class="fd-has-display-flex fd-margin-top-bottom--tiny"
-                style="justify-content: end; width: 100%"
-            >
-                <ui5-button
-                    icon="decline"
-                    tooltip="بستن پنجره"
-                    design="Transparent"
-                    @click="closeDialogById('edit-record-dialog')"
-                />
-            </div>
-
-            <div class="fd-margin-begin-end--md">
-                <ui5-label
-                    id="edit-check-in-datetime-label"
-                    for="edit-check-in-datetime"
-                    show-colon=""
-                >
-                    زمان ورود
-                </ui5-label>
-                <div>
-                    <ui5-datetime-picker
-                        id="edit-check-in-datetime"
-                        class="fd-margin-top-bottom--tiny"
-                        dir="ltr"
-                        format-pattern="yyyy-MM-dd HH:mm:ss"
-                    />
-                </div>
-            </div>
-
-            <div class="fd-margin-begin-end--md">
-                <ui5-label
-                    id="edit-check-out-datetime-label"
-                    for="edit-check-out-datetime"
-                    show-colon=""
-                >
-                    زمان خروج
-                </ui5-label>
-                <div>
-                    <ui5-datetime-picker
-                        id="edit-check-out-datetime"
-                        class="fd-margin-top-bottom--tiny"
-                        dir="ltr"
-                        format-pattern="yyyy-MM-dd HH:mm:ss"
-                    />
-                </div>
-            </div>
-
-            <div
-                slot="footer"
-                class="fd-has-display-flex fd-has-align-items-center fd-margin-top-bottom--tiny"
-                style="justify-content: end; width: 100%;"
-            >
-                <ui5-button
-                    id="edit-record-button"
-                    design="Emphasized"
-                    icon="edit"
-                    @click="editRecord"
-                >
-                    ویرایش
-                </ui5-button>
-            </div>
-        </ui5-dialog>
+        </div>
 
         <ui5-table
             sticky-column-header
@@ -250,64 +100,214 @@
                 </ui5-table-cell>
             </ui5-table-row>
         </ui5-table>
-
-        <ui5-dialog
-            id="error-state-dialog"
-            header-text="خطا در ثبت تردد"
-            state="Error"
-        >
-            <p>زمان خروج نباید کمتر از زمان ورود باشد!</p>
-            <div
-                slot="footer"
-                class="fd-has-display-flex fd-has-align-items-center"
-                style="justify-content: end; width: 100%;"
-            >
-                <ui5-button
-                    id="error-close"
-                    @click="closeDialogById('error-state-dialog')"
-                >
-                    بستن
-                </ui5-button>
-            </div>
-        </ui5-dialog>
-
-        <ui5-dialog
-            id="ask-to-remove-record-dialog"
-            header-text="حذف رکورد"
-            state="Warning"
-        >
-            <p>
-                آیا از حذف رکورد روز
-                <span
-                    id="to-be-deleted-record"
-                    class="fd-margin-begin-end--tiny"
-                    dir="ltr"
-                />
-                مطمئن هستید؟
-            </p>
-            <div
-                slot="footer"
-                class="fd-has-display-flex fd-has-align-items-center"
-                style="justify-content: end; width: 100%;"
-            >
-                <ui5-button
-                    class="fd-margin-end--tiny"
-                    icon="decline"
-                    @click="closeDialogById('ask-to-remove-record-dialog')"
-                >
-                    بستن
-                </ui5-button>
-                <ui5-button
-                    id="remove-record-button"
-                    design="Negative"
-                    icon="delete"
-                    @click="removeRecord"
-                >
-                    حذف
-                </ui5-button>
-            </div>
-        </ui5-dialog>
     </ui5-page>
+
+    <ui5-dialog
+        id="add-new-record-dialog"
+        icon="decline"
+        header-text="ثبت تردد"
+    >
+        <div slot="header">
+            <ui5-title level="H4">
+                ثبت تردد
+            </ui5-title>
+        </div>
+        <div
+            slot="header"
+            class="fd-has-display-flex fd-margin-top-bottom--tiny"
+            style="justify-content: end; width: 100%"
+        >
+            <ui5-button
+                icon="decline"
+                tooltip="بستن پنجره"
+                design="Transparent"
+                @click="closeDialogById('add-new-record-dialog')"
+            />
+        </div>
+
+        <div class="fd-margin-begin-end--md">
+            <ui5-label
+                id="check-in-datetime-label"
+                for="check-in-datetime"
+                show-colon=""
+            >
+                زمان ورود
+            </ui5-label>
+            <div>
+                <ui5-datetime-picker
+                    id="check-in-datetime"
+                    class="fd-margin-top-bottom--tiny"
+                    dir="ltr"
+                    format-pattern="yyyy-MM-dd HH:mm:ss"
+                />
+            </div>
+        </div>
+
+        <div class="fd-margin-begin-end--md">
+            <ui5-label
+                id="check-out-datetime-label"
+                for="check-out-datetime"
+                show-colon=""
+            >
+                زمان خروج
+            </ui5-label>
+            <div>
+                <ui5-datetime-picker
+                    id="check-out-datetime"
+                    class="fd-margin-top-bottom--tiny"
+                    dir="ltr"
+                    format-pattern="yyyy-MM-dd HH:mm:ss"
+                />
+            </div>
+        </div>
+
+        <div
+            slot="footer"
+            class="fd-has-display-flex fd-has-align-items-center fd-margin-top-bottom--tiny"
+            style="justify-content: end; width: 100%;"
+        >
+            <ui5-button
+                id="save-record-button"
+                design="Emphasized"
+                icon="save"
+                @click="saveRecord"
+            >
+                ذخیره
+            </ui5-button>
+        </div>
+    </ui5-dialog>
+
+    <ui5-dialog
+        id="edit-record-dialog"
+        icon="decline"
+        header-text="ویرایش تردد"
+    >
+        <div slot="header">
+            <ui5-title level="H4">
+                ویرایش تردد
+            </ui5-title>
+        </div>
+        <div
+            slot="header"
+            class="fd-has-display-flex fd-margin-top-bottom--tiny"
+            style="justify-content: end; width: 100%"
+        >
+            <ui5-button
+                icon="decline"
+                tooltip="بستن پنجره"
+                design="Transparent"
+                @click="closeDialogById('edit-record-dialog')"
+            />
+        </div>
+
+        <div class="fd-margin-begin-end--md">
+            <ui5-label
+                id="edit-check-in-datetime-label"
+                for="edit-check-in-datetime"
+                show-colon=""
+            >
+                زمان ورود
+            </ui5-label>
+            <div>
+                <ui5-datetime-picker
+                    id="edit-check-in-datetime"
+                    class="fd-margin-top-bottom--tiny"
+                    dir="ltr"
+                    format-pattern="yyyy-MM-dd HH:mm:ss"
+                />
+            </div>
+        </div>
+
+        <div class="fd-margin-begin-end--md">
+            <ui5-label
+                id="edit-check-out-datetime-label"
+                for="edit-check-out-datetime"
+                show-colon=""
+            >
+                زمان خروج
+            </ui5-label>
+            <div>
+                <ui5-datetime-picker
+                    id="edit-check-out-datetime"
+                    class="fd-margin-top-bottom--tiny"
+                    dir="ltr"
+                    format-pattern="yyyy-MM-dd HH:mm:ss"
+                />
+            </div>
+        </div>
+
+        <div
+            slot="footer"
+            class="fd-has-display-flex fd-has-align-items-center fd-margin-top-bottom--tiny"
+            style="justify-content: end; width: 100%;"
+        >
+            <ui5-button
+                id="edit-record-button"
+                design="Emphasized"
+                icon="edit"
+                @click="editRecord"
+            >
+                ویرایش
+            </ui5-button>
+        </div>
+    </ui5-dialog>
+
+    <ui5-dialog
+        id="error-state-dialog"
+        header-text="خطا در ثبت تردد"
+        state="Error"
+    >
+        <p>زمان خروج نباید کمتر از زمان ورود باشد!</p>
+        <div
+            slot="footer"
+            class="fd-has-display-flex fd-has-align-items-center"
+            style="justify-content: end; width: 100%;"
+        >
+            <ui5-button
+                id="error-close"
+                @click="closeDialogById('error-state-dialog')"
+            >
+                بستن
+            </ui5-button>
+        </div>
+    </ui5-dialog>
+
+    <ui5-dialog
+        id="ask-to-remove-record-dialog"
+        header-text="حذف رکورد"
+        state="Warning"
+    >
+        <p>
+            آیا از حذف رکورد روز
+            <span
+                id="to-be-deleted-record"
+                class="fd-margin-begin-end--tiny"
+                dir="ltr"
+            />
+            مطمئن هستید؟
+        </p>
+        <div
+            slot="footer"
+            class="fd-has-display-flex fd-has-align-items-center"
+            style="justify-content: end; width: 100%;"
+        >
+            <ui5-button
+                class="fd-margin-end--tiny"
+                icon="decline"
+                @click="closeDialogById('ask-to-remove-record-dialog')"
+            >
+                بستن
+            </ui5-button>
+            <ui5-button
+                id="remove-record-button"
+                design="Negative"
+                icon="delete"
+                @click="removeRecord"
+            >
+                حذف
+            </ui5-button>
+        </div>
+    </ui5-dialog>
 </template>
 
 <script setup>
