@@ -1,5 +1,5 @@
 <template>
-    <ui5-page id="dashboard-page" background-design="List" style="height: 98vh;">
+    <ui5-page id="dashboard-page" background-design="List" style="height: 100vh;">
         <div
             class="fd-margin-top-bottom--tiny fd-has-display-flex fd-has-align-items-center"
             style="justify-content: space-between"

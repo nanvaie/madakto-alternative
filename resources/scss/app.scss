@@ -1,6 +1,10 @@
 @import "typo";
 @import "variables";
 
+body {
+    margin: 0 !important;
+}
+
 html, body, .fd-col, .fd-container, .fd-row {
   font-family: IRANSans, sans-serif !important;
 }
