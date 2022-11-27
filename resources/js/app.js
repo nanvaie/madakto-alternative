@@ -16,8 +16,6 @@ import 'fundamental-styles/dist/margins.css';
 // Icons
 import '@ui5/webcomponents-icons/dist/AllIcons';
 
-setTheme('sap_fiori_3_dark');
-
 setLanguage('fa');
 
 createApp(App)
