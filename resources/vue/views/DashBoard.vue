@@ -359,7 +359,6 @@
                     :key="theme.key"
                     :data-theme="theme.key"
                     :additional-text="theme.additional_text"
-                    :selected="theme.key === selectedTheme"
                 >
                     {{ theme.label }}
                 </ui5-option>
@@ -401,7 +400,7 @@ import '@ui5/webcomponents/dist/TableCell';
 import '@ui5/webcomponents/dist/DateTimePicker';
 import '@ui5/webcomponents-fiori/dist/Page';
 import '@ui5/webcomponents-localization/dist/features/calendar/Persian';
-import { computed, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { setTheme, getTheme } from '@ui5/webcomponents-base/dist/config/Theme';
 import Pasoonate from 'pasoonate';
 import VSButton from '../components/SAP-UI5/VSButton.vue';
@@ -663,5 +662,9 @@ function handleContentDensitySwitchChange(event) {
 function closeSettingDialog() {
     closeDialogById('settings-dialog');
 }
+
+onMounted(function () {
+    document.querySelector("[data-theme=" + selectedTheme.value + "]").selected = true;
+})
 
 </script>
