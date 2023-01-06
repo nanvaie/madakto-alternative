@@ -17,25 +17,28 @@
 
 import '@ui5/webcomponents/dist/Avatar.js';
 import { defineProps } from 'vue';
+import AvatarColorScheme from '@ui5/webcomponents/src/types/AvatarColorScheme';
+import AvatarShape from "@ui5/webcomponents/src/types/AvatarShape";
+import AvatarSize from "@ui5/webcomponents/src/types/AvatarSize";
 
 const props = defineProps({
     accessibleName: String,
     colorScheme: {
         type: String,
-        default: 'Accent6',
+        default: AvatarColorScheme.Accent6,
         validator(value) {
             return [
-                'Accent1',
-                'Accent2',
-                'Accent3',
-                'Accent4',
-                'Accent5',
-                'Accent6',
-                'Accent7',
-                'Accent8',
-                'Accent9',
-                'Accent10',
-                'Placeholder',
+                AvatarColorScheme.Accent1,
+                AvatarColorScheme.Accent2,
+                AvatarColorScheme.Accent3,
+                AvatarColorScheme.Accent4,
+                AvatarColorScheme.Accent5,
+                AvatarColorScheme.Accent6,
+                AvatarColorScheme.Accent7,
+                AvatarColorScheme.Accent8,
+                AvatarColorScheme.Accent9,
+                AvatarColorScheme.Accent10,
+                AvatarColorScheme.Placeholder,
             ].includes(value);
         },
     },
@@ -47,24 +50,24 @@ const props = defineProps({
     },
     shape: {
         type: String,
-        default: 'Circle',
+        default: AvatarShape.Circle,
         validator(value) {
             return [
-                'Square',
-                'Circle',
+                AvatarShape.Square,
+                AvatarShape.Circle,
             ].includes(value);
         },
     },
     size: {
         type: String,
-        default: 'S',
+        default: AvatarSize.S,
         validator(value) {
             return [
-                'XS',
-                'S',
-                'M',
-                'L',
-                'XL',
+                AvatarSize.XS,
+                AvatarSize.S,
+                AvatarSize.M,
+                AvatarSize.L,
+                AvatarSize.XL,
             ].includes(value);
         },
     },
