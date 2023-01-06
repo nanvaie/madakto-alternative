@@ -40,6 +40,14 @@
                 >
                     ثبت تردد...
                 </VSButton>
+
+                <VSButton
+                    class="fd-margin-end--tiny"
+                    icon="settings"
+                    @click="showDialogById('settings-dialog')"
+                >
+                    تنظیمات...
+                </VSButton>
             </div>
         </div>
 
@@ -308,10 +316,84 @@
             </ui5-button>
         </div>
     </ui5-dialog>
+
+    <ui5-dialog
+        id="settings-dialog"
+        icon="decline"
+        header-text="تنظیمات"
+    >
+        <div slot="header">
+            <ui5-title level="H4">
+                تنظیمات
+            </ui5-title>
+        </div>
+        <div
+            slot="header"
+            class="fd-has-display-flex fd-margin-top-bottom--tiny"
+            style="justify-content: end; width: 100%"
+        >
+            <ui5-button
+                icon="decline"
+                tooltip="بستن پنجره"
+                design="Transparent"
+                @click="closeSettingDialog"
+            />
+        </div>
+
+        <ui5-label
+            id="themes-label"
+            for="theme-options"
+            show-colon=""
+        >
+            پوسته پنل
+        </ui5-label>
+        <div>
+            <ui5-select
+                id="theme-options"
+                class="select"
+                accessible-name-ref="themes-label"
+                @change="handleThemeChange"
+            >
+                <ui5-option
+                    v-for="theme of themes"
+                    :key="theme.key"
+                    :data-theme="theme.key"
+                    :additional-text="theme.additional_text"
+                    :selected="theme.key === selectedTheme"
+                >
+                    {{ theme.label }}
+                </ui5-option>
+            </ui5-select>
+        </div>
+
+        <ui5-label
+            id="densities-label"
+            for="density-options"
+            show-colon=""
+        >
+            اندازه پنل
+        </ui5-label>
+        <div>
+            <ui5-select
+                id="density-options"
+                class="select"
+                accessible-name-ref="densities-label"
+                @change="handleContentDensitySwitchChange"
+            >
+                <ui5-option data-density="regular">
+                    معمولی
+                </ui5-option>
+                <ui5-option data-density="compact">
+                    کوچک
+                </ui5-option>
+            </ui5-select>
+        </div>
+    </ui5-dialog>
 </template>
 
 <script setup>
 
+import '@ui5/webcomponents/dist/Select';
 import '@ui5/webcomponents/dist/Table';
 import '@ui5/webcomponents/dist/TableColumn';
 import '@ui5/webcomponents/dist/TableRow';
@@ -320,9 +402,69 @@ import '@ui5/webcomponents/dist/DateTimePicker';
 import '@ui5/webcomponents-fiori/dist/Page';
 import '@ui5/webcomponents-localization/dist/features/calendar/Persian';
 import { computed, ref } from 'vue';
+import { setTheme, getTheme } from '@ui5/webcomponents-base/dist/config/Theme';
 import Pasoonate from 'pasoonate';
 import VSButton from '../components/SAP-UI5/VSButton.vue';
 import VSLabel from '../components/SAP-UI5/VSLabel.vue';
+
+const selectedTheme = ref(getTheme());
+const themes = [
+    {
+        key: 'sap_fiori_3',
+        additional_text: 'روشن',
+        label: 'Quartz Light',
+    },
+    {
+        key: 'sap_fiori_3_dark',
+        additional_text: 'تیره',
+        label: 'Quartz Dark',
+    },
+    {
+        key: 'sap_horizon',
+        additional_text: 'روشن',
+        label: 'Morning Horizon',
+    },
+    {
+        key: 'sap_horizon_dark',
+        additional_text: 'تیره',
+        label: 'Evening Horizon',
+    },
+    {
+        key: 'sap_horizon_hcb',
+        additional_text: 'تیره',
+        label: 'High Contrast Black',
+    },
+    {
+        key: 'sap_horizon_hcw',
+        additional_text: 'روشن',
+        label: 'High Contrast White',
+    },
+    {
+        key: 'sap_fiori_3_hcb',
+        additional_text: 'تیره',
+        label: 'Quartz High Contrast Black',
+    },
+    {
+        key: 'sap_fiori_3_hcw',
+        additional_text: 'روشن',
+        label: 'Quartz High Contrast White',
+    },
+    {
+        key: 'sap_belize',
+        additional_text: 'روشن',
+        label: 'Belize',
+    },
+    {
+        key: 'sap_belize_hcb',
+        additional_text: 'تیره',
+        label: 'Belize High Contrast Black',
+    },
+    {
+        key: 'sap_belize_hcw',
+        additional_text: 'روشن',
+        label: 'Belize High Contrast White',
+    },
+];
 
 /**
  * @type []
@@ -504,5 +646,22 @@ const myTotalFormatted = () => {
 
     return `${hours}:${minutes}:${seconds}`;
 };
+
+function handleThemeChange(event) {
+    selectedTheme.value = event.detail.selectedOption.dataset.theme;
+    setTheme(selectedTheme.value);
+}
+
+function handleContentDensitySwitchChange(event) {
+    if (event.detail.selectedOption.dataset.density === 'compact') {
+        document.body.setAttribute('data-ui5-compact-size', '');
+    } else if (event.detail.selectedOption.dataset.density === 'regular') {
+        document.body.removeAttribute('data-ui5-compact-size');
+    }
+}
+
+function closeSettingDialog() {
+    closeDialogById('settings-dialog');
+}
 
 </script>
