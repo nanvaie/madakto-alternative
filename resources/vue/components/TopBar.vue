@@ -3,7 +3,7 @@
         <ui5-bar design="Header">
             <div slot="startContent">
                 <slot name="start">
-                    <TopBarStartOptions />
+                    <TopBarStartContents />
                 </slot>
             </div>
 
@@ -13,7 +13,7 @@
 
             <div slot="endContent">
                 <slot name="end">
-                    <TopBarEndOptions />
+                    <TopBarEndContents />
                 </slot>
             </div>
         </ui5-bar>
@@ -22,8 +22,8 @@
 
 <script setup>
 
-import TopBarEndOptions from './TopBarEndOptions.vue';
-import TopBarStartOptions from './TopBarStartOptions.vue';
+import TopBarEndContents from './TopBarEndContents.vue';
+import TopBarStartContents from './TopBarStartContents.vue';
 import DigitalClock from './DigitalClock.vue';
 
 </script>
