@@ -155,7 +155,6 @@
                 <ui5-datetime-picker
                     id="check-in-datetime"
                     class="fd-margin-top-bottom--tiny"
-                    dir="ltr"
                     format-pattern="yyyy-MM-dd HH:mm:ss"
                 />
             </div>
@@ -173,7 +172,6 @@
                 <ui5-datetime-picker
                     id="check-out-datetime"
                     class="fd-margin-top-bottom--tiny"
-                    dir="ltr"
                     format-pattern="yyyy-MM-dd HH:mm:ss"
                 />
             </div>
@@ -230,7 +228,6 @@
                 <ui5-datetime-picker
                     id="edit-check-in-datetime"
                     class="fd-margin-top-bottom--tiny"
-                    dir="ltr"
                     format-pattern="yyyy-MM-dd HH:mm:ss"
                 />
             </div>
@@ -248,7 +245,6 @@
                 <ui5-datetime-picker
                     id="edit-check-out-datetime"
                     class="fd-margin-top-bottom--tiny"
-                    dir="ltr"
                     format-pattern="yyyy-MM-dd HH:mm:ss"
                 />
             </div>
@@ -300,7 +296,6 @@
             <span
                 id="to-be-deleted-record"
                 class="fd-margin-begin-end--tiny"
-                dir="ltr"
             />
             مطمئن هستید؟
         </p>
