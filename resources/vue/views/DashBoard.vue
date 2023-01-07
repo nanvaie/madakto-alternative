@@ -56,39 +56,49 @@
             no-data-text="داده‌ای موجود نیست!"
         >
             <ui5-table-column slot="columns">
-                روز ورود
+                ردیف
             </ui5-table-column>
-            <ui5-table-column slot="columns">
-                تاریخ ورود
+            <ui5-table-column slot="columns" min-width="600" popin-text="ورود" demand-popin>
+                ورود
             </ui5-table-column>
-            <ui5-table-column slot="columns">
-                ساعت ورود
-            </ui5-table-column>
-            <ui5-table-column slot="columns">
-                روز خروج
-            </ui5-table-column>
-            <ui5-table-column slot="columns">
-                تاریخ خروج
-            </ui5-table-column>
-            <ui5-table-column slot="columns">
-                ساعت خروج
+            <ui5-table-column slot="columns" min-width="600" popin-text="خروج" demand-popin>
+                خروج
             </ui5-table-column>
             <ui5-table-column slot="columns">
                 نتیجه
+            </ui5-table-column>
+            <ui5-table-column slot="columns" style="text-align: center">
+                عملیات
             </ui5-table-column>
 
             <ui5-table-row
                 v-for="record of records"
                 :key="record.id"
             >
-                <ui5-table-cell>{{ getDayName(record.checkIn, 'fa-IR') }}</ui5-table-cell>
-                <ui5-table-cell>{{ getDate(record.checkIn) }}</ui5-table-cell>
-                <ui5-table-cell>{{ getTime(record.checkIn) }}</ui5-table-cell>
-                <ui5-table-cell>{{ record.checkOut !== undefined ? getDayName(record.checkOut, 'fa-IR') : '---' }}</ui5-table-cell>
-                <ui5-table-cell>{{ record.checkOut !== undefined ? getDate(record.checkOut) : '---' }}</ui5-table-cell>
-                <ui5-table-cell>{{ record.checkOut !== undefined ? getTime(record.checkOut) : '---' }}</ui5-table-cell>
+                <ui5-table-cell>
+                    1
+                </ui5-table-cell>
+                <ui5-table-cell>
+                    {{ getDayName(record.checkIn, 'fa-IR') }}
+                    -
+                    {{ getDate(record.checkIn) }}
+                    -
+                    {{ getTime(record.checkIn) }}
+                </ui5-table-cell>
+                <ui5-table-cell>
+                    <template v-if="record.checkOut !== undefined">
+                        {{ getDayName(record.checkOut, 'fa-IR')}}
+                        -
+                        {{ getDate(record.checkOut) }}
+                        -
+                        {{ getTime(record.checkOut) }}
+                    </template>
+                    <template v-else>
+                        ---
+                    </template>
+                </ui5-table-cell>
                 <ui5-table-cell>{{ record.checkOut !== undefined ? calculateTimeDifference(record.checkIn, record.checkOut) : '---' }}</ui5-table-cell>
-                <ui5-table-cell class="fd-has-display-flex">
+                <ui5-table-cell class="fd-has-display-flex" style="justify-content: end;">
                     <VSButton
                         class="fd-margin-end--tiny"
                         :data-record-id="record.id"
