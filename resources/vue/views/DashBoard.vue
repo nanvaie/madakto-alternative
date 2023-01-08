@@ -11,7 +11,7 @@
                 >
                     جمع ساعت کاری
                 </VSLabel>
-                {{ myTotalFormatted() }}
+                <VSLabel>{{ myTotalFormatted() }}</VSLabel>
             </div>
 
             <div class="fd-has-display-flex">
@@ -20,22 +20,27 @@
                     :disabled="!preventEnteringCheckOut"
                     design="Positive"
                     icon="media-play"
+                    tooltip="ثبت ورود"
                     @click="enterNewCheckIn"
                 >
                     ثبت ورود
                 </VSButton>
+
                 <VSButton
                     class="fd-margin-end--tiny"
                     :disabled="preventEnteringCheckOut"
                     design="Negative"
                     icon="media-pause"
+                    tooltip="ثبت خروج"
                     @click="enterNewCheckOut"
                 >
                     ثبت خروج
                 </VSButton>
+
                 <VSButton
                     class="fd-margin-end--tiny"
                     icon="add-document"
+                    tooltip="ثبت تردد"
                     @click="showDialogById('add-new-record-dialog')"
                 >
                     ثبت تردد...
@@ -44,6 +49,7 @@
                 <VSButton
                     class="fd-margin-end--tiny"
                     icon="settings"
+                    tooltip="تنظیمات"
                     @click="showDialogById('settings-dialog')"
                 >
                     تنظیمات...
