@@ -363,7 +363,7 @@
                 icon="decline"
                 tooltip="بستن پنجره"
                 design="Transparent"
-                @click="closeSettingDialog"
+                @click="closeDialogById('settings-dialog')"
             />
         </div>
 
@@ -684,10 +684,6 @@ function handleContentDensitySwitchChange(event) {
     } else if (event.detail.selectedOption.dataset.density === 'regular') {
         document.body.removeAttribute('data-ui5-compact-size');
     }
-}
-
-function closeSettingDialog() {
-    closeDialogById('settings-dialog');
 }
 
 onMounted(function () {
