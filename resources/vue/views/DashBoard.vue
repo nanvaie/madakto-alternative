@@ -11,7 +11,7 @@
                 >
                     جمع ساعت کاری
                 </VSLabel>
-                <VSLabel>{{ myTotalFormatted() }}</VSLabel>
+                <VSLabel>{{ myTotal }}</VSLabel>
             </div>
 
             <div class="fd-has-display-flex">
@@ -657,21 +657,21 @@ function editRecord(event) {
     closeDialogById('edit-record-dialog');
 }
 
-const myTotal = computed(() => records.value.reduce((sumOfDifference, currentRecord) => {
-    if (currentRecord.checkOut === undefined) {
-        return sumOfDifference;
-    }
+const myTotal = computed(function () {
+    let total = records.value.reduce((sumOfDifference, currentRecord) => {
+        if (currentRecord.checkOut === undefined) {
+            return sumOfDifference;
+        }
 
-    return sumOfDifference + (currentRecord.checkOut - currentRecord.checkIn);
-}, 0));
+        return sumOfDifference + (currentRecord.checkOut - currentRecord.checkIn);
+    }, 0);
 
-const myTotalFormatted = () => {
-    const hours = Math.floor(myTotal.value / 3600).toString().padStart(2, '0');
-    const minutes = (Math.floor(myTotal.value / 60) % 60).toString().padStart(2, '0');
-    const seconds = (myTotal.value % 60).toString().padStart(2, '0');
+    const hours = Math.floor(total / 3600).toString().padStart(2, '0');
+    const minutes = (Math.floor(total / 60) % 60).toString().padStart(2, '0');
+    const seconds = (total % 60).toString().padStart(2, '0');
 
     return `${hours}:${minutes}:${seconds}`;
-};
+});
 
 function handleThemeChange(event) {
     selectedTheme.value = event.detail.selectedOption.dataset.theme;
