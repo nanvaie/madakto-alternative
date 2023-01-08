@@ -58,16 +58,32 @@
             <ui5-table-column slot="columns">
                 ردیف
             </ui5-table-column>
-            <ui5-table-column slot="columns" min-width="600" popin-text="ورود" demand-popin>
+            <ui5-table-column
+                slot="columns"
+                demand-popin
+                min-width="768"
+                popin-text="ورود"
+            >
                 ورود
             </ui5-table-column>
-            <ui5-table-column slot="columns" min-width="600" popin-text="خروج" demand-popin>
+            <ui5-table-column
+                slot="columns"
+                demand-popin
+                min-width="768"
+                popin-text="خروج"
+            >
                 خروج
             </ui5-table-column>
             <ui5-table-column slot="columns">
                 نتیجه
             </ui5-table-column>
-            <ui5-table-column slot="columns" style="text-align: center">
+            <ui5-table-column
+                slot="columns"
+                demand-popin
+                min-width="768"
+                popin-text="عملیات"
+                style="text-align: center"
+            >
                 عملیات
             </ui5-table-column>
 
@@ -98,7 +114,7 @@
                     </template>
                 </ui5-table-cell>
                 <ui5-table-cell>{{ record.checkOut !== undefined ? calculateTimeDifference(record.checkIn, record.checkOut) : '---' }}</ui5-table-cell>
-                <ui5-table-cell class="fd-has-display-flex" style="justify-content: end;">
+                <ui5-table-cell class="fd-has-display-flex">
                     <VSButton
                         class="fd-margin-end--tiny"
                         :data-record-id="record.id"
