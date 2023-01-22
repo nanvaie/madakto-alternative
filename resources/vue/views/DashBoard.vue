@@ -144,7 +144,6 @@
 
     <ui5-dialog
         id="add-new-record-dialog"
-        icon="decline"
         header-text="ثبت تردد"
     >
         <div slot="header">
@@ -217,7 +216,6 @@
 
     <ui5-dialog
         id="edit-record-dialog"
-        icon="decline"
         header-text="ویرایش تردد"
     >
         <div slot="header">
@@ -346,7 +344,6 @@
 
     <ui5-dialog
         id="settings-dialog"
-        icon="decline"
         header-text="تنظیمات"
     >
         <div slot="header">
