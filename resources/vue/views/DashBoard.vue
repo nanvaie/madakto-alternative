@@ -142,7 +142,7 @@
         </ui5-table>
     </ui5-page>
 
-    <ui5-dialog
+    <VSDialog
         id="add-new-record-dialog"
         header-text="ثبت تردد"
     >
@@ -212,9 +212,9 @@
                 ذخیره
             </ui5-button>
         </div>
-    </ui5-dialog>
+    </VSDialog>
 
-    <ui5-dialog
+    <VSDialog
         id="edit-record-dialog"
         header-text="ویرایش تردد"
     >
@@ -284,9 +284,9 @@
                 ویرایش
             </ui5-button>
         </div>
-    </ui5-dialog>
+    </VSDialog>
 
-    <ui5-dialog
+    <VSDialog
         id="error-state-dialog"
         header-text="خطا در ثبت تردد"
         state="Error"
@@ -304,9 +304,9 @@
                 بستن
             </ui5-button>
         </div>
-    </ui5-dialog>
+    </VSDialog>
 
-    <ui5-dialog
+    <VSDialog
         id="ask-to-remove-record-dialog"
         header-text="حذف رکورد"
         state="Warning"
@@ -340,9 +340,9 @@
                 حذف
             </ui5-button>
         </div>
-    </ui5-dialog>
+    </VSDialog>
 
-    <ui5-dialog
+    <VSDialog
         id="settings-dialog"
         header-text="تنظیمات"
     >
@@ -411,7 +411,7 @@
                 </ui5-option>
             </ui5-select>
         </div>
-    </ui5-dialog>
+    </VSDialog>
 </template>
 
 <script setup>
@@ -428,6 +428,7 @@ import { computed, onMounted, ref } from 'vue';
 import { setTheme, getTheme } from '@ui5/webcomponents-base/dist/config/Theme';
 import Pasoonate from 'pasoonate';
 import VSButton from '../components/SAP-UI5/VSButton.vue';
+import VSDialog from '../components/SAP-UI5/VSDialog.vue';
 import VSLabel from '../components/SAP-UI5/VSLabel.vue';
 
 const selectedTheme = ref(getTheme());
