@@ -1,12 +1,12 @@
 <template>
     <ui5-page id="dashboard-page" background-design="List" style="height: 100vh;">
         <div
-            class="fd-margin-top-bottom--tiny fd-has-display-flex fd-has-align-items-center"
+            class="fd-margin-top-bottom--tiny fd-has-display-flex fd-has-align-items-center fd-col--wrap"
             style="justify-content: space-between"
         >
             <div class="fd-has-display-flex">
                 <VSLabel
-                    class="fd-margin-end--tiny"
+                    class="fd-margin-end--tiny fd-margin-bottom--2 fd-margin-bottom--tiny-0"
                     show-colon=""
                 >
                     جمع ساعت کاری
@@ -14,9 +14,9 @@
                 <VSLabel>{{ myTotal }}</VSLabel>
             </div>
 
-            <div class="fd-has-display-flex">
+            <div class="fd-has-display-flex fd-col--wrap">
                 <VSButton
-                    class="fd-margin-end--tiny"
+                    class="fd-margin-end--tiny fd-margin-bottom--2 fd-margin-bottom--tiny-0"
                     :disabled="!preventEnteringCheckOut"
                     design="Positive"
                     icon="media-play"
@@ -27,7 +27,7 @@
                 </VSButton>
 
                 <VSButton
-                    class="fd-margin-end--tiny"
+                    class="fd-margin-end--tiny fd-margin-bottom--2 fd-margin-bottom--tiny-0"
                     :disabled="preventEnteringCheckOut"
                     design="Negative"
                     icon="media-pause"
@@ -38,7 +38,7 @@
                 </VSButton>
 
                 <VSButton
-                    class="fd-margin-end--tiny"
+                    class="fd-margin-end--tiny fd-margin-bottom--2 fd-margin-bottom--tiny-0"
                     icon="add-document"
                     tooltip="ثبت تردد"
                     @click="showDialogById('add-new-record-dialog')"
@@ -47,7 +47,7 @@
                 </VSButton>
 
                 <VSButton
-                    class="fd-margin-end--tiny"
+                    class="fd-margin-end--tiny fd-margin-bottom--2 fd-margin-bottom--tiny-0"
                     icon="settings"
                     tooltip="تنظیمات"
                     @click="showDialogById('settings-dialog')"
