@@ -3,12 +3,6 @@ import laravel from 'laravel-vite-plugin';
 import vue from '@vitejs/plugin-vue';
 
 export default defineConfig({
-    server: {
-        hmr: {
-            host: 'madakto-alternative.local',
-        },
-        port: 8080,
-    },
     plugins: [
         laravel({
             input: [
