@@ -1,5 +1,9 @@
 <template>
-    <ui5-page id="dashboard-page" background-design="List" style="height: 100vh;">
+    <ui5-page
+        id="dashboard-page"
+        background-design="List"
+        style="height: 100vh;"
+    >
         <div
             class="fd-margin-top-bottom--tiny fd-has-display-flex fd-has-align-items-center fd-col--wrap"
             style="justify-content: space-between"
@@ -109,7 +113,7 @@
                 </ui5-table-cell>
                 <ui5-table-cell>
                     <template v-if="record.checkOut !== undefined">
-                        {{ getDayName(record.checkOut, 'fa-IR')}}
+                        {{ getDayName(record.checkOut, 'fa-IR') }}
                         -
                         {{ getDate(record.checkOut) }}
                         -
@@ -655,8 +659,8 @@ function editRecord(event) {
     closeDialogById('edit-record-dialog');
 }
 
-const myTotal = computed(function () {
-    let total = records.value.reduce((sumOfDifference, currentRecord) => {
+const myTotal = computed(() => {
+    const total = records.value.reduce((sumOfDifference, currentRecord) => {
         if (currentRecord.checkOut === undefined) {
             return sumOfDifference;
         }
@@ -684,8 +688,8 @@ function handleContentDensitySwitchChange(event) {
     }
 }
 
-onMounted(function () {
-    document.querySelector("[data-theme=" + selectedTheme.value + "]").selected = true;
-})
+onMounted(() => {
+    document.querySelector(`[data-theme=${selectedTheme.value}]`).selected = true;
+});
 
 </script>
