@@ -8,4 +8,17 @@ use Illuminate\Database\Eloquent\Model;
 class Workspace extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'name',
+        'user_id'
+
+    ];
+    protected $table = 'work_spaces';
+
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
+    public function Shifts(){
+        return $this->hasMany(Shift::class);
+    }
 }
