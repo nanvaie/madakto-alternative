@@ -5,6 +5,11 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\WorkspaceController;
 use App\Http\Controllers\ShiftController;
+use App\Http\Controllers\DepartmentController;
+
+
+
+
 Route::post('/workspaces', [WorkspaceController::class, "show"])->middleware('role');
 Route::post('/workspaces/create', [WorkspaceController::class, "store"])->middleware('role');
 Route::put('/workspaces/edit/{id}', [WorkspaceController::class, "edit"])->middleware('role');
@@ -17,6 +22,12 @@ Route::post('/shifts', [ShiftController::class, "show"]);
 Route::post('/Shifts/create', [ShiftController::class, "store"]);
 Route::put('/Shifts/edit/{id}', [ShiftController::class, "edit"]);
 Route::put('/Shifts/update/{id}', [ShiftController::class, "update"]);
+
+Route::post('/departments/create', [DepartmentController::class, "store"]);
+Route::post('/departments', [DepartmentController::class, "show"]);
+Route::post('/departments/create', [DepartmentController::class, "store"]);
+Route::put('/departments/edit/{id}', [DepartmentController::class, "edit"]);
+Route::put('/departments/update/{id}', [DepartmentController::class, "update"]);
 
 /*
 |--------------------------------------------------------------------------
