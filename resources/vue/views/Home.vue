@@ -1,7 +1,7 @@
 <template>
     <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
         <div class="container-fluid">
-            <H4 class="navbar-brand" href="#">{{ $t('well come') }}</H4>
+            <H4 class="navbar-brand" href="#">{{ $t('well come') }} {{name}}</H4>
 
 
             <div class="nav-item dropdown">
@@ -32,14 +32,27 @@
 import Dashboard from './DashBoard.vue';
 
 export default {
+    data() {
+        return {
+
+            name: '',
+
+        };
+    },
     components: {
         Dashboard
     },
     methods:{
         logout_handler(){
             localStorage.setItem('token', null);
+            localStorage.setItem('name', null);
+            localStorage.setItem('user_id', null);
             this.$router.push({ name: 'login' });
-        }
+        },
+    },
+    mounted() {
+        this.name =localStorage.getItem('name');
+
     }
 };
 </script>

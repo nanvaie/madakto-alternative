@@ -78,6 +78,8 @@ export default {
                     .post('/api/login', this.formData)
                     .then((response) => {
                         localStorage.setItem('token', response.data.token);
+                        localStorage.setItem('user_id', response.data.user_id);
+                        localStorage.setItem('name', response.data.user);
 
                         console.log(response.data.token);
 

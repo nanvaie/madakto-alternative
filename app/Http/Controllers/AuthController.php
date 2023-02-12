@@ -71,7 +71,8 @@ class AuthController extends Controller
 
                     'message' => 'User Logged In Successfully',
                     'token' => $jwt,
-                    'user' => $user->full_name
+                    'user' => $user->full_name,
+                    'user_id'=>$user->id,
                 ], 200);
             }
         }
