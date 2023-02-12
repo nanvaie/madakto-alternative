@@ -31,7 +31,7 @@
                         <div class="form-group ">
                             <router-link
                                 class="float-right"
-                                to="/register"
+                                :to="{name: 'register'}"
                             >
                                 {{ $t('register') }}
                             </router-link>
@@ -77,12 +77,14 @@ export default {
                 axios
                     .post('/api/login', this.formData)
                     .then((response) => {
-                        localStorage.setItem("token", response.data.token);
+                        localStorage.setItem('token', response.data.token);
 
-                        this.$router.push({name: 'dashboard'});
+                        console.log(response.data.token);
+
+                        this.$router.push({name: 'home'});
                     })
                     .catch((errors) => {
-                        this.errors = errors.response.data.errors;
+                        // this.errors = errors.response.data.errors;
                         console.log(errors);
                     });
             });
