@@ -19,6 +19,7 @@
 
 import '@ui5/webcomponents/dist/Button';
 import { defineProps } from 'vue';
+import ButtonDesign from '@ui5/webcomponents/dist/types/ButtonDesign';
 
 const props = defineProps({
     accessibilityAttributes: Object,
@@ -26,14 +27,15 @@ const props = defineProps({
     accessibleNameRef: String,
     design: {
         type: String,
+        default: ButtonDesign.Default,
         validator(value) {
             return [
-                'Default',
-                'Emphasized',
-                'Positive',
-                'Negative',
-                'Transparent',
-                'Attention',
+                ButtonDesign.Default,
+                ButtonDesign.Emphasized,
+                ButtonDesign.Positive,
+                ButtonDesign.Negative,
+                ButtonDesign.Transparent,
+                ButtonDesign.Attention,
             ].includes(value);
         },
     },

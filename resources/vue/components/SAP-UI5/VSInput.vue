@@ -38,6 +38,8 @@
 
 import '@ui5/webcomponents/dist/Input';
 import { defineProps } from 'vue';
+import ValueState from '@ui5/webcomponents-base/dist/types/ValueState';
+import InputType from '@ui5/webcomponents/dist/types/InputType';
 
 const props = defineProps({
     accessibleName: String,
@@ -69,29 +71,29 @@ const props = defineProps({
     },
     type: {
         type: String,
-        default: 'Text',
+        default: InputType.Text,
         validator(value) {
             return [
-                'Text',
-                'Email',
-                'Number',
-                'Password',
-                'Tel',
-                'URL',
+                InputType.Text,
+                InputType.Email,
+                InputType.Number,
+                InputType.Password,
+                InputType.Tel,
+                InputType.URL,
             ].includes(value);
         },
     },
     value: String,
     valueState: {
         type: String,
-        default: 'None',
+        default: ValueState.None,
         validator(value) {
             return [
-                'None',
-                'Error',
-                'Warning',
-                'Success',
-                'Information',
+                ValueState.None,
+                ValueState.Error,
+                ValueState.Warning,
+                ValueState.Success,
+                ValueState.Information,
             ].includes(value);
         },
     },

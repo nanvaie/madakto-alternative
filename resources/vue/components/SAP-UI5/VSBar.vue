@@ -22,17 +22,18 @@
 
 import '@ui5/webcomponents-fiori/dist/Bar';
 import { defineProps } from 'vue';
+import BarDesign from '@ui5/webcomponents-fiori/dist/types/BarDesign';
 
 const props = defineProps({
     design: {
         type: String,
-        default: 'Header',
+        default: BarDesign.Header,
         validator(value) {
             return [
-                'Header',
-                'Subheader',
-                'Footer',
-                'FloatingFooter',
+                BarDesign.Header,
+                BarDesign.Subheader,
+                BarDesign.Footer,
+                BarDesign.FloatingFooter,
             ].includes(value);
         },
     },

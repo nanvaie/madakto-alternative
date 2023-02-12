@@ -20,6 +20,8 @@
 
 import '@ui5/webcomponents/dist/CheckBox';
 import { defineProps } from 'vue';
+import ValueState from '@ui5/webcomponents-base/dist/types/ValueState';
+import WrappingType from '@ui5/webcomponents/dist/types/WrappingType';
 
 const props = defineProps({
     accessibleName: String,
@@ -48,24 +50,24 @@ const props = defineProps({
     text: String,
     valueState: {
         type: String,
-        default: 'None',
+        default: ValueState.None,
         validator(value) {
             return [
-                'Warning',
-                'Error',
-                'None',
-                'Success',
-                'Information',
+                ValueState.Warning,
+                ValueState.Error,
+                ValueState.None,
+                ValueState.Success,
+                ValueState.Information,
             ].includes(value);
         },
     },
     wrappingType: {
         type: String,
-        default: 'None',
+        default: WrappingType.None,
         validator(value) {
             return [
-                'None',
-                'Normal',
+                WrappingType.None,
+                WrappingType.Normal,
             ].includes(value);
         },
     },

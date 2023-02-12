@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Madakto Alternative</title>
     <script data-id="sap-ui-config" type="application/json"> { "calendarType": "Persian" } </script>
-    @vite('resources/css/app.css')
+    @vite('resources/scss/app.scss')
 </head>
 
 <body>

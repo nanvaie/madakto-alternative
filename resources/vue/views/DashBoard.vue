@@ -431,9 +431,12 @@ import '@ui5/webcomponents-localization/dist/features/calendar/Persian';
 import { computed, onMounted, ref } from 'vue';
 import { setTheme, getTheme } from '@ui5/webcomponents-base/dist/config/Theme';
 import Pasoonate from 'pasoonate';
-import VSButton from '../components/SAP-UI5/VSButton.vue';
-import VSDialog from '../components/SAP-UI5/VSDialog.vue';
-import VSLabel from '../components/SAP-UI5/VSLabel.vue';
+import VSButton from '@nanvaie/vue-ui5-web-components/src/components/VSButton.vue';
+// import { VSButton } from '@nanvaie/vue-ui5-web-components';
+import VSDialog from '@nanvaie/vue-ui5-web-components/src/components/VSDialog.vue';
+import VSLabel from '@nanvaie/vue-ui5-web-components/src/components/VSLabel.vue';
+
+import VSBar from '../components/SAP-UI5/VSBar.vue';
 
 const selectedTheme = ref(getTheme());
 const themes = [

@@ -9,9 +9,7 @@ import '@ui5/webcomponents/dist/Assets';
 import '@ui5/webcomponents-fiori/dist/Assets';
 
 // Style
-import '../scss/app.scss';
-import 'fundamental-styles/dist/helpers.css';
-import 'fundamental-styles/dist/margins.css';
+import 'fundamental-styles/dist/fundamental-styles.css';
 
 // Icons
 import '@ui5/webcomponents-icons/dist/AllIcons';

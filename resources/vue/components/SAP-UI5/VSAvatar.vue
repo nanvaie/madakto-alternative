@@ -9,6 +9,7 @@
         :size="props.size"
     >
         <slot />
+
         <slot name="badge" />
     </ui5-avatar>
 </template>
@@ -17,9 +18,9 @@
 
 import '@ui5/webcomponents/dist/Avatar.js';
 import { defineProps } from 'vue';
-import AvatarColorScheme from '@ui5/webcomponents/src/types/AvatarColorScheme';
-import AvatarShape from "@ui5/webcomponents/src/types/AvatarShape";
-import AvatarSize from "@ui5/webcomponents/src/types/AvatarSize";
+import AvatarColorScheme from '@ui5/webcomponents/dist/types/AvatarColorScheme';
+import AvatarShape from "@ui5/webcomponents/dist/types/AvatarShape";
+import AvatarSize from "@ui5/webcomponents/dist/types/AvatarSize";
 
 const props = defineProps({
     accessibleName: String,

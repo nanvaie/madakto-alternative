@@ -1,0 +1,22 @@
+$sizes: (
+    '0': 0,
+    '1': 1rem,
+    '2': 2rem,
+    '3': 4rem,
+    '4': 8rem,
+    '5': 12rem,
+);
+
+@each $name, $size in $sizes {
+    .fd-margin-bottom--#{$name} {
+        margin-bottom: ($size * 0.25);
+    }
+}
+
+@media (min-width: 576px) {
+    @each $name, $size in $sizes {
+        .fd-margin-bottom--tiny-#{$name} {
+            margin-bottom: ($size * 0.25) !important;
+        }
+    }
+}
