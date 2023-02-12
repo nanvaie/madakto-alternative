@@ -58,3 +58,36 @@
         </div>
     </div>
 </template>
+<script>
+import axios from 'axios';
+
+export default {
+    data() {
+        return {
+            formData: {
+                email: '',
+                password: '',
+            },
+            errors: {},
+        };
+    },
+    methods: {
+        login_handler() {
+            axios.get('/sanctum/csrf-cookie').then((response) => {
+                axios
+                    .post('/api/login', this.formData)
+                    .then((response) => {
+                        localStorage.setItem("token", response.data.token);
+
+                        this.$router.push({name: 'dashboard'});
+                    })
+                    .catch((errors) => {
+                        this.errors = errors.response.data.errors;
+                        console.log(errors);
+                    });
+            });
+        },
+    },
+};
+</script>
+
