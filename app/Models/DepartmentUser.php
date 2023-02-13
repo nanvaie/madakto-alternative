@@ -5,24 +5,34 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Shift extends Model
+class DepartmentUser extends Model
 {
     use HasFactory;
+
     protected $fillable = [
 
-        'workSpace_id',
-        'title',
+        'user_id',
+        'shift_id',
+        'department_id',
         'enter_time',
         'max_enter_time',
         'exit_time',
+        'owner',
 
     ];
-    protected $table = 'shifts';
+    protected $table = 'department_users';
+
+    public function  users(){
+        return $this->hasMany(User::class);
+    }
+
+    public function Shift(){
+        return $this->hasOne(Shift::class);
+    }
 
     public function workspace(){
         return $this->belongsTo(Workspace::class);
     }
-    public function departmentUser(){
-        return $this->belongsTo(DepartmentUser::class);
-    }
+
+
 }

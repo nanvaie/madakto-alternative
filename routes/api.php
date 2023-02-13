@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\WorkspaceController;
 use App\Http\Controllers\ShiftController;
 use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\DepartmentUserController;
 
 
 
@@ -28,6 +29,14 @@ Route::post('/departments', [DepartmentController::class, "show"]);
 Route::post('/departments/create', [DepartmentController::class, "store"]);
 Route::put('/departments/edit/{id}', [DepartmentController::class, "edit"]);
 Route::put('/departments/update/{id}', [DepartmentController::class, "update"]);
+
+
+
+Route::post('/departmentUsers/create', [DepartmentUserController::class, "store"]);
+Route::post('/departmentUsers', [DepartmentUserController::class, "show"]);
+Route::post('/departmentUsers/create', [DepartmentUserController::class, "store"]);
+Route::put('/departmentUsers/edit/{id}', [DepartmentUserController::class, "edit"]);
+Route::put('/departmentUsers/update/{id}', [DepartmentUserController::class, "update"]);
 
 /*
 |--------------------------------------------------------------------------

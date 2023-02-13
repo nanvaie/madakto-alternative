@@ -21,6 +21,10 @@ class DepartmentController extends Controller
         return response()->json(["success"], 200);
     }
 
+    public function show(){
+
+    }
+
     public function edit($id)
     {
         $department = Department::find($id);
