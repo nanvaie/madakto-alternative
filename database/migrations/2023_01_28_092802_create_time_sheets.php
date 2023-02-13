@@ -20,7 +20,7 @@ return new class extends Migration
             $table->unsignedBigInteger('department_id');
             $table->date('date');
             $table->time('time');
-            $table->timestamp('deleted_at');
+            $table->timestamp('deleted_at')->nullable();
             $table->timestamps();
 
 

@@ -7,6 +7,7 @@ use App\Http\Controllers\WorkspaceController;
 use App\Http\Controllers\ShiftController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\DepartmentUserController;
+use App\Http\Controllers\TimeSheetController;
 
 
 
@@ -37,6 +38,13 @@ Route::post('/departmentUsers', [DepartmentUserController::class, "show"]);
 Route::post('/departmentUsers/create', [DepartmentUserController::class, "store"]);
 Route::put('/departmentUsers/edit/{id}', [DepartmentUserController::class, "edit"]);
 Route::put('/departmentUsers/update/{id}', [DepartmentUserController::class, "update"]);
+
+
+Route::post('/timeSheets/create', [TimeSheetController::class, "store"]);
+Route::post('/timeSheets', [TimeSheetController::class, "show"]);
+Route::post('/timeSheets/create', [TimeSheetController::class, "store"]);
+Route::put('/timeSheets/edit/{id}', [TimeSheetController::class, "edit"]);
+Route::put('/timeSheets/update/{id}', [TimeSheetController::class, "update"]);
 
 /*
 |--------------------------------------------------------------------------

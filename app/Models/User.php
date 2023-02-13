@@ -53,5 +53,9 @@ class User extends Authenticatable
         return $this->belongsTo(DepartmentUser::class);
     }
 
+    public function timeSheet(){
+        return $this->hasOne(TimeSheet::class);
+    }
+
 }
 

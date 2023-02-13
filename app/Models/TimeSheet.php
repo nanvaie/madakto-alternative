@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class DepartmentUser extends Model
+class TimeSheet extends Model
 {
     use HasFactory;
 
@@ -14,26 +14,20 @@ class DepartmentUser extends Model
         'user_id',
         'shift_id',
         'department_id',
-        'enter_time',
-        'max_enter_time',
-        'exit_time',
-        'owner',
-
+        'date',
+        'time',
     ];
-    protected $table = 'department_users';
+    protected $table = 'time_sheets';
 
-    public function  users(){
-        return $this->hasMany(User::class);
+    public function user(){
+        return $this->belongsTo(User::class);
     }
-
-    public function Shift(){
-        return $this->hasOne(Shift::class);
-    }
-
     public function department(){
         return $this->belongsTo(Department::class);
     }
-
+    public function shift(){
+        return $this->belongsTo(Shift::class);
+    }
 
 
 }

@@ -25,4 +25,7 @@ class Shift extends Model
     public function departmentUser(){
         return $this->belongsTo(DepartmentUser::class);
     }
+    public function  timeSheets(){
+        return $this->hasMany(TimeSheet::class);
+    }
 }

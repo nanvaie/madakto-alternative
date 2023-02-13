@@ -14,4 +14,11 @@ class Department extends Model
         'name',
     ];
     protected $table = 'departments';
+
+    public function  timeSheets(){
+        return $this->hasMany(TimeSheet::class);
+    }
+    public function departmentUser(){
+        return $this->hasOne(DepartmentUser::class);
+    }
 }

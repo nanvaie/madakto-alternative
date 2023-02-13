@@ -123,7 +123,10 @@
                         ---
                     </template>
                 </ui5-table-cell>
-                <ui5-table-cell>{{ record.checkOut !== undefined ? calculateTimeDifference(record.checkIn, record.checkOut) : '---' }}</ui5-table-cell>
+                <ui5-table-cell>{{
+                        record.checkOut !== undefined ? calculateTimeDifference(record.checkIn, record.checkOut) : '---'
+                    }}
+                </ui5-table-cell>
                 <ui5-table-cell class="fd-has-display-flex">
                     <VSButton
                         class="fd-margin-end--tiny"
@@ -428,9 +431,10 @@ import '@ui5/webcomponents/dist/TableCell';
 import '@ui5/webcomponents/dist/DateTimePicker';
 import '@ui5/webcomponents-fiori/dist/Page';
 import '@ui5/webcomponents-localization/dist/features/calendar/Persian';
-import { computed, onMounted, ref } from 'vue';
-import { setTheme, getTheme } from '@ui5/webcomponents-base/dist/config/Theme';
+import {computed, onMounted, ref} from 'vue';
+import {setTheme, getTheme} from '@ui5/webcomponents-base/dist/config/Theme';
 import Pasoonate from 'pasoonate';
+import axios from 'axios';
 import VSButton from '../components/SAP-UI5/VSButton.vue';
 import VSDialog from '../components/SAP-UI5/VSDialog.vue';
 import VSLabel from '../components/SAP-UI5/VSLabel.vue';
@@ -553,6 +557,9 @@ function enterNewCheckIn() {
     });
 
     localStorage.setItem('my_records', JSON.stringify(records.value));
+    // store in dataBase
+    storeInDataBase();
+
 }
 
 function enterNewCheckOut() {
@@ -561,10 +568,13 @@ function enterNewCheckOut() {
     records.value[records.value.length - 1].checkOut = Math.floor(Date.now() / 1000);
 
     localStorage.setItem('my_records', JSON.stringify(records.value));
+    //store in dataBase
+    storeInDataBase();
+
 }
 
 function getDayName(timestamp, locale) {
-    return (new Date(timestamp * 1000)).toLocaleDateString(locale, { weekday: 'long' });
+    return (new Date(timestamp * 1000)).toLocaleDateString(locale, {weekday: 'long'});
 }
 
 function sortRecords(unsortedRecords) {
@@ -686,6 +696,30 @@ function handleContentDensitySwitchChange(event) {
     } else if (event.detail.selectedOption.dataset.density === 'regular') {
         document.body.removeAttribute('data-ui5-compact-size');
     }
+}
+
+// record in dataBase
+function storeInDataBase() {
+    let today = new Date();
+    const formData = {
+        user_id: localStorage.getItem('user_id'),
+        shift_id: localStorage.getItem('shift_id'),
+        department_id: localStorage.getItem('department_id'),
+        time: today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds(),
+        date: today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate(),
+    };
+    axios.get('/sanctum/csrf-cookie').then((response) => {
+        axios
+            .post('/api/timeSheets/create', formData)
+            .then((response) => {
+                console.log('register user success');
+                console.log(formData);
+            })
+            .catch((errors) => {
+                console.log(errors);
+            });
+    });
+
 }
 
 onMounted(() => {

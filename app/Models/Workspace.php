@@ -21,7 +21,5 @@ class Workspace extends Model
     public function Shifts(){
         return $this->hasMany(Shift::class);
     }
-    public function departmentUser(){
-        return $this->hasOne(DepartmentUser::class);
-    }
+
 }

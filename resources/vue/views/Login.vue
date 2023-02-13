@@ -80,6 +80,8 @@ export default {
                         localStorage.setItem('token', response.data.token);
                         localStorage.setItem('user_id', response.data.user_id);
                         localStorage.setItem('name', response.data.user);
+                        localStorage.setItem('shift_id', 1);
+                        localStorage.setItem('department_id', 1);
 
                         console.log(response.data.token);
 
