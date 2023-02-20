@@ -12,7 +12,7 @@
                 <div style="margin-left:10px">
                     <VSLabel>{{ user_name }}</VSLabel>
                 </div>
-                <div>
+                <div style="margin-left:20px">
                     <VSLabel
                         class="fd-margin-end--tiny"
                         show-colon=""
@@ -21,6 +21,12 @@
                     </VSLabel>
                     <VSLabel>{{ myTotal }}</VSLabel>
                 </div>
+                <ui5-button icon="down" @click="menu_handler"   id="btnOpenBasic">{{$t('shift')}}</ui5-button> <br/>
+                <ui5-menu id="menuBasic">
+                      <ui5-menu-item text="لیست شیفت ها" icon="show"  @click="create_shift_handler"></ui5-menu-item>
+                    <ui5-menu-item text="تعریف شیفت" icon="add-document"  @click="create_shift_handler" ></ui5-menu-item>
+                </ui5-menu>
+
             </div>
 
             <div class="fd-has-display-flex">
@@ -34,24 +40,24 @@
                 >
                     ثبت ورود
                 </VSButton>
-<!--                <VSButton-->
-<!--                    class="fd-margin-end&#45;&#45;tiny"-->
-<!--                    design="Negative"-->
-<!--                    icon="media-pause"-->
-<!--                    tooltip="ثبت خروج"-->
-<!--                    @click="enterNewCheckOut"-->
-<!--                >-->
-<!--                    ثبت خروج-->
-<!--                </VSButton>-->
+                <!--                <VSButton-->
+                <!--                    class="fd-margin-end&#45;&#45;tiny"-->
+                <!--                    design="Negative"-->
+                <!--                    icon="media-pause"-->
+                <!--                    tooltip="ثبت خروج"-->
+                <!--                    @click="enterNewCheckOut"-->
+                <!--                >-->
+                <!--                    ثبت خروج-->
+                <!--                </VSButton>-->
 
-<!--                <VSButton-->
-<!--                    class="fd-margin-end&#45;&#45;tiny"-->
-<!--                    icon="add-document"-->
-<!--                    tooltip="ثبت تردد"-->
-<!--                    @click="showDialogById('add-new-record-dialog')"-->
-<!--                >-->
-<!--                    ثبت تردد...-->
-<!--                </VSButton>-->
+                <!--                <VSButton-->
+                <!--                    class="fd-margin-end&#45;&#45;tiny"-->
+                <!--                    icon="add-document"-->
+                <!--                    tooltip="ثبت تردد"-->
+                <!--                    @click="showDialogById('add-new-record-dialog')"-->
+                <!--                >-->
+                <!--                    ثبت تردد...-->
+                <!--                </VSButton>-->
 
                 <VSButton
                     class="fd-margin-end--tiny"
@@ -78,7 +84,7 @@
             sticky-column-header
         >
             <ui5-table-column slot="columns">
-                ردیف
+                تاریخ
             </ui5-table-column>
             <ui5-table-column
                 slot="columns"
@@ -95,6 +101,14 @@
                 popin-text="شیفت"
             >
                 شیفت
+            </ui5-table-column>
+            <ui5-table-column
+                slot="columns"
+                demand-popin
+                min-width="768"
+                popin-text="تردد"
+            >
+                تاریخ تردد
             </ui5-table-column>
             <ui5-table-column
                 slot="columns"
@@ -120,48 +134,88 @@
 
 
             <ui5-table-row
-                v-for="(list,index) in lists"
+                v-for="(list,index) in result"
                 :key="list.id"
             >
                 <ui5-table-cell>
-                    {{ index + 1 }}
+                    {{ dateSet(index)  }}
                 </ui5-table-cell>
+
+                <ui5-table-row v-for="item in list" :key="item.id">
                 <ui5-table-cell>
-                    {{ list.department.name }}
+                    {{ item.department?.name }}
 
                 </ui5-table-cell>
                 <ui5-table-cell>
-                    {{ list.shift.title }}
+                    {{ item.shift?.title }}
 
                 </ui5-table-cell>
-                <ui5-table-cell>
+                <ui5-table-cell >
 
                     {{
-                     timeSet(list.date)
+                        timeSet(item.date)
                     }}
 
                 </ui5-table-cell>
 
-
-                <ui5-table-cell class="fd-has-display-flex">
-                    <VSButton
-                        class="fd-margin-end--tiny"
-                        :data-record-id="list.id"
-                        icon="request"
-                        @click="handleEditRecord(list.id)"
-                    >
-                        ویرایش...
-                    </VSButton>
-                    <VSButton
-                        :data-record-id="list.id"
-                        design="Negative"
-                        icon="delete"
-                        @click="handleRemoveRecord(list.id)"
-                    >
-                        حذف...
-                    </VSButton>
-                </ui5-table-cell>
+                </ui5-table-row>
             </ui5-table-row>
+<!--                <ui5-table-cell>-->
+<!--                    <ui5-table-row>-->
+<!--                        <ui5-table-cell>-->
+<!--                        {{-->
+<!--                            timeSet(list.date)-->
+<!--                        }}-->
+<!--                            </ui5-table-cell>-->
+<!--                        <ui5-table-cell class="fd-has-display-flex">-->
+<!--                            <VSButton-->
+<!--                                class="fd-margin-end&#45;&#45;tiny"-->
+<!--                                :data-record-id="list.id"-->
+<!--                                icon="request"-->
+<!--                                @click="handleEditRecord(list.id)"-->
+<!--                            >-->
+<!--                                ویرایش...-->
+<!--                            </VSButton>-->
+<!--                            <VSButton-->
+<!--                                :data-record-id="list.id"-->
+<!--                                design="Negative"-->
+<!--                                icon="delete"-->
+<!--                                @click="handleRemoveRecord(list.id)"-->
+<!--                            >-->
+<!--                                حذف...-->
+<!--                            </VSButton>-->
+<!--                        </ui5-table-cell>-->
+
+<!--                    </ui5-table-row>-->
+<!--                    <ui5-table-row>-->
+<!--                        <ui5-table-cell>-->
+<!--                        {{-->
+<!--                            timeSet(list.date)-->
+<!--                        }}-->
+<!--                            </ui5-table-cell>-->
+<!--                        <ui5-table-cell class="fd-has-display-flex">-->
+<!--                            <VSButton-->
+<!--                                class="fd-margin-end&#45;&#45;tiny"-->
+<!--                                :data-record-id="list.id"-->
+<!--                                icon="request"-->
+<!--                                @click="handleEditRecord(list.id)"-->
+<!--                            >-->
+<!--                                ویرایش...-->
+<!--                            </VSButton>-->
+<!--                            <VSButton-->
+<!--                                :data-record-id="list.id"-->
+<!--                                design="Negative"-->
+<!--                                icon="delete"-->
+<!--                                @click="handleRemoveRecord(list.id)"-->
+<!--                            >-->
+<!--                                حذف...-->
+<!--                            </VSButton>-->
+<!--                        </ui5-table-cell>-->
+<!--                    </ui5-table-row>-->
+<!--                </ui5-table-cell>-->
+
+
+<!--            </ui5-table-row>-->
         </ui5-table>
     </ui5-page>
 
@@ -437,6 +491,7 @@ import Pasoonate from 'pasoonate';
 import axios from 'axios';
 import VSButton from '../components/SAP-UI5/VSButton.vue';
 import VSLabel from '../components/SAP-UI5/VSLabel.vue';
+import data from "bootstrap/js/src/dom/data";
 import {useRouter} from "vue-router";
 
 const selectedTheme = ref(getTheme());
@@ -695,12 +750,13 @@ onMounted(() => {
 
 const user_name = ref();
 user_name.value = localStorage.getItem('name');
+
 const  router=useRouter();
 function logout_handler() {
     localStorage.setItem('token', null);
     localStorage.setItem('name', null);
     localStorage.setItem('user_id', null);
-router.push({name: 'login'});
+    router.push({name: 'login'});
 }
 
 function storeInDataBase() {
@@ -725,10 +781,13 @@ function storeInDataBase() {
     });
     readFromDatabase()
 
+
+
 }
 
 const lists = ref([{}]);
-
+let dates = reactive([]);
+const result=ref([]);
 async function readFromDatabase() {
     let formData = {
         user_id: localStorage.getItem('user_id'),
@@ -742,22 +801,51 @@ async function readFromDatabase() {
             .then((response) => {
 
                 lists.value = response.data;
-                console.log(lists.value[0]);
+
+                 result.value = lists.value.reduce((acc, curr) => {
+                    const dateString = new Date(curr.date).toISOString().substring(0, 10);
+                    if (!acc[dateString]) {
+                        acc[dateString] = [];
+                    }
+                    acc[dateString].push(curr);
+                    return acc;
+                }, {});
+
+                // for (const date in result) {
+                //     console.log(`${date}:`);
+                //     result[date].forEach((obj) => {
+                //         console.log(`  id: ${obj.id}, name: ${obj.date}, age: ${obj.shift.title}`);
+                //     });
+                // }
+
+
+
+                lists.value.forEach(item => {
+                    // let dateString = new Date(item.date).toISOString().substring(0, 10);
+                    let dateString =  Pasoonate.make(
+                        Date.parse(item.date) / 1000
+                    )
+                        .jalali()
+                        .format('yyyy-MM-dd ')
+                    dates.push(dateString);
+                })
+                console.log(result.value)
             })
             .catch((error) => {
                 console.log(error);
             });
     });
-}
 
-readFromDatabase()
+}
+ readFromDatabase()
+
 
 
 async function editRecordInDatabase() {
     const editedCheckInTimestamp = Pasoonate.make()
         .jalali(document.getElementById('edit-check-in-datetime').value)
         .getTimestamp();
-    console.log(editedCheckInTimestamp)
+    console.log(editedCheckInTimestamp);
     let formData = {
         id: localStorage.getItem('record_id'),
         token: localStorage.getItem('token'),
@@ -804,12 +892,36 @@ async function destroyFromDatabase() {
     closeDialogById('ask-to-remove-record-dialog');
     readFromDatabase();
 }
-function timeSet(timestamp){
- return    Pasoonate.make(
+
+function timeSet(timestamp) {
+    return Pasoonate.make(
         Date.parse(timestamp) / 1000
     )
         .jalali()
-        // .format('HH:mm:ss')
-     .format('yyyy-MM-dd HH:mm:ss')
+        .format('HH:mm:ss')
+    // .format('yyyy-MM-dd HH:mm:ss')
 }
+
+function dateSet(timestamp) {
+    return Pasoonate.make(
+        Date.parse(timestamp) / 1000
+    )
+        .jalali()
+        .format('yyyy-MM-dd ')
+}
+
+// Menu
+ function menu_handler(event) {
+    menuBasic.showAt(btnOpenBasic);
+};
+
+function create_shift_handler(event){
+    console.log("hrhe");
+    // router.push({name:'createShift'});
+}
+
 </script>
+
+
+
+

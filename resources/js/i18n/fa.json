@@ -30,6 +30,16 @@
     "select user": "انتخاب کارمند",
     "select": "لطفا انتخاب کنید",
     "owner": "مالک",
-    "well come": "خوش آمدید "
-
+    "well come": "خوش آمدید ",
+    "date": "تاریخ",
+    "time": "زمان",
+    "delete": "حذف",
+    "department": "دپارتمان",
+    "private": "خصوصی",
+    "title": "عنوان",
+    "create shift": "تعریف شیفت کاری",
+    "enter time": "زمان شروع",
+    "select workspace": "Select Workspace",
+    "max enter time": "حداکثر زمان ورود",
+    "exit time": "زمان پایان"
 }

@@ -12,14 +12,14 @@ use App\Http\Controllers\TimeSheetController;
 
 
 
-Route::post('/workspaces', [WorkspaceController::class, "show"])->middleware('role');
-Route::post('/workspaces/create', [WorkspaceController::class, "store"])->middleware('role');
-Route::put('/workspaces/edit/{id}', [WorkspaceController::class, "edit"])->middleware('role');
-Route::put('/workspaces/update/{id}', [WorkspaceController::class, "update"])->middleware('role');
-Route::post('/users', [WorkspaceController::class, "user_list"])->middleware('role');
-Route::post('/workspaces/assignmentUserToWorkspace', [WorkspaceController::class, "assignmentUserToWorkspace"])->middleware('role');
+Route::post('/workspaces', [WorkspaceController::class, "show"]);
+Route::post('/workspaces/create', [WorkspaceController::class, "store"]);
+Route::put('/workspaces/edit/{id}', [WorkspaceController::class, "edit"]);
+Route::put('/workspaces/update/{id}', [WorkspaceController::class, "update"]);
+Route::post('/users', [WorkspaceController::class, "user_list"]);
+Route::post('/workspaces/assignmentUserToWorkspace', [WorkspaceController::class, "assignmentUserToWorkspace"]);
 
-Route::post('/shifts/create', [ShiftController::class, "store"])->middleware('role');
+Route::post('/shifts/create', [ShiftController::class, "store"]);
 Route::post('/shifts', [ShiftController::class, "show"]);
 Route::post('/Shifts/create', [ShiftController::class, "store"]);
 Route::put('/Shifts/edit/{id}', [ShiftController::class, "edit"]);
@@ -45,6 +45,7 @@ Route::post('/timeSheets', [TimeSheetController::class, "show"]);
 Route::post('/timeSheets/create', [TimeSheetController::class, "store"]);
 Route::put('/timeSheets/edit/{id}', [TimeSheetController::class, "edit"]);
 Route::put('/timeSheets/update/{id}', [TimeSheetController::class, "update"]);
+Route::delete('/timeSheets/delete/{id}', [TimeSheetController::class, "destroy"]);
 
 /*
 |--------------------------------------------------------------------------

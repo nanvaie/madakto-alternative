@@ -30,10 +30,23 @@
     "create": "Create",
     "edit workspace": "Edit workspace Form",
     "select user": "Select User",
-    "select": "Full Name",
-    "full name": "Please Select",
+    "select": "Please Select",
+
+    "owner": "Owner",
+    "date": "Date",
+    "time": "Time",
+    "delete": "Delete",
+    "department": "Department",
+    "private": "Private",
+    "create shift": "Create Shift",
     "select workspace": "Select Workspace",
-    "owner": "Owner"
+    "title": "Title",
+    "enter time": "Start Time",
+    "max enter time": "Max Enter Time",
+    "exit time": "Exit Time",
+    "title": "Title",
+    "title": "Title",
+    "full name": "Please Select"
 
 
 

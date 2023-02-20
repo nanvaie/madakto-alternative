@@ -15,7 +15,7 @@ class TimeSheet extends Model
         'shift_id',
         'department_id',
         'date',
-        'time',
+
     ];
     protected $table = 'time_sheets';
 

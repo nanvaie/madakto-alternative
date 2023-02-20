@@ -18,8 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('shift_id');
             $table->unsignedBigInteger('department_id');
-            $table->date('date');
-            $table->time('time');
+            $table->timestamp('date');
             $table->timestamp('deleted_at')->nullable();
             $table->timestamps();
 

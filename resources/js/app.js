@@ -10,6 +10,9 @@ import i18n from './plugins/vue-i18n'
 // Assets
 import "@ui5/webcomponents/dist/Assets";
 import "@ui5/webcomponents-fiori/dist/Assets";
+import "@ui5/webcomponents/dist/MenuItem.js";
+import "@ui5/webcomponents/dist/Menu.js";
+
 
 // Style
 import "../scss/app.scss";
