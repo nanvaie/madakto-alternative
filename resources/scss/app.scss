@@ -1,5 +1,10 @@
 @import "typo";
 @import "variables";
+@import 'fundamental-styles/dist/fundamental-styles.css';
+@import 'fundamental-styles/dist/theming/sap_horizon.css';
+@import '@sap-theming/theming-base-content/content/base/baseLib/sap_horizon/css_variables-RTL.css';
+
+
 
 body {
     margin: 0 !important;

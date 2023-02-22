@@ -40,7 +40,7 @@ const routes = [
     },
     {
         path: '/test',
-        name: 'dashbordTest',
+        name: 'test',
         component: Test,
         beforeEnter:[is_login],
 

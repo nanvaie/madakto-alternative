@@ -779,7 +779,7 @@ function storeInDataBase() {
                 console.log(errors);
             });
     });
-    readFromDatabase()
+    readFromDatabase();
 
 
 

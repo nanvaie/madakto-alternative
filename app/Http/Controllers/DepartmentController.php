@@ -2,17 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\DepartmentRequest;
 use Illuminate\Http\Request;
 use App\Models\Department;
 class DepartmentController extends Controller
 {
-    public function store(Request $request)
+    public function store(DepartmentRequest $request)
     {
-        $request->validate([
-            "name" => ["required", 'min:2', 'max:63'],
-            "user_id" => ["required"],
-
-        ]);
         $department = new Department();
         $department->name = $request->name;
         $department->user_id  = $request->user_id;
@@ -31,14 +27,8 @@ class DepartmentController extends Controller
         return response()->json([$department], 200);
     }
 
-    public function update(Request $request)
+    public function update(DepartmentRequest $request)
     {
-        $request->validate([
-            "name" => ["required", 'min:2', 'max:63'],
-            "user_id" => ["required"],
-
-        ]);
-
         Department::where('id', $request->id)->first()
             ->update([
                 'name' => $request->name,

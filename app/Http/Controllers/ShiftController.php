@@ -2,19 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ShiftRequest;
 use Illuminate\Http\Request;
 use App\Models\Shift;
 
 class ShiftController extends Controller
 {
-    public function store(Request $request)
+    public function store(ShiftRequest $request)
     {
-        $request->validate([
-            "title" => ["required", 'min:2', 'max:63'],
-            "enter_time" => ["required"],
-            "max_enter_time" => ["required"],
-            "exit_time" => ["required"],
-        ]);
         $shift = new Shift();
         $shift->title = $request->title;
         $shift->workspace_id = $request->workspace_id_selected;
@@ -38,15 +33,8 @@ class ShiftController extends Controller
         return response()->json([$shift], 200);
     }
 
-    public function update(Request $request)
+    public function update(ShiftRequest $request)
     {
-        $request->validate([
-            "title" => ["required", 'min:2', 'max:63'],
-            "enter_time" => ["required"],
-            "max_enter_time" => ["required"],
-            "exit_time" => ["required"],
-        ]);
-
         Shift::where('id', $request->id)->first()
             ->update([
                 'title' => $request->title,

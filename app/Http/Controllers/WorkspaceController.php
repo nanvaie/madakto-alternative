@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\WorkspaceRequest;
 use App\Models\User;
 use App\Models\Workspace_user;
 use Illuminate\Http\Request;
@@ -12,15 +13,10 @@ use Illuminate\Support\Facades\Hash;
 
 class WorkspaceController extends Controller
 {
-    public function store(Request $request)
+    public function store(WorkspaceRequest $request)
     {
 
         $key = 'token_key';
-        $request->validate([
-            "name" => ["required", 'min:2', 'max:63'],
-
-
-        ]);
         $workspace = new Workspace();
         $workspace->name = $request->name;
 
@@ -46,11 +42,8 @@ class WorkspaceController extends Controller
 
     }
 
-    public function update(Request $request)
+    public function update(WorkspaceRequest $request)
     {
-        $request->validate([
-            "name" => ["required", 'min:2', 'max:63']
-        ]);
         Workspace::where('id', $request->id)->first()->update(['name' => $request->name]);
         return response()->json(["success"], 200);
     }

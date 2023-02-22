@@ -1,63 +1,46 @@
 <template>
-    <table>
-        <thead>
-            <tr>
-                <th>Date</th>
+    <div class="fd-container sap-flex sap-flex--center fd-margin-top--lg fd-margin-begin--lg" >
+        <div class="fd-col fd-col-lg--5 ">
+            <div class="fd-card sap-overflow-hidden sap-padding">
+                <form class="fd-margin--lg">
+                    <div class="fd-form-item">
+                        <label class="fd-form-label">پست الکترونیک</label>
+                        <input class="fd-input"  />
+                    </div>
 
-            </tr>
-        </thead>
-        <tbody>
-            <table>
-                <tr
-                    v-for="(item,index) in result"
-                    key="index"
-                >
-                    <td>{{ index }}</td>
-                <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Age</th>
-            </tr>
-                    <tr v-for="i in item" :key="i.id">
-                        <td>{{ i.id }}</td>
-                        <td>{{ i.name }}</td>
-                        <td>{{ i.age }}</td>
-                    </tr>
-                </tr>
-            </table>
-        </tbody>
-    </table>
+                    <div class="fd-form-item fd-margin-top--sm">
+                        <label class="fd-form-label">رمز عبور</label>
+                        <div class="fd-input-group">
+                            <input
+                                class="fd-input fd-input-group__input"
+
+                            />
+                            <span
+                                class="fd-input-group__addon cursor-pointer"
+
+                            >
+                                <span
+
+                                ></span>
+                            </span>
+                        </div>
+                    </div>
+                    <button
+                        type="submit"
+                        class="fd-col--12 fd-button fd-button--emphasized fd-margin-top--sm"
+                    >
+                        ورود
+                    </button>
+
+                    <a href="#" class="fd-link fd-margin-top--sm"
+                    ><span class="fd-link__content">هنوز ثبت نام نکرده ام</span></a
+                    >
+                </form>
+            </div>
+        </div>
+    </div>
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue';
 
-const array = ref([
-    {
-        id: 1, date: 1590998400000, name: 'John', age: 20,
-    },
-    {
-        id: 2, date: 1550998600000, name: 'Jane', age: 22,
-    },
-    {
-        id: 3, date: 1550998800000, name: 'Jack', age: 24,
-    },
-    // ... more than 1000 entries
-]);
-
-const result = array.value.reduce((acc, curr) => {
-    const dateString = new Date(curr.date).toISOString().substring(0, 10);
-    if (!acc[dateString]) {
-        acc[dateString] = [];
-    }
-    acc[dateString].push(curr);
-    return acc;
-}, {});
-
-for (const date in result) {
-    console.log(`${date}:`);
-    result[date].forEach((obj) => {
-        console.log(`  id: ${obj.id}, name: ${obj.name}, age: ${obj.age}`);
-    });
-}
 </script>

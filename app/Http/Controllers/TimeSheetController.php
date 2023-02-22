@@ -2,19 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\TimeSheetRequest;
 use Illuminate\Http\Request;
 use App\Models\TimeSheet;
 
 class TimeSheetController extends Controller
 {
-    public function store(Request $request)
+    public function store(TimeSheetRequest $request)
     {
-        $request->validate([
-            "user_id" => ["required"],
-            "shift_id" => ["required"],
-            "department_id" => ["required"],
-            "date" => ["required"],
-        ]);
         date_default_timezone_set('Asia/Tehran');
        $timeSheet = new TimeSheet();
         $timeSheet->user_id = $request->user_id;
@@ -39,14 +34,8 @@ class TimeSheetController extends Controller
         return response()->json([$timeSheet], 200);
     }
 
-    public function update(Request $request)
+    public function update(TimeSheetRequest $request)
     {
-        $request->validate([
-            "user_id" => ["required"],
-            "shift_id" => ["required"],
-            "department_id" => ["required"],
-            "date" => ["required"],
-        ]);
         date_default_timezone_set('Asia/Tehran');
         TimeSheet::where('id', $request->id)->first()
             ->update([
@@ -59,8 +48,8 @@ class TimeSheetController extends Controller
         return response()->json(["success"], 200);
     }
     public function destroy($id){
-        $timeSheet = TimeSheet::find($id);
-        $timeSheet->delete();
+     TimeSheet::destroy($id);
+
         return response()->json("success", 200);
 
 
