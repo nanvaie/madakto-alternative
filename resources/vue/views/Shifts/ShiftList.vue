@@ -1,90 +1,80 @@
 <template>
 
 
-
-    <div class="container mt-5">
-
-        <table class="table table-striped table-bordered">
-            <thead>
-            <tr>
-                <th>id</th>
-                <th>Title</th>
-                <th>workspace</th>
-                <th>Entery Time</th>
-                <th>MAX Entery Time</th>
-                <th>Exit Time</th>
-                <th>action</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr v-for="list in lists" :key="list.id">
-                <td>{{ list.id }}</td>
-                <td>{{ list.title }}</td>
-                <td>{{ list.workspace.name}}</td>
-                <td>{{ list.enter_time }}</td>
-                <td>{{ list.max_enter_time }}</td>
-                <td>{{ list.exit_time }}</td>
-                <td class="form-group text-center">
-                    <button
-                        class="btn btn-danger text-center"
-                        @click.prevent="edit_handler(list.id)"
-                    >
-                        edit
-                    </button>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+    <div class="fd-toolbar fd-toolbar--solid fd-toolbar--title fd-toolbar-active">
+        <h4 style="margin: 0;">{{ $t('shift list') }}</h4>
+        <span class="fd-toolbar__spacer fd-toolbar__spacer--auto"></span>
     </div>
+    <table class="fd-table fd-table--no-horizontal-borders fd-table--no-vertical-borders">
+        <thead class="fd-table__header">
+        <tr class="fd-table__row">
+            <th class="fd-table__cell" scope="col">{{ $t('id') }}</th>
+            <th class="fd-table__cell" scope="col">{{ $t('shift title') }}</th>
+            <th class="fd-table__cell" scope="col">{{ $t('workspace name') }}</th>
+            <th class="fd-table__cell" scope="col">{{ $t('enter time') }}</th>
+            <th class="fd-table__cell" scope="col">{{ $t('max enter time') }}</th>
+            <th class="fd-table__cell" scope="col">{{ $t('exit time') }}</th>
+            <th class="fd-table__cell" scope="col">{{ $t('action') }}</th>
+        </tr>
+        </thead>
+        <tbody class="fd-table__body">
+        <tr class="fd-table__row" v-for="list in lists" :key="list.id">
+            <td class="fd-table__cell">{{ list.id }}</td>
+            <td class="fd-table__cell">{{ list.title }}</td>
+            <td class="fd-table__cell">{{ list.workspace.name }}</td>
+            <td class="fd-table__cell">{{ list.enter_time }}</td>
+            <td class="fd-table__cell">{{ list.max_enter_time }}</td>
+            <td class="fd-table__cell">{{ list.exit_time }}</td>
+            <td class="fd-table__cell">
+                <button class="fd-button fd-button--negative" @click="edit_handler(list.id)">{{ $t('edit') }}</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
 </template>
 
-<script>
+<script setup>
+
 import axios from "axios";
+import {reactive, ref} from 'vue';
+import {useRouter} from "vue-router";
+
+const router = useRouter();
 
 
-export default {
+const lists = ref([]);
+const formData = ref({
+
+    token: '',
+
+})
 
 
-    data() {
-        return {
-
-            lists: [],
-            formData: {
-
-                token: '',
-
-            },
-        };
-    },
-    created() {
-        this.show_list();
-    },
-    methods: {
-        show_list() {
-            this.formData.token = localStorage.getItem("token");
-            axios.get('/sanctum/csrf-cookie').then((response) => {
-                axios
-                    .post('/api/shifts', this.formData)
-                    .then((response) => {
+show_list();
 
 
-                        this.lists = response.data;
+function show_list() {
+    formData.value.token = localStorage.getItem("token");
+    axios.get('/sanctum/csrf-cookie').then((response) => {
+        axios
+            .post('/api/shifts', formData.value)
+            .then((response) => {
 
-                    })
-                    .catch((error) => {
-                        console.log(error);
-                    });
+
+                lists.value = response.data;
+
+            })
+            .catch((error) => {
+                console.log(error);
             });
-        },
-        edit_handler($id) {
-            this.$router.push({ name: 'editShift' , params: { id: $id } });
-        }
-    },
+    });
+};
 
+function edit_handler($id) {
+    router.push({name: 'editShift', params: {id: $id}});
 }
+
 
 </script>
 
-<style scoped>
-
-</style>

@@ -1,158 +1,177 @@
 <template>
-    <div>
-        <div class="row justify-content-center w-50 m-auto mt-5">
-            <div class="col-ml-4">
-                <div class="card">
-                    <div class="card-header text-center">
-                        Create Shift
-                    </div>
-                    <div class="card-body">
-                        <div class="form-group">
-                            <label for="title"> TITLE</label>
-                            <input
-                                v-model="formData.title"
-                                type="text"
-                                class="form-control"
-                                name="title"
-                            >
-
-                        </div>
-                        <div class="form-group">
-                            <label for="">Select Workspace</label>
-                            <select v-model="formData.workspace_id_selected" class="form-select">
-                                <option disabled value="">Please Select</option>
-                                <option v-for="workspace in workspaces" :value="workspace.id">{{ workspace.name }}
-                                </option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="enter_time"> Enter Time</label>
-                            <input
-                                v-model="formData.enter_time"
-                                type="time"
-                                class="form-control"
-                                name="enter_time"
-                            >
-
-                        </div>
-                        <div class="form-group">
-                            <label for="max_enter_time">Max Enter Time</label>
-                            <input
-                                v-model="formData.max_enter_time"
-                                type="time"
-                                class="form-control"
-                                name="max_enter_time"
-                            >
-
-                        </div>
-                        <div class="form-group">
-                            <label for="exit_time"> Exit Time</label>
-                            <input
-                                v-model="formData.exit_time"
-                                type="time"
-                                class="form-control"
-                                name="exit_time"
-                            >
-
-                        </div>
-
-
-                        <div class="form-group ">
-                            <router-link
-                                class="float-right"
-                                to="/workspaces"
-                            >
-                                Workspaces list
-                            </router-link>
-                        </div>
-
-                        <div class="form-group text-center">
-                            <button
-                                class="btn btn-primary text-center"
-                                @click.prevent="edit_handler"
-                            >
-                                Edit
-                            </button>
-                        </div>
-                    </div>
-                </div>
+    <div style="margin-right: 25%;margin-left:25%;margin-top: 5%">
+        <form
+            class="fd-card sap-overflow-hidden sap-padding"
+            @submit.prevent="submit"
+        >
+            <div class="fd-form-header">
+                <span class="fd-form-header__text">{{ $t('create shift') }}</span>
             </div>
-        </div>
+
+            <div class="fd-margin--lg">
+                <div class="fd-form-item">
+                    <label class="fd-form-label">{{ $t('title') }}</label>
+                    <input
+                        v-model="formData.title"
+                        class="fd-input"
+                        required
+                    >
+                    <p style="color: red">
+                        {{ editShiftErrors?.title }}
+                    </p>
+                </div>
+                <div class="fd-form-item fd-margin-top--sm">
+                    <label class="fd-form-label"> {{ $t('select workspace') }}</label>
+                    <select
+                        v-model="formData.workspace_id_selected"
+                        class="fd-input fn-input--select"
+                    >
+                        <option
+                            disabled
+                            value=""
+                        >
+                            {{ $t('select') }}
+                        </option>
+                        <option
+                            v-for="workspace in workspaces"
+                            :value="workspace.id"
+                        >
+                            {{ workspace?.name }}
+                        </option>
+                    </select>
+                </div>
+
+                <div class="fd-form-item fd-margin-top--sm">
+                    <label class="fd-form-label">{{ $t('enter time') }}</label>
+                    <div class="fd-input-group">
+                        <input
+                            v-model="formData.enter_time"
+                            type="time"
+                            class="fd-input fd-input-group__input"
+                            required
+                        >
+                    </div>
+                    <p style="color: red">
+                        {{ editShiftErrors?.enter_time }}
+                    </p>
+                </div>
+                <div class="fd-form-item fd-margin-top--sm">
+                    <label class="fd-form-label">{{ $t('max enter time') }}</label>
+                    <div class="fd-input-group">
+                        <input
+                            v-model="formData.max_enter_time"
+                            type="time"
+                            class="fd-input fd-input-group__input"
+                            required
+                        >
+                    </div>
+                    <p style="color: red">
+                        {{ editShiftErrors?.max_enter_time }}
+                    </p>
+                </div>
+                <div class="fd-form-item fd-margin-top--sm">
+                    <label class="fd-form-label">{{ $t('exit time') }}</label>
+                    <div class="fd-input-group">
+                        <input
+                            v-model="formData.exit_time"
+                            type="time"
+                            class="fd-input fd-input-group__input"
+                            required
+                        >
+                    </div>
+                    <p style="color: red">
+                        {{ editShiftErrors?.exit_time }}
+                    </p>
+                </div>
+                <button
+                    type="submit"
+                    class="fd-col--12 fd-button fd-button--emphasized fd-margin-top--sm"
+                    @click="edit_handler"
+                >
+                    {{ $t('edit') }}
+                </button>
+            </div>
+        </form>
     </div>
+
 </template>
 
-<script>
+<script setup>
 import axios from 'axios';
+import {ref} from 'vue';
+import {useRoute, useRouter} from 'vue-router';
 
 
-export default {
-    data() {
-        return {
-            formData: {
-
-                title: '',
-                enter_time: '',
-                max_enter_time: '',
-                exit_time: '',
-                token: '',
-                workspace_id_selected: '',
-                id: '',
-            },
 
 
-            workspaces: [],
-        };
-    },
-    methods: {
-        edit_handler() {
-            this.formData.token = localStorage.getItem("token");
-            axios.get('/sanctum/csrf-cookie').then((response) => {
-                axios
-                    .put(`/api/Shifts/update/${this.formData.id}`, this.formData)
-                    .then((response) => {
+const router = useRouter();
+const route=useRoute();
 
 
-                        console.log(this.formData);
-                        this.$router.push({name: 'shiftList'});
-                    })
-                    .catch((errors) => {
-                        this.errors = errors.response.data.errors;
-                        console.log(errors);
-                    });
+const formData = ref({
+
+    title: '',
+    enter_time: '',
+    max_enter_time: '',
+    exit_time: '',
+    token: '',
+    workspace_id_selected: '',
+    id: '',
+});
+
+
+const workspaces = ref([]);
+const editShiftErrors = ref();
+
+
+function edit_handler() {
+    formData.value.token = localStorage.getItem("token");
+    axios.get('/sanctum/csrf-cookie').then((response) => {
+        axios
+            .put(`/api/Shifts/update/${route.params.id}`, formData.value)
+            .then((response) => {
+                router.push({name: 'shiftList'});
+            })
+            .catch((errors) => {
+                editShiftErrors.value = errors.response.data.errors;
+
             });
-        },
-    },
-    mounted() {
-        this.formData.token = localStorage.getItem("token");
-        axios.get('/sanctum/csrf-cookie').then((response) => {
-            axios
-
-                .put(`/api/Shifts/edit/${this.$route.params.id}`, this.formData)
-                .then((response) => {
-
-                    // this.shift = response.data[0];
-                    this.formData.title=response.data[0].title;
-                    this.formData.enter_time=response.data[0].enter_time;
-                    this.formData.max_enter_time=response.data[0].max_enter_time;
-                    this.formData.exit_time=response.data[0].exit_time;
-                    this.formData.id=response.data[0].id;
-                    console.log(this.formData);
-                })
-                .catch((errors) => {
-
-
-                    console.log(errors);
-                });
-            axios
-                .post('/api/workspaces', this.formData)
-                .then((response) => {
-                    this.workspaces = response.data;
-                })
-                .catch((errors) => {
-
-                    console.log(errors);
-                });
-        });
-    },
+    });
 };
+readFromDatabase();
+
+function readFromDatabase() {
+    console.log("first")
+    formData.value.token = localStorage.getItem("token");
+    axios.get('/sanctum/csrf-cookie').then((response) => {
+        axios
+
+            .put(`/api/Shifts/edit/${route.params.id}`,formData.value)
+            .then((response) => {
+
+
+                formData.value.title = response.data[0].title;
+                formData.value.enter_time = response.data[0].enter_time;
+                formData.value.max_enter_time = response.data[0].max_enter_time;
+                formData.value.exit_time = response.data[0].exit_time;
+                formData.value.id = response.data[0].id;
+
+            })
+            .catch((errors) => {
+
+
+                console.log(errors);
+            });
+        axios
+            .post('/api/workspaces', formData.value)
+            .then((response) => {
+                workspaces.value = response.data;
+            })
+            .catch((errors) => {
+
+                console.log(errors);
+            });
+    });
+};
+
 </script>

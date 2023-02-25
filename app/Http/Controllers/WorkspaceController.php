@@ -51,18 +51,9 @@ class WorkspaceController extends Controller
     public function show(Request $request)
     {
 
-//        $key = 'token_key';
-//        $jwt = $request->token;
-//
-//        $decoded = JWT::decode($jwt, new Key($key, 'HS256'));
-//
-//        $is_admin = $decoded->is_admin;
-//        if (!$is_admin) {
-//            return response()->json(["you are not admin"], 400);
-//        } else {
         $workspace = Workspace::with('user')->get();
         return response()->json($workspace, 200);
-//        }
+
 
     }
 
@@ -77,13 +68,13 @@ class WorkspaceController extends Controller
     public function assignmentUserToWorkspace(Request $request)
     {
         $key = 'token_key';
+        $jwt = $request->token;
+        $decoded = JWT::decode($jwt, new Key($key, 'HS256'));
         $workspace_user = new Workspace_user();
         $workspace_user->user_id = $request->user_id_selected;
         $workspace_user->workspace_id = $request->workspace_id_selected;
         $workspace_user->owner = $request->owner;
 
-        $jwt = $request->token;
-        $decoded = JWT::decode($jwt, new Key($key, 'HS256'));
 
         $is_admin = $decoded->is_admin;
         if (!$is_admin) {

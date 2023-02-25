@@ -24,7 +24,6 @@ class TimeSheetRequest extends FormRequest
     public function rules()
     {
         return [
-            "user_id" => ["required"],
             "shift_id" => ["required"],
             "department_id" => ["required"],
             "date" => ["required"],

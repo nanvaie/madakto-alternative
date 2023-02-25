@@ -171,6 +171,10 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        "enter_time" => "Start Time",
+        "max_enter_time" => "Maximum Entry Time",
+        "exit_time" => "End Time"
+    ],
 
 ];

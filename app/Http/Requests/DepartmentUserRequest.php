@@ -25,7 +25,6 @@ class DepartmentUserRequest extends FormRequest
     {
         return [
             "shift_id" => ["required"],
-            "user_id" => ["required"],
             "department_id" => ["required"],
             "enter_time" => ["required"],
             "max_enter_time" => ["required"],

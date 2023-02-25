@@ -160,62 +160,7 @@
 
                 </ui5-table-row>
             </ui5-table-row>
-<!--                <ui5-table-cell>-->
-<!--                    <ui5-table-row>-->
-<!--                        <ui5-table-cell>-->
-<!--                        {{-->
-<!--                            timeSet(list.date)-->
-<!--                        }}-->
-<!--                            </ui5-table-cell>-->
-<!--                        <ui5-table-cell class="fd-has-display-flex">-->
-<!--                            <VSButton-->
-<!--                                class="fd-margin-end&#45;&#45;tiny"-->
-<!--                                :data-record-id="list.id"-->
-<!--                                icon="request"-->
-<!--                                @click="handleEditRecord(list.id)"-->
-<!--                            >-->
-<!--                                ویرایش...-->
-<!--                            </VSButton>-->
-<!--                            <VSButton-->
-<!--                                :data-record-id="list.id"-->
-<!--                                design="Negative"-->
-<!--                                icon="delete"-->
-<!--                                @click="handleRemoveRecord(list.id)"-->
-<!--                            >-->
-<!--                                حذف...-->
-<!--                            </VSButton>-->
-<!--                        </ui5-table-cell>-->
 
-<!--                    </ui5-table-row>-->
-<!--                    <ui5-table-row>-->
-<!--                        <ui5-table-cell>-->
-<!--                        {{-->
-<!--                            timeSet(list.date)-->
-<!--                        }}-->
-<!--                            </ui5-table-cell>-->
-<!--                        <ui5-table-cell class="fd-has-display-flex">-->
-<!--                            <VSButton-->
-<!--                                class="fd-margin-end&#45;&#45;tiny"-->
-<!--                                :data-record-id="list.id"-->
-<!--                                icon="request"-->
-<!--                                @click="handleEditRecord(list.id)"-->
-<!--                            >-->
-<!--                                ویرایش...-->
-<!--                            </VSButton>-->
-<!--                            <VSButton-->
-<!--                                :data-record-id="list.id"-->
-<!--                                design="Negative"-->
-<!--                                icon="delete"-->
-<!--                                @click="handleRemoveRecord(list.id)"-->
-<!--                            >-->
-<!--                                حذف...-->
-<!--                            </VSButton>-->
-<!--                        </ui5-table-cell>-->
-<!--                    </ui5-table-row>-->
-<!--                </ui5-table-cell>-->
-
-
-<!--            </ui5-table-row>-->
         </ui5-table>
     </ui5-page>
 
@@ -753,16 +698,28 @@ user_name.value = localStorage.getItem('name');
 
 const  router=useRouter();
 function logout_handler() {
+    const formData = {
+        token: localStorage.getItem('token'),
+    };
+    axios.get('/sanctum/csrf-cookie').then((response) => {
+        axios
+            .post('/api/logout', formData)
+            .then((response) => {
+                console.log(response);
+            })
+            .catch((errors) => {
+                console.log(errors);
+            });
+    });
+
     localStorage.setItem('token', null);
     localStorage.setItem('name', null);
-    localStorage.setItem('user_id', null);
     router.push({name: 'login'});
 }
 
 function storeInDataBase() {
     const formData = {
         token: localStorage.getItem('token'),
-        user_id: localStorage.getItem('user_id'),
         shift_id: localStorage.getItem('shift_id'),
         department_id: localStorage.getItem('department_id'),
         date: Math.floor(Date.now() / 1000),
@@ -773,7 +730,6 @@ function storeInDataBase() {
             .post('/api/timeSheets/create', formData)
             .then((response) => {
                 console.log('register user success');
-                console.log(formData);
             })
             .catch((errors) => {
                 console.log(errors);
@@ -790,7 +746,6 @@ let dates = reactive([]);
 const result=ref([]);
 async function readFromDatabase() {
     let formData = {
-        user_id: localStorage.getItem('user_id'),
         token: localStorage.getItem('token'),
     };
 
@@ -810,14 +765,6 @@ async function readFromDatabase() {
                     acc[dateString].push(curr);
                     return acc;
                 }, {});
-
-                // for (const date in result) {
-                //     console.log(`${date}:`);
-                //     result[date].forEach((obj) => {
-                //         console.log(`  id: ${obj.id}, name: ${obj.date}, age: ${obj.shift.title}`);
-                //     });
-                // }
-
 
 
                 lists.value.forEach(item => {
@@ -849,7 +796,6 @@ async function editRecordInDatabase() {
     let formData = {
         id: localStorage.getItem('record_id'),
         token: localStorage.getItem('token'),
-        user_id: localStorage.getItem('user_id'),
         shift_id: localStorage.getItem('shift_id'),
         department_id: localStorage.getItem('department_id'),
         date: editedCheckInTimestamp,

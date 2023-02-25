@@ -1,139 +1,158 @@
 <template>
-    <div>
-        <div class="row justify-content-center w-50 m-auto mt-5">
-            <div class="col-ml-4">
-                <div class="card">
-                    <div class="card-header text-center">
-                        {{ $t('create shift') }}
-                    </div>
-                    <div class="card-body">
-                        <div class="form-group">
-                        <label for="title"> {{ $t('title') }}</label>
-                        <input
-                            v-model="formData.title"
-                            type="text"
-                            class="form-control"
-                            name="title"
-                        >
-                            <p class="text-danger mt-1" v-text="errors.title"></p>
-                    </div>
-                        <div class="form-group">
-                            <label for=""> {{ $t('select workspace') }}</label>
-                            <select v-model="formData.workspace_id_selected"  class="form-select" >
-                                <option disabled value="">{{ $t('select') }}</option>
-                                <option v-for="workspace in workspaces" :value="workspace.id">{{workspace.name}}</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="enter_time"> {{ $t('enter time') }}</label>
-                            <input
-                                v-model="formData.enter_time"
-                                type="time"
-                                class="form-control"
-                                name="enter_time"
-                            >
-                            <p class="text-danger mt-1" v-text="errors.enter_time"></p>
-                        </div>
-                        <div class="form-group">
-                            <label for="max_enter_time">{{ $t('max enter time') }}</label>
-                            <input
-                                v-model="formData.max_enter_time"
-                                type="time"
-                                class="form-control"
-                                name="max_enter_time"
-                            >
-                            <p class="text-danger mt-1" v-text="errors.max_enter_time"></p>
-                        </div>
-                        <div class="form-group">
-                            <label for="exit_time">{{ $t('exit time') }}</label>
-                            <input
-                                v-model="formData.exit_time"
-                                type="time"
-                                class="form-control"
-                                name="exit_time"
-                            >
-                            <p class="text-danger mt-1" v-text="errors.exit_time"></p>
-                        </div>
-
-
-                        <div class="form-group ">
-                            <router-link
-                                class="float-right"
-                                to="/workspaces"
-                            >
-                                {{ $t('workspace list') }}
-                            </router-link>
-                        </div>
-
-                        <div class="form-group text-center">
-                            <button
-                                class="btn btn-primary text-center"
-                                @click.prevent="create_handler"
-                            >
-                                {{ $t('create') }}
-                            </button>
-                        </div>
-                    </div>
-                </div>
+    <div style="margin-right: 25%;margin-left:25%;margin-top: 5%">
+        <form
+            class="fd-card sap-overflow-hidden sap-padding"
+            @submit.prevent="submit"
+        >
+            <div class="fd-form-header">
+                <span class="fd-form-header__text">{{ $t('create shift') }}</span>
             </div>
-        </div>
+
+            <div class="fd-margin--lg">
+                <div class="fd-form-item">
+                    <label class="fd-form-label">{{ $t('title') }}</label>
+                    <input
+                        v-model="formData.title"
+                        class="fd-input"
+                        required
+                    >
+                    <p style="color: red">
+                        {{ createShiftErrors?.title }}
+                    </p>
+                </div>
+                <div class="fd-form-item fd-margin-top--sm">
+                    <label class="fd-form-label"> {{ $t('select workspace') }}</label>
+                    <select
+                        v-model="formData.workspace_id_selected"
+                        class="fd-input fn-input--select"
+                    >
+                        <option
+                            disabled
+                            value=""
+                        >
+                            {{ $t('select') }}
+                        </option>
+                        <option
+                            v-for="workspace in workspaces"
+                            :value="workspace.id"
+                        >
+                            {{ workspace.name }}
+                        </option>
+                    </select>
+                </div>
+
+                <div class="fd-form-item fd-margin-top--sm">
+                    <label class="fd-form-label">{{ $t('enter time') }}</label>
+                    <div class="fd-input-group">
+                        <input
+                            v-model="formData.enter_time"
+                            type="time"
+                            class="fd-input fd-input-group__input"
+                            required
+                        >
+                    </div>
+                    <p style="color: red">
+                        {{ createShiftErrors?.enter_time }}
+                    </p>
+                </div>
+                <div class="fd-form-item fd-margin-top--sm">
+                    <label class="fd-form-label">{{ $t('max enter time') }}</label>
+                    <div class="fd-input-group">
+                        <input
+                            v-model="formData.max_enter_time"
+                            type="time"
+                            class="fd-input fd-input-group__input"
+                            required
+                        >
+                    </div>
+                    <p style="color: red">
+                        {{ createShiftErrors?.max_enter_time }}
+                    </p>
+                </div>
+                <div class="fd-form-item fd-margin-top--sm">
+                    <label class="fd-form-label">{{ $t('exit time') }}</label>
+                    <div class="fd-input-group">
+                        <input
+                            v-model="formData.exit_time"
+                            type="time"
+                            class="fd-input fd-input-group__input"
+                            required
+                        >
+                    </div>
+                    <p style="color: red">
+                        {{ createShiftErrors?.exit_time }}
+                    </p>
+                </div>
+                <button
+                    type="submit"
+                    class="fd-col--12 fd-button fd-button--emphasized fd-margin-top--sm"
+                    @click="create_handler"
+                >
+                    {{ $t('create') }}
+                </button>
+
+                <router-link
+                    class="fd-link fd-margin-top--sm"
+                    to="/workspaces"
+                    style="font-size: 1em"
+                >
+                    {{ $t('workspace list') }}
+                </router-link>
+            </div>
+        </form>
     </div>
 </template>
 
-<script>
+<script setup>
 import axios from 'axios';
+import { ref } from 'vue';
+import { useRouter } from 'vue-router';
 
-export default {
-    data() {
-        return {
-            formData: {
-                title: '',
-                enter_time: '',
-                max_enter_time: '',
-                exit_time: '',
-                token: '',
-                workspace_id_selected: '',
+const router = useRouter();
 
+const formData = ref({
+    title: '',
+    enter_time: '',
+    max_enter_time: '',
+    exit_time: '',
+    token: '',
+    workspace_id_selected: '',
 
-            },
-            workspaces: [],
-            errors:{},
-        };
-    },
-    methods: {
-        create_handler() {
-            this.formData.token = localStorage.getItem("token");
-            axios.get('/sanctum/csrf-cookie').then((response) => {
-                axios
-                    .post('/api/shifts/create', this.formData)
-                    .then((response) => {
+});
+const workspaces = ref([]);
+const createShiftErrors = ref();
+const readDatabaseErrors = ref();
 
-                        console.log('you make work Shift  successfully');
+function create_handler() {
+    formData.value.token = localStorage.getItem('token');
+    axios.get('/sanctum/csrf-cookie').then((response) => {
+        axios
+            .post('/api/shifts/create', formData.value)
+            .then((response) => {
+                console.log('you make work Shift  successfully');
 
-
-                        this.$router.push({name: 'shiftList'});
-                    })
-                    .catch((errors) => {
-                        this.errors = errors.response.data.errors;
-                        console.log(errors);
-                    });
+                router.push({ name: 'shiftList' });
+            })
+            .catch((errors) => {
+                createShiftErrors.value = errors.response.data.errors;
+                console.log(createShiftErrors.value);
             });
-        },
-    },
-    mounted() {
-        this.formData.token = localStorage.getItem('token');
-        axios.get('/sanctum/csrf-cookie').then((response) => {
+    });
+}
 
-            axios
-                .post('/api/workspaces', this.formData)
-                .then((response) => {
-                    this.workspaces = response.data;
-                })
-                .catch((errors) => {
-                    this.errors = errors.response.data.errors;
-                    console.log(errors);
-                });
-        });
-    },
-};
+async function readFromDatabase() {
+    formData.value.token = localStorage.getItem('token');
+    await axios.get('/sanctum/csrf-cookie').then((response) => {
+        axios
+            .post('/api/workspaces', formData.value)
+            .then((response) => {
+                workspaces.value = response.data;
+            })
+            .catch((errors) => {
+                readDatabaseErrors.value = errors.response.data.errors;
+                console.log(readDatabaseErrors.value);
+            });
+    });
+}
+readFromDatabase();
 </script>

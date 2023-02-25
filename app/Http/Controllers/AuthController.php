@@ -53,13 +53,14 @@ class AuthController extends Controller
             $jwt = JWT::encode($payload, $key, 'HS256');
 
             if (Auth::attempt($request->only(['email', 'password']))) {
+                $authUser = Auth::user();
+          $authUser->createToken('MyAuthApp')->plainTextToken;
 
                 return response()->json([
 
                     'message' => 'User Logged In Successfully',
                     'token' => $jwt,
                     'user' => $user->full_name,
-                    'user_id'=>$user->id,
                 ], 200);
             }
         }

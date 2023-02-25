@@ -39,13 +39,13 @@ Route::post('/departmentUsers/create', [DepartmentUserController::class, "store"
 Route::put('/departmentUsers/edit/{id}', [DepartmentUserController::class, "edit"]);
 Route::put('/departmentUsers/update/{id}', [DepartmentUserController::class, "update"]);
 
-
 Route::post('/timeSheets/create', [TimeSheetController::class, "store"]);
 Route::post('/timeSheets', [TimeSheetController::class, "show"]);
-Route::post('/timeSheets/create', [TimeSheetController::class, "store"]);
 Route::put('/timeSheets/edit/{id}', [TimeSheetController::class, "edit"]);
 Route::put('/timeSheets/update/{id}', [TimeSheetController::class, "update"]);
 Route::delete('/timeSheets/delete/{id}', [TimeSheetController::class, "destroy"]);
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -67,7 +67,10 @@ Route::put('/forgetPass', [AuthController::class, "forgetPass"]);
 
 
 Route::middleware('auth:sanctum')->group(function () {
-    Route::get('/logout', [AuthController::class, "logout"]);
+    Route::post('/logout', [AuthController::class, "logout"]);
+
+
+
 
 });
 

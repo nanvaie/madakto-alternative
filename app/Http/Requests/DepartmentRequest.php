@@ -25,7 +25,6 @@ class DepartmentRequest extends FormRequest
     {
         return [
             "name" => ["required", 'min:2', 'max:63'],
-            "user_id" => ["required"],
         ];
     }
 }

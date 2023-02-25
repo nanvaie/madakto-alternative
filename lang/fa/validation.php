@@ -180,7 +180,10 @@ return [
         "time" => "زمان",
         "available" => "موجود",
         "notavailable" => "موجود نیست",
-        "size" => "اندازه"
+        "size" => "اندازه",
+           "enter_time" => "زمان شروع",
+        "max_enter_time" => "حداکثر زمان ورود",
+        "exit_time" => "زمان پایان"
     ],
 
 ];

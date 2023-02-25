@@ -13,6 +13,11 @@ import "@ui5/webcomponents-fiori/dist/Assets";
 import "@ui5/webcomponents/dist/MenuItem.js";
 import "@ui5/webcomponents/dist/Menu.js";
 
+import 'fundamental-styles/dist/fundamental-styles.css';
+import 'fundamental-styles/dist/theming/sap_horizon.css';
+import 'fundamental-styles/dist/icon.css';
+import 'fundamental-styles/dist/table.css';
+
 
 // Style
 import "../scss/app.scss";
@@ -22,7 +27,8 @@ import "fundamental-styles/dist/margins.css";
 // Icons
 import "@ui5/webcomponents-icons/dist/AllIcons";
 
-import 'bootstrap/dist/js/bootstrap.min'
+
+import 'bootstrap/dist/js/bootstrap.min';
 
 
 createApp(App)
