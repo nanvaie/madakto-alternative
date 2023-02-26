@@ -93,10 +93,10 @@
 
                 <router-link
                     class="fd-link fd-margin-top--sm"
-                    to="/workspaces"
+                    to="/shiftList"
                     style="font-size: 1em"
                 >
-                    {{ $t('workspace list') }}
+                    {{ $t('shift list') }}
                 </router-link>
             </div>
         </form>

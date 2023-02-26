@@ -19,18 +19,17 @@ class WorkspaceController extends Controller
         $key = 'token_key';
         $workspace = new Workspace();
         $workspace->name = $request->name;
-
         $jwt = $request->token;
         $decoded = JWT::decode($jwt, new Key($key, 'HS256'));
         $workspace->user_id = $decoded->user_id;
-        $is_admin = $decoded->is_admin;
-        if (!$is_admin) {
-            return response()->json(["you are not admin"], 400);
-        } else {
+//        $is_admin = $decoded->is_admin;
+
+
+
             $workspace->save();
 
             return response()->json(["success"], 200);
-        }
+
 
     }
 

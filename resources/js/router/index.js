@@ -46,7 +46,7 @@ const routes = [
 
     },
     {
-        path: '/create',
+        path: '/workspaces/create',
         name: 'createWorkspace',
         component: CreateWorkspace,
         beforeEnter:[is_login],
