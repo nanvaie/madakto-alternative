@@ -21,12 +21,12 @@
                     </VSLabel>
                     <VSLabel>{{ myTotal }}</VSLabel>
                 </div>
-                <ui5-button icon="down" @click="menu_handler"   id="btnOpenBasic">{{$t('shift')}}</ui5-button> <br/>
+                <ui5-button icon="down" @click="menu_handler" id="btnOpenBasic">{{ $t('shift') }}</ui5-button>
+                <br/>
                 <ui5-menu id="menuBasic">
-                      <ui5-menu-item text="لیست شیفت ها" icon="show"  @click="create_shift_handler"></ui5-menu-item>
-                    <ui5-menu-item text="تعریف شیفت" icon="add-document"  @click="create_shift_handler" ></ui5-menu-item>
+                    <ui5-menu-item text="لیست شیفت ها" icon="show" @click="create_shift_handler"></ui5-menu-item>
+                    <ui5-menu-item text="تعریف شیفت" icon="add-document" @click="create_shift_handler"></ui5-menu-item>
                 </ui5-menu>
-
             </div>
 
             <div class="fd-has-display-flex">
@@ -79,89 +79,44 @@
                 </VSButton>
             </div>
         </div>
+        <table class="fd-table fd-table--no-horizontal-borders fd-table--no-vertical-borders">
+            <thead class="fd-table__header">
+            <tr class="fd-table__row">
+                <th class="fd-table__cell" scope="col">{{ $t('date') }}</th>
 
-        <ui5-table
-            sticky-column-header
-        >
-            <ui5-table-column slot="columns">
-                تاریخ
-            </ui5-table-column>
-            <ui5-table-column
-                slot="columns"
-                demand-popin
-                min-width="768"
-                popin-text="نام دپارتمان"
-            >
-                نام دپارتمان
-            </ui5-table-column>
-            <ui5-table-column
-                slot="columns"
-                demand-popin
-                min-width="768"
-                popin-text="شیفت"
-            >
-                شیفت
-            </ui5-table-column>
-            <ui5-table-column
-                slot="columns"
-                demand-popin
-                min-width="768"
-                popin-text="تردد"
-            >
-                تاریخ تردد
-            </ui5-table-column>
-            <ui5-table-column
-                slot="columns"
-                demand-popin
-                min-width="768"
-                popin-text="تردد"
-            >
-                زمان تردد
-            </ui5-table-column>
+                <th class="fd-table__cell" scope="col" >{{ $t('workspace name') }}</th>
+                <th class="fd-table__cell" scope="col" >{{ $t('shift title') }}</th>
+                <th class="fd-table__cell" scope="col" >{{ $t('time') }}</th>
+                <th class="fd-table__cell" scope="col" >{{ $t('action') }}</th>
+            </tr>
+            </thead>
+            <tbody class="fd-table__body" >
+            <tr class="fd-table__row" v-for="(list,index) in result" :key="list.id">
+                <td class="fd-table__cell">{{ dateSet(index) }}</td>
+                <!--            <thead class="fd-table__header">-->
+                <!--            <tr class="fd-table__row">-->
 
-            <!--            <ui5-table-column slot="columns">-->
-            <!--                نتیجه-->
-            <!--            </ui5-table-column>-->
-            <ui5-table-column
-                slot="columns"
-                demand-popin
-                min-width="768"
-                popin-text="عملیات"
-                style="text-align: center"
-            >
-                عملیات
-            </ui5-table-column>
+                <!--                <th class="fd-table__cell" scope="col">{{ $t('shift title') }}</th>-->
+                <!--                <th class="fd-table__cell" scope="col">{{ $t('workspace name') }}</th>-->
+                <!--                <th class="fd-table__cell" scope="col">{{ $t('action') }}</th>-->
+                <!--            </tr>-->
+                <!--            </thead>-->
+                <td colspan="4">
+            <tbody class="fd-table__body" style="display: table;width: 100%">
+            <tr class="fd-table__cell" v-for="item in list" :key="item.id">
+                <td class="fd-table__cell"> {{ item.department?.name }}</td>
+                <td class="fd-table__cell">{{ item.shift?.title }}</td>
+                <td class="fd-table__cell">{{ timeSet(item.date) }}</td>
+                <td class="fd-table__cell"><button   class=" fd-button fd-button--positive">{{ $t('edit') }}</button></td>
+                <td class="fd-table__cell"><button   class=" fd-button fd-button--negative ">{{ $t('delete') }}</button></td>
 
+            </tr>
+            </tbody>
+            </td>
 
-            <ui5-table-row
-                v-for="(list,index) in result"
-                :key="list.id"
-            >
-                <ui5-table-cell>
-                    {{ dateSet(index)  }}
-                </ui5-table-cell>
-
-                <ui5-table-row v-for="item in list" :key="item.id">
-                <ui5-table-cell>
-                    {{ item.department?.name }}
-
-                </ui5-table-cell>
-                <ui5-table-cell>
-                    {{ item.shift?.title }}
-
-                </ui5-table-cell>
-                <ui5-table-cell >
-
-                    {{
-                        timeSet(item.date)
-                    }}
-
-                </ui5-table-cell>
-
-                </ui5-table-row>
-            </ui5-table-row>
-
-        </ui5-table>
+            </tr>
+            </tbody>
+        </table>
     </ui5-page>
 
 
@@ -696,7 +651,8 @@ onMounted(() => {
 const user_name = ref();
 user_name.value = localStorage.getItem('name');
 
-const  router=useRouter();
+const router = useRouter();
+
 function logout_handler() {
     const formData = {
         token: localStorage.getItem('token'),
@@ -738,12 +694,12 @@ function storeInDataBase() {
     readFromDatabase();
 
 
-
 }
 
 const lists = ref([{}]);
 let dates = reactive([]);
-const result=ref([]);
+const result = ref([]);
+
 async function readFromDatabase() {
     let formData = {
         token: localStorage.getItem('token'),
@@ -757,7 +713,7 @@ async function readFromDatabase() {
 
                 lists.value = response.data;
 
-                 result.value = lists.value.reduce((acc, curr) => {
+                result.value = lists.value.reduce((acc, curr) => {
                     const dateString = new Date(curr.date).toISOString().substring(0, 10);
                     if (!acc[dateString]) {
                         acc[dateString] = [];
@@ -769,7 +725,7 @@ async function readFromDatabase() {
 
                 lists.value.forEach(item => {
                     // let dateString = new Date(item.date).toISOString().substring(0, 10);
-                    let dateString =  Pasoonate.make(
+                    let dateString = Pasoonate.make(
                         Date.parse(item.date) / 1000
                     )
                         .jalali()
@@ -784,8 +740,8 @@ async function readFromDatabase() {
     });
 
 }
- readFromDatabase()
 
+readFromDatabase()
 
 
 async function editRecordInDatabase() {
@@ -857,11 +813,11 @@ function dateSet(timestamp) {
 }
 
 // Menu
- function menu_handler(event) {
+function menu_handler(event) {
     menuBasic.showAt(btnOpenBasic);
 };
 
-function create_shift_handler(event){
+function create_shift_handler(event) {
     console.log("hrhe");
     // router.push({name:'createShift'});
 }
