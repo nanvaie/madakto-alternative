@@ -24,7 +24,7 @@
                 <ui5-button icon="down" @click="menu_handler" id="btnOpenBasic">{{ $t('shift') }}</ui5-button>
                 <br/>
                 <ui5-menu id="menuBasic">
-                    <ui5-menu-item text="لیست شیفت ها" icon="show" @click="create_shift_handler"></ui5-menu-item>
+                    <ui5-menu-item text="لیست شیفت ها" icon="show" @click.prevent="create_shift_handler"></ui5-menu-item>
                     <ui5-menu-item text="تعریف شیفت" icon="add-document" @click="create_shift_handler"></ui5-menu-item>
                 </ui5-menu>
             </div>
@@ -107,8 +107,8 @@
                 <td class="fd-table__cell"> {{ item.department?.name }}</td>
                 <td class="fd-table__cell">{{ item.shift?.title }}</td>
                 <td class="fd-table__cell">{{ timeSet(item.date) }}</td>
-                <td class="fd-table__cell"><button   class=" fd-button fd-button--positive">{{ $t('edit') }}</button></td>
-                <td class="fd-table__cell"><button   class=" fd-button fd-button--negative ">{{ $t('delete') }}</button></td>
+                <td class="fd-table__cell"><button   class=" fd-button fd-button--positive"  @click="handleEditRecord(item.id)">{{ $t('edit') }}</button></td>
+                <td class="fd-table__cell"><button   class=" fd-button fd-button--negative" @click="handleRemoveRecord(item.id)" >{{ $t('delete') }}</button></td>
 
             </tr>
             </tbody>
