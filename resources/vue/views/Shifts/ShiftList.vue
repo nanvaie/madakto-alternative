@@ -61,7 +61,6 @@ function show_list() {
             .post('/api/shifts', formData.value)
             .then((response) => {
 
-
                 lists.value = response.data;
 
             })
@@ -74,7 +73,5 @@ function show_list() {
 function edit_handler($id) {
     router.push({name: 'editShift', params: {id: $id}});
 }
-
-
 </script>
 

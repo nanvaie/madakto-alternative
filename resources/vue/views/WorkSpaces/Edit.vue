@@ -1,85 +1,92 @@
 <template>
-    <div>
-        <div class="row justify-content-center w-50 m-auto mt-5">
-            <div class="col-ml-4">
-                <div class="card">
-                    <div class="card-header text-center">
-                        {{$t('edit workspace')}}
-                    </div>
-                    <div class="card-body">
-                        <div class="form-group">
-                            <label for="name"> {{$t('workspace name')}}</label>
-                            <input
-                                v-model="formData.name"
-                                type="text"
-                                class="form-control"
-                                name="name"
-                            >
-                        </div>
-
-
-                        <div class="form-group text-center">
-                            <button
-                                class="btn btn-primary text-center"
-                                @click.prevent="edit_handler"
-                            >
-                                {{$t('edit')}}
-                            </button>
-                        </div>
-                    </div>
-                </div>
+    <div style="margin-right: 25%;margin-left:25%;margin-top: 5%">
+        <form
+            class="fd-card sap-overflow-hidden sap-padding"
+            @submit.prevent="submit"
+        >
+            <div class="fd-form-header">
+                <span class="fd-form-header__text"> {{ $t('edit workspace') }}</span>
             </div>
-        </div>
+
+            <div class="fd-margin--lg">
+                <div class="fd-form-item">
+                    <label class="fd-form-label">{{ $t('workspace name') }}</label>
+                    <input
+                        v-model="formData.name"
+                        class="fd-input"
+                        required
+                    >
+                    <p style="color: red">
+                        {{ createShiftErrors?.name }}
+                    </p>
+                </div>
+                <button
+                    type="submit"
+                    class="fd-col--12 fd-button fd-button--emphasized fd-margin-top--sm"
+                    @click="edit_handler"
+                >
+                    {{ $t('edit') }}
+                </button>
+
+                <router-link
+                    class="fd-link fd-margin-top--sm"
+                    to="/workspaces"
+                    style="font-size: 1em"
+                >
+                    {{ $t('workspace list') }}
+                </router-link>
+            </div>
+        </form>
     </div>
 </template>
 
-<script>
+<script setup>
 import axios from 'axios';
+import {ref} from 'vue';
+import {useRoute, useRouter} from 'vue-router';
 
+const router = useRouter();
+const route = useRoute();
+const createShiftErrors = ref();
 
-export default {
-    data() {
-        return {
-            formData: {
-                name: '',
-                id: '',
-                token: '',
+const formData = ref({
+    name: '',
+    id: '',
+    token: '',
 
-            },
-        };
-    },
-    methods: {
-        edit_handler() {
-            this.formData.token = localStorage.getItem("token");
-            axios.get('/sanctum/csrf-cookie').then((response) => {
-                axios
-                    .put(`/api/workspaces/update/${this.formData.id}`, this.formData)
-                    .then((response) => {
+});
 
-                        this.$router.push({name:'workspaceList'});
-                    })
-                    .catch((error) => {
-                        console.log(error);
-                    });
+function edit_handler() {
+    formData.value.token = localStorage.getItem("token");
+    axios.get('/sanctum/csrf-cookie').then((response) => {
+        axios
+            .put(`/api/workspaces/update/${route.params.id}`, formData.value)
+            .then((response) => {
+
+                router.push({name: 'workspaceList'});
+            })
+            .catch((errors) => {
+                createShiftErrors.value = errors.response.data.errors;
             });
-        },
-    },
-    mounted() {
-        this.formData.token = localStorage.getItem("token");
-        axios.get('/sanctum/csrf-cookie').then((response) => {
-            axios
-
-                .put(`/api/workspaces/edit/${this.$route.params.id}`,this.formData)
-                .then((response) => {
-                    this.formData.name = response.data.name;
-                    this.formData.id = response.data.id;
-
-
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
-        });
-    },
+    });
 };
+
+readFromDatabase();
+
+async function readFromDatabase() {
+    formData.value.token = localStorage.getItem("token");
+    await axios.get('/sanctum/csrf-cookie').then((response) => {
+        axios
+
+            .put(`/api/workspaces/edit/${route.params.id}`, formData.value)
+            .then((response) => {
+                formData.value.name = response.data.name;
+                formData.value.id = response.data.id;
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    });
+};
+
 </script>

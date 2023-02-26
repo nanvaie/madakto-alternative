@@ -1,84 +1,90 @@
 <template>
 
-    <div class="container mt-5">
+    <!--    <div class="container mt-5">-->
 
-        <table class="table table-striped table-bordered">
-            <thead>
-            <tr class="text-center">
-                <th> {{ $t('id') }}</th>
-                <th> {{ $t('create by') }}</th>
-                <th> {{ $t('workspace name') }}</th>
-                <th> {{ $t('action') }}</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr class="text-center" v-for="list in lists" :key="list.id">
-                <td>{{ list.id }}</td>
-                <td>{{ list.user.full_name }}</td>
-                <td>{{ list.name }}</td>
-                <td class="form-group text-center">
-                    <button
-                        class="btn btn-danger text-center"
-                        @click.prevent="edit_handler(list.id)"
-                    >
-                        {{ $t('edit') }}
-                    </button>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+    <!--        <table class="table table-striped table-bordered">-->
+    <!--            <thead>-->
+    <!--            <tr class="text-center">-->
+    <!--                <th> {{ $t('id') }}</th>-->
+    <!--                <th> {{ $t('create by') }}</th>-->
+    <!--                <th> {{ $t('workspace name') }}</th>-->
+    <!--                <th> {{ $t('action') }}</th>-->
+    <!--            </tr>-->
+    <!--            </thead>-->
+    <!--            <tbody>-->
+    <!--            <tr class="text-center" v-for="list in lists" :key="list.id">-->
+    <!--                <td>{{ list.id }}</td>-->
+    <!--                <td>{{ list.user.full_name }}</td>-->
+    <!--                <td>{{ list.name }}</td>-->
+    <!--                <td class="form-group text-center">-->
+    <!--                    <button-->
+    <!--                        class="btn btn-danger text-center"-->
+    <!--                        @click.prevent="edit_handler(list.id)"-->
+    <!--                    >-->
+    <!--                        {{ $t('edit') }}-->
+    <!--                    </button>-->
+    <!--                </td>-->
+    <!--            </tr>-->
+    <!--            </tbody>-->
+    <!--        </table>-->
+    <!--    </div>-->
+    <div class="fd-toolbar fd-toolbar--solid fd-toolbar--title fd-toolbar-active">
+        <h4 style="margin: 0;">{{ $t('workspace list') }}</h4>
+        <span class="fd-toolbar__spacer fd-toolbar__spacer--auto"></span>
     </div>
+    <table class="fd-table fd-table--no-horizontal-borders fd-table--no-vertical-borders">
+        <thead class="fd-table__header">
+        <tr class="fd-table__row">
+            <th class="fd-table__cell" scope="col">{{ $t('id') }}</th>
+            <th class="fd-table__cell" scope="col">{{ $t('create by') }}</th>
+            <th class="fd-table__cell" scope="col">{{ $t('workspace name') }}</th>
+            <th class="fd-table__cell" scope="col">{{ $t('action') }}</th>
+        </tr>
+        </thead>
+        <tbody class="fd-table__body">
+        <tr class="fd-table__row" v-for="list in lists" :key="list.id">
+            <td class="fd-table__cell">{{ list.id }}</td>
+            <td class="fd-table__cell">{{ list.user.full_name }}</td>
+            <td class="fd-table__cell">{{ list.name }}</td>
+            <td class="fd-table__cell">
+                <button class="fd-button fd-button--negative" @click="edit_handler(list.id)">{{ $t('edit') }}</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
 </template>
 
-<script>
+<script setup>
 
 import axios from 'axios';
+import {ref} from 'vue';
+import {useRouter} from "vue-router";
 
-export default {
+const router = useRouter();
 
-    data() {
-        return {
+const lists = ref([]);
+const formData = ref({
 
-            lists: [],
-            formData: {
+    token: '',
 
-                token: '',
-
-            },
-        };
-    },
-    created() {
-        this.formData.token = localStorage.getItem('token');
-        if (this.formData.token) {
-            console.log(this.formData.token)
-            this.show_list();
-        } else {
-            this.$router.push({name: 'login'});
-        }
-    },
-    methods: {
-        show_list() {
-            this.formData.token = localStorage.getItem("token");
-            axios.get('/sanctum/csrf-cookie').then((response) => {
-                axios
-                    .post('/api/workspaces', this.formData)
-                    .then((response) => {
-                        this.lists = response.data;
-                    })
-                    .catch((error) => {
-                        console.log(error);
-                    });
+})
+show_list();
+async function show_list() {
+    formData.value.token = localStorage.getItem("token");
+   await axios.get('/sanctum/csrf-cookie').then((response) => {
+        axios
+            .post('/api/workspaces', formData.value)
+            .then((response) => {
+                lists.value = response.data;
+            })
+            .catch((error) => {
+                console.log(error);
             });
-        },
-        edit_handler($id) {
-            this.$router.push({name: 'editWorkspace', params: {id: $id}});
-        },
-    },
+    });
+};
 
+function edit_handler($id) {
+    router.push({name: 'editWorkspace', params: {id: $id}});
 };
 
 </script>
-
-<style scoped>
-
-</style>
