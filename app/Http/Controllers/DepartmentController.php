@@ -28,7 +28,7 @@ class DepartmentController extends Controller
 
     public function edit($id)
     {
-        $department = Department::find($id);
+        $department = Department::findOrfail($id);
         return response()->json([$department], 200);
     }
 

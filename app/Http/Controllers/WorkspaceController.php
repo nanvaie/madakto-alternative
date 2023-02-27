@@ -35,7 +35,7 @@ class WorkspaceController extends Controller
 
     public function edit($id)
     {
-        $workspace = Workspace::find($id);
+        $workspace = Workspace::findOrfail($id);
         return response()->json(["name" => $workspace->name,
             "id" => $workspace->id], 200);
 

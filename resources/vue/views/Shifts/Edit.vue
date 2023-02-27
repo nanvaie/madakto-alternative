@@ -5,7 +5,7 @@
             @submit.prevent="submit"
         >
             <div class="fd-form-header">
-                <span class="fd-form-header__text">{{ $t('create shift') }}</span>
+                <span class="fd-form-header__text">{{ $t('edit shift') }}</span>
             </div>
 
             <div class="fd-margin--lg">
@@ -101,11 +101,8 @@ import axios from 'axios';
 import {ref} from 'vue';
 import {useRoute, useRouter} from 'vue-router';
 
-
-
-
 const router = useRouter();
-const route=useRoute();
+const route = useRoute();
 
 
 const formData = ref({
@@ -140,16 +137,15 @@ function edit_handler() {
 };
 readFromDatabase();
 
-function readFromDatabase() {
-    console.log("first")
+async function readFromDatabase() {
     formData.value.token = localStorage.getItem("token");
-    axios.get('/sanctum/csrf-cookie').then((response) => {
+    await axios.get('/sanctum/csrf-cookie').then((response) => {
         axios
 
-            .put(`/api/Shifts/edit/${route.params.id}`,formData.value)
+            .put(`/api/Shifts/edit/${route.params.id}`, formData.value)
             .then((response) => {
 
-
+                console.log(route.params.id)
                 formData.value.title = response.data[0].title;
                 formData.value.enter_time = response.data[0].enter_time;
                 formData.value.max_enter_time = response.data[0].max_enter_time;
@@ -159,8 +155,9 @@ function readFromDatabase() {
             })
             .catch((errors) => {
 
-
-                console.log(errors);
+                if (errors.response.status === 404) {
+                    router.push({name: 'page404'});
+                }
             });
         axios
             .post('/api/workspaces', formData.value)

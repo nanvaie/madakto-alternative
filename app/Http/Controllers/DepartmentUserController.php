@@ -31,7 +31,7 @@ class DepartmentUserController extends Controller
 
     public function edit($id)
     {
-        $department_user = DepartmentUser::find($id);
+        $department_user = DepartmentUser::findOrfail($id);
         return response()->json([$department_user], 200);
     }
 

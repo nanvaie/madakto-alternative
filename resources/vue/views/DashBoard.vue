@@ -61,16 +61,7 @@
                 >
                     تنظیمات...
                 </VSButton>
-                <VSButton
-                    class="fd-margin-end--tiny fd-margin-bottom--2 fd-margin-bottom--tiny-0"
 
-                    design="Negative"
-                    icon="log"
-                    tooltip="خروج"
-                    @click="logout_handler"
-                >
-                    خروج
-                </VSButton>
             </div>
         </div>
 
@@ -696,12 +687,7 @@ onMounted(() => {
 const user_name = ref();
 user_name.value = localStorage.getItem('name');
 const  router=useRouter();
-function logout_handler() {
-    localStorage.setItem('token', null);
-    localStorage.setItem('name', null);
-    localStorage.setItem('user_id', null);
-router.push({name: 'login'});
-}
+
 
 function storeInDataBase() {
     const formData = {

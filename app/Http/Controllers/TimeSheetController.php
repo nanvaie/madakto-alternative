@@ -36,9 +36,8 @@ class TimeSheetController extends Controller
         return response()->json($timeSheet, 200);
     }
 
-    public function edit($id)
+    public function edit(TimeSheet $timeSheet)
     {
-        $timeSheet = TimeSheet::find($id);
         return response()->json([$timeSheet], 200);
     }
 

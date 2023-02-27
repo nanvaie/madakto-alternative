@@ -21,12 +21,55 @@
                     </VSLabel>
                     <VSLabel>{{ myTotal }}</VSLabel>
                 </div>
-                <ui5-button icon="down" @click="menu_handler" id="btnOpenBasic">{{ $t('shift') }}</ui5-button>
-                <br/>
-                <ui5-menu id="menuBasic">
-                    <ui5-menu-item text="لیست شیفت ها" icon="show" @click.prevent="create_shift_handler"></ui5-menu-item>
-                    <ui5-menu-item text="تعریف شیفت" icon="add-document" @click="create_shift_handler"></ui5-menu-item>
-                </ui5-menu>
+                <div style="margin-left:20px">
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
+                                data-bs-toggle="dropdown" aria-expanded="false"
+                                style="background-color: white;color: black">
+                            {{ shiftName }}
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1" style="text-align: center;">
+                            <li>
+                                <router-link class="fd-link fd-margin-top--sm" to="/shifts/create"
+                                             style="font-size: 1em;"
+                                >{{ $t('create shift') }}
+                                </router-link>
+                            </li>
+                            <li>
+                                <router-link class="fd-link fd-margin-top--sm" to="/shifts" style="font-size: 1em;"
+                                >{{ $t('shift list') }}
+                                </router-link>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+                <div style="margin-left:20px">
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
+                                data-bs-toggle="dropdown" aria-expanded="false"
+                                style="background-color: white;color: black">
+                            {{ $t("workspaces") }}
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1" style="text-align: center;">
+                            <li>
+                                <router-link class="fd-link fd-margin-top--sm" to="/workspaces/create"
+                                             style="font-size: 1em;"
+                                >{{ $t('create workspace') }}
+                                </router-link>
+                            </li>
+                            <li>
+                                <router-link class="fd-link fd-margin-top--sm" to="/workspaces" style="font-size: 1em;">
+                                    {{ $t('workspace list') }}
+                                </router-link>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+                <div style="margin-left:20px">
+                    {{ $t('department') }} {{ $t('active') }} : {{ departmentName }}
+                </div>
             </div>
 
             <div class="fd-has-display-flex">
@@ -40,24 +83,6 @@
                 >
                     ثبت ورود
                 </VSButton>
-                <!--                <VSButton-->
-                <!--                    class="fd-margin-end&#45;&#45;tiny"-->
-                <!--                    design="Negative"-->
-                <!--                    icon="media-pause"-->
-                <!--                    tooltip="ثبت خروج"-->
-                <!--                    @click="enterNewCheckOut"-->
-                <!--                >-->
-                <!--                    ثبت خروج-->
-                <!--                </VSButton>-->
-
-                <!--                <VSButton-->
-                <!--                    class="fd-margin-end&#45;&#45;tiny"-->
-                <!--                    icon="add-document"-->
-                <!--                    tooltip="ثبت تردد"-->
-                <!--                    @click="showDialogById('add-new-record-dialog')"-->
-                <!--                >-->
-                <!--                    ثبت تردد...-->
-                <!--                </VSButton>-->
 
                 <VSButton
                     class="fd-margin-end--tiny"
@@ -83,43 +108,35 @@
             <thead class="fd-table__header">
             <tr class="fd-table__row">
                 <th class="fd-table__cell" scope="col">{{ $t('date') }}</th>
-
-                <th class="fd-table__cell" scope="col" >{{ $t('workspace name') }}</th>
-                <th class="fd-table__cell" scope="col" >{{ $t('shift title') }}</th>
-                <th class="fd-table__cell" scope="col" >{{ $t('time') }}</th>
-                <th class="fd-table__cell" scope="col" >{{ $t('action') }}</th>
+                <th class="fd-table__cell" scope="col">{{ $t('time') }}</th>
+                <th class="fd-table__cell" scope="col">{{ $t('action') }}</th>
             </tr>
             </thead>
-            <tbody class="fd-table__body" >
+            <tbody class="fd-table__body">
             <tr class="fd-table__row" v-for="(list,index) in result" :key="list.id">
                 <td class="fd-table__cell">{{ dateSet(index) }}</td>
-                <!--            <thead class="fd-table__header">-->
-                <!--            <tr class="fd-table__row">-->
-
-                <!--                <th class="fd-table__cell" scope="col">{{ $t('shift title') }}</th>-->
-                <!--                <th class="fd-table__cell" scope="col">{{ $t('workspace name') }}</th>-->
-                <!--                <th class="fd-table__cell" scope="col">{{ $t('action') }}</th>-->
-                <!--            </tr>-->
-                <!--            </thead>-->
-                <td colspan="4">
             <tbody class="fd-table__body" style="display: table;width: 100%">
             <tr class="fd-table__cell" v-for="item in list" :key="item.id">
-                <td class="fd-table__cell"> {{ item.department?.name }}</td>
-                <td class="fd-table__cell">{{ item.shift?.title }}</td>
                 <td class="fd-table__cell">{{ timeSet(item.date) }}</td>
-                <td class="fd-table__cell"><button   class=" fd-button fd-button--positive"  @click="handleEditRecord(item.id)">{{ $t('edit') }}</button></td>
-                <td class="fd-table__cell"><button   class=" fd-button fd-button--negative" @click="handleRemoveRecord(item.id)" >{{ $t('delete') }}</button></td>
+                <td class="fd-table__cell">
+                    <button class=" fd-button fd-button--positive" @click="handleEditRecord(item.id)">{{
+                            $t('edit')
+                        }}
+                    </button>
+                </td>
+                <td class="fd-table__cell">
+                    <button class=" fd-button fd-button--negative" @click="handleRemoveRecord(item.id)">{{
+                            $t('delete')
+                        }}
+                    </button>
+                </td>
 
             </tr>
             </tbody>
-            </td>
-
             </tr>
             </tbody>
         </table>
     </ui5-page>
-
-
     <ui5-dialog
         id="add-new-record-dialog"
         icon="decline"
@@ -247,8 +264,6 @@
             </ui5-button>
         </div>
     </ui5-dialog>
-
-
     <ui5-dialog
         id="error-state-dialog"
         header-text="خطا در ثبت تردد"
@@ -376,6 +391,7 @@
 </template>
 
 <script setup>
+import { useRouter } from 'vue-router';
 import '@ui5/webcomponents/dist/Select';
 import '@ui5/webcomponents/dist/Table';
 import '@ui5/webcomponents/dist/TableColumn';
@@ -384,15 +400,12 @@ import '@ui5/webcomponents/dist/TableCell';
 import '@ui5/webcomponents/dist/DateTimePicker';
 import '@ui5/webcomponents-fiori/dist/Page';
 import '@ui5/webcomponents-localization/dist/features/calendar/Persian';
-import {computed, onMounted, reactive, ref} from 'vue';
-import {setTheme, getTheme} from '@ui5/webcomponents-base/dist/config/Theme';
+import { computed, onMounted, reactive, ref } from 'vue';
+import { setTheme, getTheme } from '@ui5/webcomponents-base/dist/config/Theme';
 import Pasoonate from 'pasoonate';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import axios from 'axios';
 import VSButton from '../components/SAP-UI5/VSButton.vue';
 import VSLabel from '../components/SAP-UI5/VSLabel.vue';
-import data from "bootstrap/js/src/dom/data";
-import {useRouter} from "vue-router";
 
 const selectedTheme = ref(getTheme());
 const themes = [
@@ -699,6 +712,8 @@ function storeInDataBase() {
 const lists = ref([{}]);
 let dates = reactive([]);
 const result = ref([]);
+const shiftName = ref();
+const departmentName = ref();
 
 async function readFromDatabase() {
     let formData = {
@@ -712,6 +727,9 @@ async function readFromDatabase() {
             .then((response) => {
 
                 lists.value = response.data;
+                shiftName.value = lists.value[0].shift.title;
+                departmentName.value = lists.value[0].department.name;
+
 
                 result.value = lists.value.reduce((acc, curr) => {
                     const dateString = new Date(curr.date).toISOString().substring(0, 10);
@@ -732,7 +750,6 @@ async function readFromDatabase() {
                         .format('yyyy-MM-dd ')
                     dates.push(dateString);
                 })
-                console.log(result.value)
             })
             .catch((error) => {
                 console.log(error);
@@ -815,6 +832,10 @@ function dateSet(timestamp) {
 // Menu
 function menu_handler(event) {
     menuBasic.showAt(btnOpenBasic);
+};
+
+function menu_handler1(event) {
+    menuBasic1.showAt(btnOpenBasic1);
 };
 
 function create_shift_handler(event) {

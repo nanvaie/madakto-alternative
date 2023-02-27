@@ -2,7 +2,7 @@ import {createWebHistory, createRouter} from 'vue-router';
 
 import Login from '../../vue/views/Login.vue';
 import Register from '../../vue/views/Register.vue';
-import Show from '../../vue/views/Show.vue';
+import Page404 from '../../vue/views/Page404.vue';
 import is_login from '../../js/middleware/is_login.js';
 import Dashboard from '../../vue/views/DashBoard.vue';
 import Test from '../../vue/views/DashboardTest.vue';
@@ -32,12 +32,7 @@ const routes = [
         component: Dashboard,
         beforeEnter:[is_login],
     },
-    {
-        path: '/show',
-        name: 'show',
-        component: Show,
-        beforeEnter:[is_login],
-    },
+
     {
         path: '/test',
         name: 'test',
@@ -86,6 +81,11 @@ const routes = [
         name: 'editShift',
         component: EditShift,
         beforeEnter:[is_login],
+    },
+    {
+        path: '/:pathMatch(.*)*',
+        name: 'page404',
+        component: Page404,
     },
 ];
 

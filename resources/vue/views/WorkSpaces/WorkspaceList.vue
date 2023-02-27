@@ -1,33 +1,5 @@
 <template>
 
-    <!--    <div class="container mt-5">-->
-
-    <!--        <table class="table table-striped table-bordered">-->
-    <!--            <thead>-->
-    <!--            <tr class="text-center">-->
-    <!--                <th> {{ $t('id') }}</th>-->
-    <!--                <th> {{ $t('create by') }}</th>-->
-    <!--                <th> {{ $t('workspace name') }}</th>-->
-    <!--                <th> {{ $t('action') }}</th>-->
-    <!--            </tr>-->
-    <!--            </thead>-->
-    <!--            <tbody>-->
-    <!--            <tr class="text-center" v-for="list in lists" :key="list.id">-->
-    <!--                <td>{{ list.id }}</td>-->
-    <!--                <td>{{ list.user.full_name }}</td>-->
-    <!--                <td>{{ list.name }}</td>-->
-    <!--                <td class="form-group text-center">-->
-    <!--                    <button-->
-    <!--                        class="btn btn-danger text-center"-->
-    <!--                        @click.prevent="edit_handler(list.id)"-->
-    <!--                    >-->
-    <!--                        {{ $t('edit') }}-->
-    <!--                    </button>-->
-    <!--                </td>-->
-    <!--            </tr>-->
-    <!--            </tbody>-->
-    <!--        </table>-->
-    <!--    </div>-->
     <div class="fd-toolbar fd-toolbar--solid fd-toolbar--title fd-toolbar-active">
         <h4 style="margin: 0;">{{ $t('workspace list') }}</h4>
         <span class="fd-toolbar__spacer fd-toolbar__spacer--auto"></span>

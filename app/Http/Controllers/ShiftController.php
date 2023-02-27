@@ -29,7 +29,7 @@ class ShiftController extends Controller
 
     public function edit($id)
     {
-        $shift = Shift::find($id);
+        $shift = Shift::findOrfail($id);
         return response()->json([$shift], 200);
     }
 
