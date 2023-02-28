@@ -1,18 +1,22 @@
 <template>
+<div style="margin-right: 25%;margin-left:25%;margin-top: 20%;text-align: center">
+    <h1 style="font-size:110px">
+        404
+    </h1>
 
-    <div style="height:150px">
-        <div class="fd-shellbar">
-            <div class="fd-shellbar__group fd-shellbar__group--product">
-                <span class="fd-shellbar__title"></span>
-            </div>
-
-        </div>
+    <div>
+        <h3>{{$t('page not found')}}</h3>
     </div>
 
-<h1>
-    page not found
-</h1>
-</template>
-<script setup>
+        <span style="background-color:black;border-radius: 3px; ">
+        <router-link
+            class="fd-link fd-margin-top--sm"
+            to="/"
+            style="font-size: 1em;color: white;"
+        >
+            {{ $t('home') }}
+        </router-link>
+            </span>
 
-</script>
+</div>
+</template>

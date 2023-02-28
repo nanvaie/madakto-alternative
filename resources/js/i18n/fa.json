@@ -46,5 +46,6 @@
     "enter time": "زمان شروع",
     "select workspace": "Select Workspace",
     "max enter time": "حداکثر زمان ورود",
-    "exit time": "زمان پایان"
+    "exit time": "زمان پایان",
+    "page not found": "صفحه ای که به دنبال آن هستید وجود ندارد"
 }

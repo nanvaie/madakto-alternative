@@ -83,8 +83,10 @@ async function readFromDatabase() {
                 formData.value.name = response.data.name;
                 formData.value.id = response.data.id;
             })
-            .catch((error) => {
-                console.log(error);
+            .catch((errors) => {
+                if (errors.response.status === 404) {
+                    router.push({name: 'page404'});
+                }
             });
     });
 };
