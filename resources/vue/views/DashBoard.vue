@@ -829,20 +829,6 @@ function dateSet(timestamp) {
         .format('yyyy-MM-dd ')
 }
 
-// Menu
-function menu_handler(event) {
-    menuBasic.showAt(btnOpenBasic);
-};
-
-function menu_handler1(event) {
-    menuBasic1.showAt(btnOpenBasic1);
-};
-
-function create_shift_handler(event) {
-    console.log("hrhe");
-    // router.push({name:'createShift'});
-}
-
 </script>
 
 

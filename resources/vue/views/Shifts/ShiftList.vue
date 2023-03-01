@@ -1,6 +1,6 @@
 <template>
 
-
+<div class="fd-margin-begin-end--lg">
     <div class="fd-toolbar fd-toolbar--solid fd-toolbar--title fd-toolbar-active">
         <h4 style="margin: 0;">{{ $t('shift list') }}</h4>
         <span class="fd-toolbar__spacer fd-toolbar__spacer--auto"></span>
@@ -31,7 +31,7 @@
         </tr>
         </tbody>
     </table>
-
+</div>
 </template>
 
 <script setup>

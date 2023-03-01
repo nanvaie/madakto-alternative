@@ -124,8 +124,8 @@ import {ref} from "vue";
 import {useRouter} from "vue-router";
 
 const router = useRouter();
-const showConfirmPassword=ref(true);
-const showPassword=ref(true);
+const showConfirmPassword=ref(false);
+const showPassword=ref(false);
 
 const formData = ref({
     full_name: '',
