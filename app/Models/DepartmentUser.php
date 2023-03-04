@@ -4,7 +4,15 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+/**
+ * @property string user_id
+ * @property string shift_id
+ * @property string department_id
+ * @property string enter_time
+ * @property string max_enter_time
+ * @property string exit_time
+ * @property string owner
+ */
 class DepartmentUser extends Model
 {
     use HasFactory;

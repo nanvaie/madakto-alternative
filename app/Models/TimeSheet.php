@@ -6,6 +6,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ * @property string user_id
+ * @property string shift_id
+ * @property string department_id
+ * @property string date
+ */
 class TimeSheet extends Model
 {
     use HasFactory;

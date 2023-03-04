@@ -5,6 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @property string title
+ * @property string workspace_id
+ * @property string enter_time
+ * @property string max_enter_time
+ * @property string exit_time
+ */
 class Shift extends Model
 {
     use HasFactory;

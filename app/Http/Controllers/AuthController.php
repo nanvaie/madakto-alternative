@@ -19,10 +19,10 @@ class AuthController extends Controller
     public function signup(RegisterRequest $request)
     {
         $user = new User;
-        $user->email = $request->email;
-        $user->full_name = $request->full_name;
-        $user->password = Hash::make($request->password);
-        $user->user_name = $request->user_name;
+        $user->email = $request->get('email');
+        $user->full_name = $request->get('full_name');
+        $user->password = Hash::make($request->get('password'));
+        $user->user_name = $request->get('user_name');
         if ($request->password == $request->confirm_password) {
             $user->save();
             return response()->json("success", 200);
@@ -37,7 +37,7 @@ class AuthController extends Controller
     {
 
         $key = 'token_key';
-        $email = $request->email;
+        $email = $request->get('email');
         $user = User::where('email', $email)->first();
 
         if ($user) {
@@ -76,7 +76,7 @@ class AuthController extends Controller
         $request->validate([
             "password" => ["required", 'min:8', 'max:32']
         ]);
-        $email = $request->email;
+        $email = $request->get('email');
         $user = User::where('email', $email)->first();
         if ($user) {
             if ($request->password == $request->confirm_password) {

@@ -106,6 +106,43 @@
         </div>
         <table class="fd-table fd-table--no-horizontal-borders fd-table--no-vertical-borders">
             <thead class="fd-table__header">
+                <tr class="fd-table__row">
+                    <th class="fd-table__cell" scope="col">{{ $t('date') }}</th>
+                    <th class="fd-table__cell" scope="col">{{ $t('time') }}</th>
+                    <th class="fd-table__cell" scope="col">{{ $t('action') }}</th>
+                </tr>
+            </thead>
+
+            <tbody class="fd-table__body">
+                <tr class="fd-table__row">
+                    <td class="fd-table__cell">1401-05-02</td>
+
+                    <td class="fd-table__cell">
+                        1401-05-02
+                    </td>
+
+
+                    <td>
+                        <div>
+                            <button class=" fd-button fd-button--positive" @click="handleEditRecord(item.id)">{{
+                                    $t('edit')
+                                }}
+                            </button>
+                        </div>
+
+                        <div>
+                            <button class=" fd-button fd-button--positive" @click="handleEditRecord(item.id)">{{
+                                    $t('edit')
+                                }}
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <table class="fd-table fd-table--no-horizontal-borders fd-table--no-vertical-borders">
+            <thead class="fd-table__header">
             <tr class="fd-table__row">
                 <th class="fd-table__cell" scope="col">{{ $t('date') }}</th>
                 <th class="fd-table__cell" scope="col">{{ $t('time') }}</th>
@@ -115,24 +152,23 @@
             <tbody class="fd-table__body">
             <tr class="fd-table__row" v-for="(list,index) in result" :key="list.id">
                 <td class="fd-table__cell">{{ dateSet(index) }}</td>
-            <tbody class="fd-table__body" style="display: table;width: 100%">
-            <tr class="fd-table__cell" v-for="item in list" :key="item.id">
-                <td class="fd-table__cell">{{ timeSet(item.date) }}</td>
-                <td class="fd-table__cell">
-                    <button class=" fd-button fd-button--positive" @click="handleEditRecord(item.id)">{{
-                            $t('edit')
-                        }}
-                    </button>
-                </td>
-                <td class="fd-table__cell">
-                    <button class=" fd-button fd-button--negative" @click="handleRemoveRecord(item.id)">{{
-                            $t('delete')
-                        }}
-                    </button>
-                </td>
-
-            </tr>
-            </tbody>
+                <tbody class="fd-table__body" style="display: table;width: 100%">
+                    <tr class="fd-table__cell" v-for="item in list" :key="item.id">
+                        <td class="fd-table__cell">{{ timeSet(item.date) }}</td>
+                        <td class="fd-table__cell">
+                            <button class=" fd-button fd-button--positive" @click="handleEditRecord(item.id)">{{
+                                    $t('edit')
+                                }}
+                            </button>
+                        </td>
+                        <td class="fd-table__cell">
+                            <button class=" fd-button fd-button--negative" @click="handleRemoveRecord(item.id)">{{
+                                    $t('delete')
+                                }}
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
             </tr>
             </tbody>
         </table>
