@@ -127,7 +127,7 @@ function create_handler() {
     formData.value.token = localStorage.getItem('token');
     axios.get('/sanctum/csrf-cookie').then((response) => {
         axios
-            .post('/api/shifts/create', formData.value)
+            .post('/api/v1/shifts/create', formData.value)
             .then((response) => {
                 console.log('you make work Shift  successfully');
 
@@ -144,7 +144,7 @@ async function readFromDatabase() {
     formData.value.token = localStorage.getItem('token');
     await axios.get('/sanctum/csrf-cookie').then((response) => {
         axios
-            .post('/api/workspaces', formData.value)
+            .post('/api/v1/workspaces', formData.value)
             .then((response) => {
                 workspaces.value = response.data;
             })

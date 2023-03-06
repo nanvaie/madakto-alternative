@@ -61,7 +61,7 @@ function edit_handler() {
     formData.value.token = localStorage.getItem("token");
     axios.get('/sanctum/csrf-cookie').then((response) => {
         axios
-            .put(`/api/workspaces/update/${route.params.id}`, formData.value)
+            .put(`/api/v1/workspaces/update/${route.params.id}`, formData.value)
             .then((response) => {
 
                 router.push({name: 'workspaceList'});
@@ -78,8 +78,7 @@ async function readFromDatabase() {
     formData.value.token = localStorage.getItem("token");
     await axios.get('/sanctum/csrf-cookie').then((response) => {
         axios
-
-            .put(`/api/workspaces/edit/${route.params.id}`, formData.value)
+            .put(`/api/v1/workspaces/edit/${route.params.id}`, formData.value)
             .then((response) => {
                 formData.value.name = response.data.name;
                 formData.value.id = response.data.id;

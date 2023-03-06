@@ -72,7 +72,7 @@ export default {
             this.formData.token = localStorage.getItem("token");
             axios.get('/sanctum/csrf-cookie').then((response) => {
                 axios
-                    .post('/api/workspaces/assignmentUserToWorkspace', this.formData)
+                    .post('/api/v1/workspaces/assignmentUserToWorkspace', this.formData)
                     .then((response) => {
                         console.log(response.data);
 
@@ -89,7 +89,7 @@ export default {
         this.formData.token = localStorage.getItem('token');
         axios.get('/sanctum/csrf-cookie').then((response) => {
             axios
-                .post('/api/users',this.formData)
+                .post('/api/v1/users',this.formData)
                 .then((response) => {
                     this.users = response.data;
                 })
@@ -97,7 +97,7 @@ export default {
                     console.log(error);
                 });
             axios
-                .post('/api/workspaces', this.formData)
+                .post('/api/v1/workspaces', this.formData)
                 .then((response) => {
                     this.workspaces = response.data;
                 })

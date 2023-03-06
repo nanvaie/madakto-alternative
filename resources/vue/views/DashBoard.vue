@@ -592,7 +592,6 @@ function handleEditRecord(id) {
 }
 
 function handleRemoveRecord(id) {
-
     localStorage.setItem('record_id', id);
     showDialogById('ask-to-remove-record-dialog');
 }
@@ -674,13 +673,11 @@ function logout_handler() {
         axios
             .post('/api/logout', formData)
             .then((response) => {
-                console.log(response);
             })
             .catch((errors) => {
                 console.log(errors);
             });
     });
-
     localStorage.setItem('token', null);
     localStorage.setItem('name', null);
     router.push({name: 'login'});
@@ -696,9 +693,8 @@ function storeInDataBase() {
     console.log(formData.date);
     axios.get('/sanctum/csrf-cookie').then((response) => {
         axios
-            .post('/api/timeSheets/create', formData)
+            .post('/api/v1/timeSheets/create', formData)
             .then((response) => {
-                console.log('register user success');
             })
             .catch((errors) => {
                 console.log(errors);
@@ -719,18 +715,13 @@ async function readFromDatabase() {
     let formData = {
         token: localStorage.getItem('token'),
     };
-
-
     await axios.get('/sanctum/csrf-cookie').then((response) => {
         axios
-            .post('/api/timeSheets', formData)
+            .post('/api/v1/timeSheets', formData)
             .then((response) => {
-
                 lists.value = response.data;
                 shiftName.value = lists.value[0].shift.title;
                 departmentName.value = lists.value[0].department.name;
-
-
                 result.value = lists.value.reduce((acc, curr) => {
                     const dateString = new Date(curr.date).toISOString().substring(0, 10);
                     if (!acc[dateString]) {
@@ -739,10 +730,7 @@ async function readFromDatabase() {
                     acc[dateString].push(curr);
                     return acc;
                 }, {});
-
-
                 lists.value.forEach(item => {
-                    // let dateString = new Date(item.date).toISOString().substring(0, 10);
                     let dateString = Pasoonate.make(
                         Date.parse(item.date) / 1000
                     )
@@ -757,15 +745,11 @@ async function readFromDatabase() {
     });
 
 }
-
-readFromDatabase()
-
-
+readFromDatabase();
 async function editRecordInDatabase() {
     const editedCheckInTimestamp = Pasoonate.make()
         .jalali(document.getElementById('edit-check-in-datetime').value)
         .getTimestamp();
-    console.log(editedCheckInTimestamp);
     let formData = {
         id: localStorage.getItem('record_id'),
         token: localStorage.getItem('token'),
@@ -773,15 +757,10 @@ async function editRecordInDatabase() {
         department_id: localStorage.getItem('department_id'),
         date: editedCheckInTimestamp,
     };
-    console.log(formData.date)
-
     await axios.get('/sanctum/csrf-cookie').then((response) => {
         axios
-            .put(`/api/timeSheets/update/${formData.id}`, formData)
+            .put(`/api/v1/timeSheets/update/${formData.id}`, formData)
             .then((response) => {
-
-
-                console.log("success");
             })
             .catch((error) => {
                 console.log(error);
@@ -798,11 +777,8 @@ async function destroyFromDatabase() {
     };
     await axios.get('/sanctum/csrf-cookie').then((response) => {
         axios
-            .delete(`/api/timeSheets/delete/${formData.id}`, formData)
+            .delete(`/api/v1/timeSheets/delete/${formData.id}`, formData)
             .then((response) => {
-
-
-                console.log(response.data);
             })
             .catch((error) => {
                 console.log(error);
@@ -817,18 +793,15 @@ function timeSet(timestamp) {
         Date.parse(timestamp) / 1000
     )
         .jalali()
-        .format('HH:mm:ss')
-    // .format('yyyy-MM-dd HH:mm:ss')
+        .format('HH:mm:ss');
 }
-
 function dateSet(timestamp) {
     return Pasoonate.make(
         Date.parse(timestamp) / 1000
     )
         .jalali()
-        .format('yyyy-MM-dd ')
+        .format('yyyy-MM-dd ');
 }
-
 </script>
 
 

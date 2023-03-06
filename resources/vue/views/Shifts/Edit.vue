@@ -103,8 +103,6 @@ import {useRoute, useRouter} from 'vue-router';
 
 const router = useRouter();
 const route = useRoute();
-
-
 const formData = ref({
 
     title: '',
@@ -125,7 +123,7 @@ function edit_handler() {
     formData.value.token = localStorage.getItem("token");
     axios.get('/sanctum/csrf-cookie').then((response) => {
         axios
-            .put(`/api/Shifts/update/${route.params.id}`, formData.value)
+            .put(`/api/v1/shifts/update/${route.params.id}`, formData.value)
             .then((response) => {
                 router.push({name: 'shiftList'});
             })
@@ -135,32 +133,28 @@ function edit_handler() {
             });
     });
 };
-readFromDatabase();
 
+readFromDatabase();
 async function readFromDatabase() {
     formData.value.token = localStorage.getItem("token");
     await axios.get('/sanctum/csrf-cookie').then((response) => {
         axios
-
-            .put(`/api/Shifts/edit/${route.params.id}`, formData.value)
+            .post(`/api/v1/shifts/edit/${route.params.id}`, formData.value)
             .then((response) => {
-
-                console.log(route.params.id)
+                console.log(route.params.id);
                 formData.value.title = response.data[0].title;
                 formData.value.enter_time = response.data[0].enter_time;
                 formData.value.max_enter_time = response.data[0].max_enter_time;
                 formData.value.exit_time = response.data[0].exit_time;
                 formData.value.id = response.data[0].id;
-
             })
             .catch((errors) => {
-
                 if (errors.response.status === 404) {
                     router.push({name: 'page404'});
                 }
             });
         axios
-            .post('/api/workspaces', formData.value)
+            .post('/api/v1/workspaces', formData.value)
             .then((response) => {
                 workspaces.value = response.data;
             })

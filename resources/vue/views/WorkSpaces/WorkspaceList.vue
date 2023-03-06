@@ -46,7 +46,7 @@ async function show_list() {
     formData.value.token = localStorage.getItem("token");
    await axios.get('/sanctum/csrf-cookie').then((response) => {
         axios
-            .post('/api/workspaces', formData.value)
+            .post('/api/v1/workspaces', formData.value)
             .then((response) => {
                 lists.value = response.data;
             })

@@ -61,7 +61,7 @@ function create_handler() {
     formData.value.token = localStorage.getItem("token");
     axios.get('/sanctum/csrf-cookie').then((response) => {
         axios
-            .post('/api/workspaces/create', formData.value)
+            .post('/api/v1/workspaces/create', formData.value)
             .then((response) => {
                 console.log('you make work space  successfully');
                 router.push({name: 'workspaceList'});
