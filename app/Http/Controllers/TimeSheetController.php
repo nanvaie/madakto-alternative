@@ -8,7 +8,7 @@ use App\Models\TimeSheet;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 
-class TimeSheetController extends Controller
+class TimeSheetController extends ApiController
 {
     public function store(TimeSheetRequest $request)
     {
@@ -22,8 +22,7 @@ class TimeSheetController extends Controller
         $timeSheet->department_id = $request->department_id;
         $timeSheet->date =  date("Y-m-d H:i:s",$request->date);
         $timeSheet->save();
-
-        return response()->json(["success"], 200);
+        return $this->successResponse("success",201);
     }
 
     public function show(Request $request)
@@ -33,12 +32,13 @@ class TimeSheetController extends Controller
         $decoded = JWT::decode($jwt, new Key($key, 'HS256'));
 
         $timeSheet = TimeSheet::with(['department','shift'])->where('user_id', $decoded->user_id)->get();
-        return response()->json($timeSheet, 200);
+        return $this->successResponse($timeSheet,200);
     }
 
     public function edit(TimeSheet $timeSheet)
     {
-        return response()->json([$timeSheet], 200);
+        return $this->successResponse($timeSheet,200);
+//        return response()->json([$timeSheet], 200);
     }
 
     public function update(TimeSheetRequest $request)
@@ -54,14 +54,10 @@ class TimeSheetController extends Controller
                 "department_id" => $request->department_id,
                 "date" =>  date("Y-m-d H:i:s",$request->date),
             ]);
-
-        return response()->json(["success"], 200);
+        return $this->successResponse("success", 200);
     }
     public function destroy($id){
      TimeSheet::destroy($id);
-
-        return response()->json("success", 200);
-
-
+        return $this->successResponse("success",200);
     }
 }

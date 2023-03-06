@@ -6,7 +6,7 @@ use App\Http\Requests\ShiftRequest;
 use Illuminate\Http\Request;
 use App\Models\Shift;
 
-class ShiftController extends Controller
+class ShiftController extends ApiController
 {
     public function store(ShiftRequest $request)
     {
@@ -18,19 +18,20 @@ class ShiftController extends Controller
         $shift->exit_time = $request->get('exit_time');
         $shift->save();
 
-        return response()->json(["success"], 200);
+        return $this->successResponse("success",201);
     }
 
     public function show(Request $request)
     {
         $shift = Shift::with('workspace')->get();
-        return response()->json($shift, 200);
+        return $this->successResponse($shift,200);
     }
 
     public function edit($id)
     {
         $shift = Shift::findOrfail($id);
-        return response()->json([$shift], 200);
+        return $this->successResponse($shift,200);
+
     }
 
     public function update(ShiftRequest $request)
@@ -43,8 +44,7 @@ class ShiftController extends Controller
                 'max_enter_time' =>$request->get('max_enter_time'),
                 'exit_time' =>$request->get('exit_time'),
             ]);
-
-        return response()->json(["success"], 200);
+        return $this->successResponse("success",200);
     }
 
 }

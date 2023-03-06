@@ -7,7 +7,7 @@ use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 use Illuminate\Http\Request;
 use App\Models\Department;
-class DepartmentController extends Controller
+class DepartmentController extends ApiController
 {
     public function store(DepartmentRequest $request)
     {
@@ -18,18 +18,14 @@ class DepartmentController extends Controller
         $department->name = $request->name;
         $department->user_id  = $decoded->user_id;
         $department->save();
-
-        return response()->json(["success"], 200);
+        return $this->successResponse("success",201);
     }
 
-    public function show(){
-
-    }
 
     public function edit($id)
     {
         $department = Department::findOrfail($id);
-        return response()->json([$department], 200);
+        return $this->successResponse($department,200);
     }
 
     public function update(DepartmentRequest $request)
@@ -42,7 +38,6 @@ class DepartmentController extends Controller
                 'name' => $request->name,
                 'user_id' => $decoded->user_id,
             ]);
-
-        return response()->json(["success"], 200);
+        return $this->successResponse("success",200);
     }
 }

@@ -63,7 +63,6 @@ function edit_handler() {
         axios
             .put(`/api/v1/workspaces/update/${route.params.id}`, formData.value)
             .then((response) => {
-
                 router.push({name: 'workspaceList'});
             })
             .catch((errors) => {
@@ -80,8 +79,8 @@ async function readFromDatabase() {
         axios
             .put(`/api/v1/workspaces/edit/${route.params.id}`, formData.value)
             .then((response) => {
-                formData.value.name = response.data.name;
-                formData.value.id = response.data.id;
+                formData.value.name = response.data.data.name;
+                formData.value.id = response.data.data.id;
             })
             .catch((errors) => {
                 if (errors.response.status === 404) {

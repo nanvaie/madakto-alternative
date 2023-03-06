@@ -701,8 +701,6 @@ function storeInDataBase() {
             });
     });
     readFromDatabase();
-
-
 }
 
 const lists = ref([{}]);
@@ -719,7 +717,7 @@ async function readFromDatabase() {
         axios
             .post('/api/v1/timeSheets', formData)
             .then((response) => {
-                lists.value = response.data;
+                lists.value = response.data.data;
                 shiftName.value = lists.value[0].shift.title;
                 departmentName.value = lists.value[0].department.name;
                 result.value = lists.value.reduce((acc, curr) => {

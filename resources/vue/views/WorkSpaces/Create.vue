@@ -63,7 +63,6 @@ function create_handler() {
         axios
             .post('/api/v1/workspaces/create', formData.value)
             .then((response) => {
-                console.log('you make work space  successfully');
                 router.push({name: 'workspaceList'});
             })
             .catch((errors) => {

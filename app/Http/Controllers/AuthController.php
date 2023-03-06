@@ -14,33 +14,32 @@ use Illuminate\Support\Facades\Hash;
 
 use Illuminate\Validation\ValidationException;
 
-class AuthController extends Controller
+class AuthController extends ApiController
 {
-    public function signup(RegisterRequest $request)
+    public function register(RegisterRequest $request)
     {
         $user = new User;
         $user->email = $request->get('email');
         $user->full_name = $request->get('full_name');
         $user->password = Hash::make($request->get('password'));
         $user->user_name = $request->get('user_name');
-        if ($request->password == $request->confirm_password) {
-            $user->save();
-            return response()->json("success", 200);
-        } else {
-
-            return response()->json("مشکلی رخ داده است لطفا چند ثانیه بعد امتحان کنید", 400);
-        }
+        $user->save();
+        return response()->json("success", 200);
     }
 
     public function login(LoginRequest $request)
 
     {
-
         $key = 'token_key';
         $email = $request->get('email');
         $user = User::where('email', $email)->first();
+        if(!$user){
+            return response()->json("پست الکترونیک اشتباه است", 401);
+        }
+        if(!Hash::check($request->password ,$user->password)){
+            return response()->json("رمز عبور اشتباه است", 401);
+        }
 
-        if ($user) {
             $payload = [
                 'user_id' => $user->id,
                 'user_name' => $user->user_name,
@@ -51,22 +50,15 @@ class AuthController extends Controller
 
             $jwt = JWT::encode($payload, $key, 'HS256');
 
-            if (Auth::attempt($request->only(['email', 'password']))) {
-                $authUser = Auth::user();
-          $authUser->createToken('MyAuthApp')->plainTextToken;
+            $bearerToken=$user->createToken('MyAuthApp')->plainTextToken;
 
                 return response()->json([
 
                     'message' => 'User Logged In Successfully',
                     'token' => $jwt,
                     'user' => $user->full_name,
+                    'bearerToken' => $bearerToken,
                 ], 200);
-            }
-        }
-
-        return response()->json("پست الکترونیک یا رمز عبور اشتباه است", 400);
-
-
     }
 
 
@@ -94,6 +86,6 @@ class AuthController extends Controller
         auth()->user()->tokens()->delete();
 
 
-        response()->json("شما از سیستم خارج شدید", 200);
+       return response()->json("شما از سیستم خارج شدید", 200);
     }
 }

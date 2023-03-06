@@ -141,12 +141,12 @@ async function readFromDatabase() {
         axios
             .post(`/api/v1/shifts/edit/${route.params.id}`, formData.value)
             .then((response) => {
-                console.log(route.params.id);
-                formData.value.title = response.data[0].title;
-                formData.value.enter_time = response.data[0].enter_time;
-                formData.value.max_enter_time = response.data[0].max_enter_time;
-                formData.value.exit_time = response.data[0].exit_time;
-                formData.value.id = response.data[0].id;
+                console.log(response.data);
+                formData.value.title = response.data.data.title;
+                formData.value.enter_time = response.data.data.enter_time;
+                formData.value.max_enter_time = response.data.data.max_enter_time;
+                formData.value.exit_time = response.data.data.exit_time;
+                formData.value.id = response.data.data.id;
             })
             .catch((errors) => {
                 if (errors.response.status === 404) {
@@ -156,7 +156,7 @@ async function readFromDatabase() {
         axios
             .post('/api/v1/workspaces', formData.value)
             .then((response) => {
-                workspaces.value = response.data;
+                workspaces.value = response.data.data;
             })
             .catch((errors) => {
 

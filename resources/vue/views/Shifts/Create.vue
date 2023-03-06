@@ -129,8 +129,6 @@ function create_handler() {
         axios
             .post('/api/v1/shifts/create', formData.value)
             .then((response) => {
-                console.log('you make work Shift  successfully');
-
                 router.push({ name: 'shiftList' });
             })
             .catch((errors) => {
@@ -146,7 +144,7 @@ async function readFromDatabase() {
         axios
             .post('/api/v1/workspaces', formData.value)
             .then((response) => {
-                workspaces.value = response.data;
+                workspaces.value = response.data.data;
             })
             .catch((errors) => {
                 readDatabaseErrors.value = errors.response.data.errors;

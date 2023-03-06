@@ -54,7 +54,7 @@ function show_list() {
         axios
             .post('/api/v1/shifts', formData.value)
             .then((response) => {
-                lists.value = response.data;
+                lists.value = response.data.data;
             })
             .catch((error) => {
                 console.log(error);

@@ -75,8 +75,6 @@ export default {
                     .post('/api/v1/workspaces/assignmentUserToWorkspace', this.formData)
                     .then((response) => {
                         console.log(response.data);
-
-                        // this.$router.push('/');
                     })
                     .catch((error) => {
                         console.log(error);
@@ -91,7 +89,7 @@ export default {
             axios
                 .post('/api/v1/users',this.formData)
                 .then((response) => {
-                    this.users = response.data;
+                    this.users = response.data.data;
                 })
                 .catch((error) => {
                     console.log(error);
@@ -99,7 +97,7 @@ export default {
             axios
                 .post('/api/v1/workspaces', this.formData)
                 .then((response) => {
-                    this.workspaces = response.data;
+                    this.workspaces = response.data.data;
                 })
                 .catch((error) => {
                     console.log(error);

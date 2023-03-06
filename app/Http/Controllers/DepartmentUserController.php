@@ -8,7 +8,7 @@ use Firebase\JWT\Key;
 use Illuminate\Http\Request;
 use App\Models\DepartmentUser;
 
-class DepartmentUserController extends Controller
+class DepartmentUserController extends ApiController
 {
     public function store(DepartmentUserRequest $request)
 
@@ -25,14 +25,13 @@ class DepartmentUserController extends Controller
         $department_user->exit_time  = $request->exit_time;
         $department_user->owner  = $request->owner;
         $department_user->save();
-
-        return response()->json(["success"], 200);
+        return $this->successResponse("success",201);
     }
 
     public function edit($id)
     {
         $department_user = DepartmentUser::findOrfail($id);
-        return response()->json([$department_user], 200);
+        return $this->successResponse($department_user,200);
     }
 
     public function update(DepartmentUserRequest $request)
@@ -52,7 +51,6 @@ class DepartmentUserController extends Controller
                 "exit_time" => $request->exit_time,
                 "owner" => $request->owner,
             ]);
-
-        return response()->json(["success"], 200);
+        return $this->successResponse("success",200);
     }
 }
