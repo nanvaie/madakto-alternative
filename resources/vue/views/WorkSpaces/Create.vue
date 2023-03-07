@@ -58,10 +58,12 @@ const formData = ref({
 
 
 function create_handler() {
+    const token = localStorage.getItem('bearerToken');
+    const headers = { Authorization: `Bearer ${token}` };
     formData.value.token = localStorage.getItem("token");
     axios.get('/sanctum/csrf-cookie').then((response) => {
         axios
-            .post('/api/v1/workspaces/create', formData.value)
+            .post('/api/v1/workspaces/create', formData.value,{ headers })
             .then((response) => {
                 router.push({name: 'workspaceList'});
             })

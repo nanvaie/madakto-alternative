@@ -120,10 +120,12 @@ const editShiftErrors = ref();
 
 
 function edit_handler() {
+    const token = localStorage.getItem('bearerToken');
+    const headers = { Authorization: `Bearer ${token}` };
     formData.value.token = localStorage.getItem("token");
     axios.get('/sanctum/csrf-cookie').then((response) => {
         axios
-            .put(`/api/v1/shifts/update/${route.params.id}`, formData.value)
+            .put(`/api/v1/shifts/update/${route.params.id}`, formData.value,{ headers })
             .then((response) => {
                 router.push({name: 'shiftList'});
             })
@@ -136,10 +138,12 @@ function edit_handler() {
 
 readFromDatabase();
 async function readFromDatabase() {
+    const token = localStorage.getItem('bearerToken');
+    const headers = { Authorization: `Bearer ${token}` };
     formData.value.token = localStorage.getItem("token");
     await axios.get('/sanctum/csrf-cookie').then((response) => {
         axios
-            .post(`/api/v1/shifts/edit/${route.params.id}`, formData.value)
+            .post(`/api/v1/shifts/edit/${route.params.id}`, formData.value,{ headers })
             .then((response) => {
                 console.log(response.data);
                 formData.value.title = response.data.data.title;
@@ -154,7 +158,7 @@ async function readFromDatabase() {
                 }
             });
         axios
-            .post('/api/v1/workspaces', formData.value)
+            .post('/api/v1/workspaces', formData.value, { headers })
             .then((response) => {
                 workspaces.value = response.data.data;
             })

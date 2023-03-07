@@ -43,10 +43,12 @@ const formData = ref({
 })
 show_list();
 async function show_list() {
+    const token = localStorage.getItem('bearerToken');
+    const headers = { Authorization: `Bearer ${token}` };
     formData.value.token = localStorage.getItem("token");
    await axios.get('/sanctum/csrf-cookie').then((response) => {
         axios
-            .post('/api/v1/workspaces', formData.value)
+            .post('/api/v1/workspaces', formData.value, { headers })
             .then((response) => {
                 lists.value = response.data.data;
             })

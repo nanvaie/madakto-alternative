@@ -124,10 +124,12 @@ const createShiftErrors = ref();
 const readDatabaseErrors = ref();
 
 function create_handler() {
+    const token = localStorage.getItem('bearerToken');
+    const headers = { Authorization: `Bearer ${token}` };
     formData.value.token = localStorage.getItem('token');
     axios.get('/sanctum/csrf-cookie').then((response) => {
         axios
-            .post('/api/v1/shifts/create', formData.value)
+            .post('/api/v1/shifts/create', formData.value,{ headers })
             .then((response) => {
                 router.push({ name: 'shiftList' });
             })
@@ -139,10 +141,12 @@ function create_handler() {
 }
 
 async function readFromDatabase() {
+    const token = localStorage.getItem('bearerToken');
+    const headers = { Authorization: `Bearer ${token}` };
     formData.value.token = localStorage.getItem('token');
     await axios.get('/sanctum/csrf-cookie').then((response) => {
         axios
-            .post('/api/v1/workspaces', formData.value)
+            .post('/api/v1/workspaces', formData.value, { headers })
             .then((response) => {
                 workspaces.value = response.data.data;
             })

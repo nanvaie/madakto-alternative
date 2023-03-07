@@ -18,7 +18,6 @@ class ShiftController extends ApiController
         $shift->exit_time = $request->get('exit_time');
         $shift->save();
 
-        return $this->successResponse("success",201);
     }
 
     public function show(Request $request)

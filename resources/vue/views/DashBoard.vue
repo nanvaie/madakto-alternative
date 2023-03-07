@@ -666,12 +666,14 @@ user_name.value = localStorage.getItem('name');
 const router = useRouter();
 
 function logout_handler() {
+    const token = localStorage.getItem('bearerToken');
+    const headers = { Authorization: `Bearer ${token}` };
     const formData = {
         token: localStorage.getItem('token'),
     };
     axios.get('/sanctum/csrf-cookie').then((response) => {
         axios
-            .post('/api/logout', formData)
+            .post('/api/logout', formData, { headers })
             .then((response) => {
             })
             .catch((errors) => {
@@ -684,6 +686,8 @@ function logout_handler() {
 }
 
 function storeInDataBase() {
+    const token = localStorage.getItem('bearerToken');
+    const headers = { Authorization: `Bearer ${token}` };
     const formData = {
         token: localStorage.getItem('token'),
         shift_id: localStorage.getItem('shift_id'),
@@ -693,7 +697,7 @@ function storeInDataBase() {
     console.log(formData.date);
     axios.get('/sanctum/csrf-cookie').then((response) => {
         axios
-            .post('/api/v1/timeSheets/create', formData)
+            .post('/api/v1/timeSheets/create', formData, { headers })
             .then((response) => {
             })
             .catch((errors) => {
@@ -710,12 +714,14 @@ const shiftName = ref();
 const departmentName = ref();
 
 async function readFromDatabase() {
+    const token = localStorage.getItem('bearerToken');
+    const headers = { Authorization: `Bearer ${token}` };
     let formData = {
         token: localStorage.getItem('token'),
     };
     await axios.get('/sanctum/csrf-cookie').then((response) => {
         axios
-            .post('/api/v1/timeSheets', formData)
+            .post('/api/v1/timeSheets', formData, { headers })
             .then((response) => {
                 lists.value = response.data.data;
                 shiftName.value = lists.value[0].shift.title;
@@ -745,6 +751,8 @@ async function readFromDatabase() {
 }
 readFromDatabase();
 async function editRecordInDatabase() {
+    const token = localStorage.getItem('bearerToken');
+    const headers = { Authorization: `Bearer ${token}` };
     const editedCheckInTimestamp = Pasoonate.make()
         .jalali(document.getElementById('edit-check-in-datetime').value)
         .getTimestamp();
@@ -757,7 +765,7 @@ async function editRecordInDatabase() {
     };
     await axios.get('/sanctum/csrf-cookie').then((response) => {
         axios
-            .put(`/api/v1/timeSheets/update/${formData.id}`, formData)
+            .put(`/api/v1/timeSheets/update/${formData.id}`, formData, { headers })
             .then((response) => {
             })
             .catch((error) => {
@@ -769,13 +777,15 @@ async function editRecordInDatabase() {
 }
 
 async function destroyFromDatabase() {
+    const tokenBearer = localStorage.getItem('bearerToken');
+    const headers = { Authorization: `Bearer ${tokenBearer}` };
     let formData = {
         id: localStorage.getItem('record_id'),
         token: localStorage.getItem('token'),
     };
     await axios.get('/sanctum/csrf-cookie').then((response) => {
         axios
-            .delete(`/api/v1/timeSheets/delete/${formData.id}`, formData)
+            .delete(`/api/v1/timeSheets/delete/${formData.id}`, { headers })
             .then((response) => {
             })
             .catch((error) => {

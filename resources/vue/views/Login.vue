@@ -79,6 +79,7 @@ function login_handler() {
             .post('/api/login', formData.value)
             .then((response) => {
                 localStorage.setItem('token', response.data.token);
+                localStorage.setItem('bearerToken', response.data.bearerToken);
                 localStorage.setItem('name', response.data.user);
                 localStorage.setItem('shift_id', 1);
                 localStorage.setItem('department_id', 1);

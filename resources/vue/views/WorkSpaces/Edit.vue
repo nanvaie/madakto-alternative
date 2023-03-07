@@ -1,5 +1,4 @@
 <template>
-
     <div style="margin-right: 25%;margin-left:25%;margin-top: 5%">
         <form
             class="fd-card sap-overflow-hidden sap-padding"
@@ -43,8 +42,8 @@
 
 <script setup>
 import axios from 'axios';
-import {ref} from 'vue';
-import {useRoute, useRouter} from 'vue-router';
+import { ref } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
 
 const router = useRouter();
 const route = useRoute();
@@ -58,36 +57,40 @@ const formData = ref({
 });
 
 function edit_handler() {
-    formData.value.token = localStorage.getItem("token");
+    const token = localStorage.getItem('bearerToken');
+    const headers = { Authorization: `Bearer ${token}` };
+    formData.value.token = localStorage.getItem('token');
     axios.get('/sanctum/csrf-cookie').then((response) => {
         axios
-            .put(`/api/v1/workspaces/update/${route.params.id}`, formData.value)
+            .put(`/api/v1/workspaces/update/${route.params.id}`, formData.value, { headers })
             .then((response) => {
-                router.push({name: 'workspaceList'});
+                router.push({ name: 'workspaceList' });
             })
             .catch((errors) => {
                 createShiftErrors.value = errors.response.data.errors;
             });
     });
-};
+}
 
 readFromDatabase();
 
 async function readFromDatabase() {
-    formData.value.token = localStorage.getItem("token");
+    const token = localStorage.getItem('bearerToken');
+    const headers = { Authorization: `Bearer ${token}` };
+    formData.value.token = localStorage.getItem('token');
     await axios.get('/sanctum/csrf-cookie').then((response) => {
         axios
-            .put(`/api/v1/workspaces/edit/${route.params.id}`, formData.value)
+            .put(`/api/v1/workspaces/edit/${route.params.id}`, formData.value,{ headers })
             .then((response) => {
                 formData.value.name = response.data.data.name;
                 formData.value.id = response.data.data.id;
             })
             .catch((errors) => {
                 if (errors.response.status === 404) {
-                    router.push({name: 'page404'});
+                    router.push({ name: 'page404' });
                 }
             });
     });
-};
+}
 
 </script>

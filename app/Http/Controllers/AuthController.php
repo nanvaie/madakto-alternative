@@ -24,7 +24,7 @@ class AuthController extends ApiController
         $user->password = Hash::make($request->get('password'));
         $user->user_name = $request->get('user_name');
         $user->save();
-        return response()->json("success", 200);
+        return $this->successResponse('success', 200);
     }
 
     public function login(LoginRequest $request)
@@ -33,38 +33,33 @@ class AuthController extends ApiController
         $key = 'token_key';
         $email = $request->get('email');
         $user = User::where('email', $email)->first();
-        if(!$user){
+        if (!$user) {
             return response()->json("پست الکترونیک اشتباه است", 401);
         }
-        if(!Hash::check($request->password ,$user->password)){
+        if (!Hash::check($request->password, $user->password)) {
             return response()->json("رمز عبور اشتباه است", 401);
         }
+        $payload = [
+            'user_id' => $user->id,
+            'user_name' => $user->user_name,
+            'disabled' => $user->disabled,
+            'is_admin' => $user->is_admin,
 
-            $payload = [
-                'user_id' => $user->id,
-                'user_name' => $user->user_name,
-                'disabled' => $user->disabled,
-                'is_admin' => $user->is_admin,
+        ];
+        $jwt = JWT::encode($payload, $key, 'HS256');
+        $bearerToken = $user->createToken('MyAuthApp')->plainTextToken;
+        return response()->json([
 
-            ];
-
-            $jwt = JWT::encode($payload, $key, 'HS256');
-
-            $bearerToken=$user->createToken('MyAuthApp')->plainTextToken;
-
-                return response()->json([
-
-                    'message' => 'User Logged In Successfully',
-                    'token' => $jwt,
-                    'user' => $user->full_name,
-                    'bearerToken' => $bearerToken,
-                ], 200);
+            'message' => 'User Logged In Successfully',
+            'token' => $jwt,
+            'user' => $user->full_name,
+            'bearerToken' => $bearerToken,
+        ], 200);
     }
 
 
     public function forgetPass(Request $request)
     {
-
         $request->validate([
             "password" => ["required", 'min:8', 'max:32']
         ]);
@@ -84,8 +79,7 @@ class AuthController extends ApiController
     public function logout()
     {
         auth()->user()->tokens()->delete();
+        return $this->successResponse("شما از سیستم خارج شدید", 200);
 
-
-       return response()->json("شما از سیستم خارج شدید", 200);
     }
 }

@@ -9,7 +9,8 @@ use Illuminate\Http\Request;
 use App\Models\Workspace;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Gate;
+
 
 class WorkspaceController extends ApiController
 {
@@ -33,8 +34,19 @@ class WorkspaceController extends ApiController
 
     public function update(WorkspaceRequest $request)
     {
-        Workspace::where('id', $request->id)->first()->update(['name' => $request->name]);
-        return $this->successResponse("success", 200);
+        $key = 'token_key';
+        $jwt = $request->token;
+        $decoded = JWT::decode($jwt, new Key($key, 'HS256'));
+        $workspace = Workspace::find($request->id);
+        $workspace->user_id = $decoded->user_id;
+
+        if(Gate::allows('update',$workspace)){
+            Workspace::where('id', $request->id)->first()->update(['name' => $request->name]);
+            return $this->successResponse("success", 200);
+        }
+        else{
+            return $this->errorResponse("unauthorized",403);
+        }
     }
 
     public function show(Request $request)

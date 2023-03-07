@@ -49,10 +49,12 @@ const formData = ref({
 show_list();
 
 function show_list() {
+    const token = localStorage.getItem('bearerToken');
+    const headers = { Authorization: `Bearer ${token}` };
     formData.value.token = localStorage.getItem("token");
     axios.get('/sanctum/csrf-cookie').then((response) => {
         axios
-            .post('/api/v1/shifts', formData.value)
+            .post('/api/v1/shifts', formData.value,{ headers })
             .then((response) => {
                 lists.value = response.data.data;
             })
