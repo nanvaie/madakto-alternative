@@ -24,7 +24,7 @@ use App\Http\Controllers\TimeSheetController;
 Route::post('/register', [AuthController::class, "register"])->name('register');
 Route::post('/login', [AuthController::class, "login"])->name('login');
 
-Route::middleware('auth:sanctum')->group(function () {
+Route::middleware(['auth:sanctum','throttle:apiRequestLimiter'])->group(function () {
     Route::put('/forgetPass', [AuthController::class, "forgetPass"])->name('forgetPass');
     Route::post('/logout', [AuthController::class, "logout"])->name('logout');
     Route::prefix('v1/workspaces')->name('workspaces.')->group(function (){
