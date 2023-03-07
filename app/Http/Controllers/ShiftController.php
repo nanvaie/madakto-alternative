@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\CreateShift;
 use App\Http\Requests\ShiftRequest;
 use Illuminate\Http\Request;
 use App\Models\Shift;
@@ -17,6 +18,7 @@ class ShiftController extends ApiController
         $shift->max_enter_time = $request->get('max_enter_time');
         $shift->exit_time = $request->get('exit_time');
         $shift->save();
+        event(new CreateShift());
 
     }
 
