@@ -31,7 +31,7 @@ class TimeSheetController extends ApiController
         $key = env('JWT_TOKEN_KEY');
         $jwt = $request->token;
         $decoded = JWT::decode($jwt, new Key($key, 'HS256'));
-        $timeSheet = TimeSheet::with(['department', 'shift'])->where('user_id', $decoded->user_id)->get();
+        $timeSheet = TimeSheet::with(['department', 'shift'])->where('user_id', $decoded->user_id)->orderBy('date')->get();
         return $this->successResponse($timeSheet, 200);
     }
 
