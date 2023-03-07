@@ -724,8 +724,8 @@ async function readFromDatabase() {
             .post('/api/v1/timeSheets', formData, { headers })
             .then((response) => {
                 lists.value = response.data.data;
-                shiftName.value = lists.value[0].shift.title;
-                departmentName.value = lists.value[0].department.name;
+                shiftName.value = lists.value[0].shiftTitle;
+                departmentName.value = lists.value[0].departmentName;
                 result.value = lists.value.reduce((acc, curr) => {
                     const dateString = new Date(curr.date).toISOString().substring(0, 10);
                     if (!acc[dateString]) {

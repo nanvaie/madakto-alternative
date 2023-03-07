@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\TimeSheetRequest;
+use App\Http\Resources\TimeSheetResource;
 use Illuminate\Http\Request;
 use App\Models\TimeSheet;
 use Firebase\JWT\JWT;
@@ -32,7 +33,7 @@ class TimeSheetController extends ApiController
         $jwt = $request->token;
         $decoded = JWT::decode($jwt, new Key($key, 'HS256'));
         $timeSheet = TimeSheet::with(['department', 'shift'])->where('user_id', $decoded->user_id)->orderBy('date')->get();
-        return $this->successResponse($timeSheet, 200);
+        return $this->successResponse(TimeSheetResource::collection($timeSheet), 200);
     }
 
     public function edit(TimeSheet $timeSheet)
