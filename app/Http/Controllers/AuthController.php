@@ -11,7 +11,6 @@ use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-
 use Illuminate\Validation\ValidationException;
 
 class AuthController extends ApiController
@@ -30,7 +29,7 @@ class AuthController extends ApiController
     public function login(LoginRequest $request)
 
     {
-        $key = 'token_key';
+        $key = env('JWT_TOKEN_KEY');
         $email = $request->get('email');
         $user = User::where('email', $email)->first();
         if (!$user) {
@@ -72,7 +71,6 @@ class AuthController extends ApiController
             }
             return response()->json("رمز عبور با تایید رمز عبور مطابقت ندارد", 400);
         }
-
         return response()->json("پست الکترونیک اشتباه است", 400);
     }
 
@@ -80,6 +78,5 @@ class AuthController extends ApiController
     {
         auth()->user()->tokens()->delete();
         return $this->successResponse("شما از سیستم خارج شدید", 200);
-
     }
 }

@@ -16,7 +16,7 @@ class WorkspaceController extends ApiController
 {
     public function store(WorkspaceRequest $request)
     {
-        $key = 'token_key';
+        $key = env('JWT_TOKEN_KEY');
         $workspace = new Workspace();
         $workspace->name = $request->name;
         $jwt = $request->token;
@@ -34,12 +34,11 @@ class WorkspaceController extends ApiController
 
     public function update(WorkspaceRequest $request)
     {
-        $key = 'token_key';
+        $key = env('JWT_TOKEN_KEY');
         $jwt = $request->token;
         $decoded = JWT::decode($jwt, new Key($key, 'HS256'));
         $workspace = Workspace::find($request->id);
         $workspace->user_id = $decoded->user_id;
-
         if(Gate::allows('update',$workspace)){
             Workspace::where('id', $request->id)->first()->update(['name' => $request->name]);
             return $this->successResponse("success", 200);
@@ -64,7 +63,7 @@ class WorkspaceController extends ApiController
 
     public function assignmentUserToWorkspace(Request $request)
     {
-        $key = 'token_key';
+        $key = env('JWT_TOKEN_KEY');
         $jwt = $request->token;
         $decoded = JWT::decode($jwt, new Key($key, 'HS256'));
         $workspace_user = new Workspace_user();

@@ -13,7 +13,7 @@ class DepartmentUserController extends ApiController
     public function store(DepartmentUserRequest $request)
 
     {
-        $key = 'token_key';
+        $key = env('JWT_TOKEN_KEY');
         $jwt = $request->token;
         $decoded = JWT::decode($jwt, new Key($key, 'HS256'));
         $department_user = new DepartmentUser();
@@ -36,7 +36,7 @@ class DepartmentUserController extends ApiController
 
     public function update(DepartmentUserRequest $request)
     {
-        $key = 'token_key';
+        $key = env('JWT_TOKEN_KEY');
         $jwt = $request->token;
         $decoded = JWT::decode($jwt, new Key($key, 'HS256'));
         DepartmentUser::where('id', $request->id)->first()

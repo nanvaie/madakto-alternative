@@ -14,7 +14,7 @@ class TimeSheetController extends ApiController
     public function store(TimeSheetRequest $request)
     {
         date_default_timezone_set('Asia/Tehran');
-        $key = 'token_key';
+        $key = env('JWT_TOKEN_KEY');
         $jwt = $request->token;
         $decoded = JWT::decode($jwt, new Key($key, 'HS256'));
         $timeSheet = new TimeSheet();
@@ -28,10 +28,9 @@ class TimeSheetController extends ApiController
 
     public function show(Request $request)
     {
-        $key = 'token_key';
+        $key = env('JWT_TOKEN_KEY');
         $jwt = $request->token;
         $decoded = JWT::decode($jwt, new Key($key, 'HS256'));
-
         $timeSheet = TimeSheet::with(['department', 'shift'])->where('user_id', $decoded->user_id)->get();
         return $this->successResponse($timeSheet, 200);
     }
@@ -39,13 +38,12 @@ class TimeSheetController extends ApiController
     public function edit(TimeSheet $timeSheet)
     {
         return $this->successResponse($timeSheet, 200);
-//        return response()->json([$timeSheet], 200);
     }
 
     public function update(TimeSheetRequest $request)
     {
         date_default_timezone_set('Asia/Tehran');
-        $key = 'token_key';
+        $key = env('JWT_TOKEN_KEY');
         $jwt = $request->token;
         $decoded = JWT::decode($jwt, new Key($key, 'HS256'));
         $timeSheet = TimeSheet::find($request->id);
